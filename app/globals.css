@@ -17,5 +17,81 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family:   sans-serif; */
 }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  
+  
+:root  {
+  --background: 0 100% 95%;
+  --backgroundtemp: 0 100% 95%;
+  --foreground: 0 5% 10%;
+  --card: 0 50% 90%;
+  --card-foreground: 0 5% 15%;
+  --popover: 0 100% 95%;
+  --popover-foreground: 0 100% 10%;
+  --primary: 0 72.2% 50.6%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 30% 70%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: -38 30% 85%;
+  --muted-foreground: 0 5% 35%;
+  --accent: -38 30% 80%;
+  --accent-foreground: 0 5% 15%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 0 5% 90%;
+  --border: 0 30% 50%;
+  --input: 0 30% 26%;
+  --ring: 0 72.2% 50.6%;
+  --radius: 0.75rem;
+}
+.dark  {
+  --background: 0 50% 10%;
+  --backgroundtemp: -38 30% 25%;
+  --foreground: 0 5% 90%;
+  --card: 0 50% 10%;
+  --card-foreground: 0 5% 90%;
+  --popover: 0 50% 5%;
+  --popover-foreground: 0 5% 90%;
+  --primary: 0 72.2% 50.6%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 30% 20%;
+  --secondary-foreground: 0 0% 80%;
+  --muted: -38 30% 25%;
+  --muted-foreground: 0 5% 60%;
+  --accent: -38 30% 25%;
+  --accent-foreground: 0 5% 90%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 0 5% 90%;
+  --border: 0 30% 26%;
+  --input: 0 30% 26%;
+  --ring: 0 72.2% 50.6%;
+  --radius: 0.75rem;
+}
+
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: 'Misologist';
+  src: url('/fonts/Misologist.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
