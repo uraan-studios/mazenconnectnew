@@ -23,11 +23,11 @@ const ClassCell = ({data}: {data: data}) => {
     <>
     <TableRow>
         <TableCell>{data.id}</TableCell>
-        <TableCell>{data.name}</TableCell>
+        <TableCell className='font-semibold'>{data.name}</TableCell>
         <TableCell className='text-right space-x-2'>
             <DeleteClass id={data.id}/>
             <Link href={`/classes/sections/${data.id}/${data.name}`}>
-                <Button variant={'outline'}>View Sections</Button>
+                <Button size={'sm'} variant={'outline'}>View Sections</Button>
             </Link>
 
         </TableCell>

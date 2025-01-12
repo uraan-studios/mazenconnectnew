@@ -23,7 +23,7 @@ const ClassTable = async () => {
   return (
     <Card>
     <CardHeader>
-        <CardTitle>Campus Classes</CardTitle>
+        <CardTitle>All Classes of the Campus</CardTitle>
         <CardDescription>Manage Classes and Sections</CardDescription>
     </CardHeader>
     <CardContent>
@@ -43,7 +43,7 @@ const ClassTable = async () => {
                 ) : (
                     <TableRow>
                         <TableCell colSpan={3} className="text-center">
-                            No Departments found.
+                            No Classes found.
                         </TableCell>
                     </TableRow>
                 )}

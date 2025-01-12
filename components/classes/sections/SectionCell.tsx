@@ -12,7 +12,7 @@ const SectionCell = ({data}: {data: data}) => {
   return (
     <TableRow>
     <TableCell>{data.id}</TableCell>
-    <TableCell>{data.name}</TableCell>
+    <TableCell className='font-semibold'>{data.name}</TableCell>
     <TableCell className='text-right space-x-2'>
         <DeleteSection id={data.id}/>
     </TableCell>

@@ -49,8 +49,8 @@ const DesignationForm = ({data}: {data: data[]}) => {
   return (
     <Card>
     <CardHeader>
-        <CardTitle>Add Designation</CardTitle>
-        <CardDescription>Add Designations</CardDescription>
+        <CardTitle>Create a new Designation</CardTitle>
+        <CardDescription>Fill the Fields</CardDescription>
     </CardHeader>
     <CardContent>
         <form className='space-y-6'
@@ -101,7 +101,7 @@ const DesignationForm = ({data}: {data: data[]}) => {
                 }
   
 
-            <Button disabled={loading}>Add Section</Button>
+            <Button disabled={loading}>Add Designation</Button>
         </form>
     </CardContent>
     </Card>

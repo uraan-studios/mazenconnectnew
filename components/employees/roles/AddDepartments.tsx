@@ -35,8 +35,8 @@ const AddDepartment = () => {
   return (
     <Card>
     <CardHeader>
-        <CardTitle>Add Department</CardTitle>
-        <CardDescription>Add Department</CardDescription>
+        <CardTitle>Create a new Department</CardTitle>
+        <CardDescription>Fill the fields</CardDescription>
     </CardHeader>
     <CardContent>
         <form className='space-y-6'

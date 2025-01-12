@@ -37,6 +37,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
   const [error, setError] = useState<string>("")
   const [filteredDesignations, setFilteredDesignations] = useState<Roles['Designation']>([])
   const [selectedDepartment, setSelectedDepartment] = useState<number>(0)
+  const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   
   // Example status options
@@ -45,6 +46,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
     e.preventDefault()
     setLoading(true)
     setError("")
+    setSuccess(false)
 
     // Create employee logic here
     const response = await createEmployee({
@@ -63,7 +65,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
       return
     }
 
-    router.refresh()
+    setSuccess(true)
     employeeStore.setName("")
     employeeStore.setDesignation("0")
     employeeStore.setSalary("0")
@@ -84,7 +86,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add Employee</CardTitle>
+        <CardTitle>Create a new Employee</CardTitle>
         <CardDescription>
           Please ensure accurate entries as this will affect all reports.
         </CardDescription>
@@ -173,7 +175,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
             </Select>
           </div>
 
-          <Button disabled= {loading} type="submit">Add</Button>
+          <Button disabled= {loading} type="submit">{loading ? "Loading..." : "Add Employee"}</Button>
         </form>
 
         <div className="py-4">
@@ -182,6 +184,14 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Heads up!</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {success && (
+            <Alert variant={'default'} className='bg-secondary'>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Employee Added!</AlertTitle>
+              
             </Alert>
           )}
         </div>

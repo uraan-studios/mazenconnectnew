@@ -17,6 +17,7 @@ import {
 import { getRoles } from '@/actions/roles'
 import DeleteDesignation from './DeleteDesignation'
 import DeleteDepartment from './DeleteDepartment'
+import { Separator } from '@/components/ui/separator'
 
 
 const EmployeesRoleTable = async() => {
@@ -31,7 +32,7 @@ const EmployeesRoleTable = async() => {
         {
           roles.map((item) => (
             <>
-            <div className='p-4 bg-primary/20 font-semibold rounded-t-lg flex justify-between items-center'>
+            <div className='px-4 py-2 mt-4 bg-primary/20 font-semibold rounded-t-lg flex justify-between items-center'>
               {item.name}
               <DeleteDepartment id={item.id}/>
             </div>
@@ -49,7 +50,7 @@ const EmployeesRoleTable = async() => {
                   item.Designation.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell>{item.id}</TableCell>
-                      <TableCell>{item.name}</TableCell>
+                      <TableCell className='font-semibold'>{item.name}</TableCell>
                       <TableCell className='text-right space-x-2'>
                         <DeleteDesignation id={item.id}/>
                       </TableCell>
@@ -64,6 +65,8 @@ const EmployeesRoleTable = async() => {
                 )}  
                 </TableBody>
             </Table>
+
+            <Separator className='my-6'/>
 
            </>
           ))

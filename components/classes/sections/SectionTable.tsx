@@ -42,7 +42,7 @@ const SectionTable = async ({id}: {id: number}) => {
                 ) : (
                     <TableRow>
                         <TableCell colSpan={3} className="text-center">
-                            No Departments found.
+                            No Sections found.
                         </TableCell>
                     </TableRow>
                 )}

@@ -29,7 +29,7 @@ const DeleteDesignation = ({id}: {id: number}) => {
   return (
     <AlertDialog>
   <AlertDialogTrigger>
-    <Button variant="destructive">Delete</Button>
+    <div className='bg-destructive py-1 px-4 rounded-xl hover:bg-primary text-primary-foreground'>remove</div>
   </AlertDialogTrigger>
   <AlertDialogContent className='bg-card text-card-foreground'>
     <AlertDialogHeader>

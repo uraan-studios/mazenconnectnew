@@ -47,10 +47,10 @@ const AddClass = ({divs}: {divs: Division[]}) => {
         store.setName("")
     }
   return (
-    <Card>
+    <Card className='w-1/3'>
     <CardHeader>
-        <CardTitle>Add Class</CardTitle>
-        <CardDescription>Add Classes and Sections</CardDescription>
+        <CardTitle>Create a new Class</CardTitle>
+        <CardDescription>Fill up the required fields</CardDescription>
     </CardHeader>
     <CardContent>
         <form className='space-y-6'
@@ -111,7 +111,7 @@ const AddClass = ({divs}: {divs: Division[]}) => {
                 }
   
 
-            <Button disabled= {loading} type='submit'>Add</Button>
+            <Button disabled= {loading} type='submit'>{loading ? "Loading..." : "Add Class"}</Button>
         </form>
     </CardContent>
     </Card>

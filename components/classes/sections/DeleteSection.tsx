@@ -32,7 +32,7 @@ const DeleteSection = ({id}: {id: number}) => {
   return (
     <AlertDialog>
   <AlertDialogTrigger>
-    <Button variant="destructive">Delete Section</Button>
+    <div className='bg-destructive py-1 px-4 rounded-xl hover:bg-primary text-primary-foreground'>Delete Section</div>
   </AlertDialogTrigger>
   <AlertDialogContent className='bg-card text-card-foreground'>
     <AlertDialogHeader>

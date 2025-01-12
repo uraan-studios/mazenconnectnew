@@ -52,10 +52,10 @@ const SectionForm = ({data, classId}: {data: data[], classId?: number}) => {
     }
     
   return (
-    <Card>
+    <Card className='w-1/3'>
     <CardHeader>
-        <CardTitle>Add Section</CardTitle>
-        <CardDescription>Add  Sections</CardDescription>
+        <CardTitle>Create a new Section</CardTitle>
+        <CardDescription>Fill up the required fields</CardDescription>
     </CardHeader>
     <CardContent>
         <form className='space-y-6'
@@ -107,7 +107,7 @@ const SectionForm = ({data, classId}: {data: data[], classId?: number}) => {
                 }
   
 
-            <Button disabled={loading} type="submit" >Add Section</Button>
+            <Button disabled={loading} type="submit" >{loading ? "Loading..." : "Add Section"}</Button>
         </form>
     </CardContent>
     </Card>
