@@ -120,27 +120,27 @@ const ClassTable = ({data}:{data:data[]}) => {
             </TableRow>
         </TableHeader>
         <TableBody>
-        {store.classes.map((classItem: any) => (
-          <>
-            <ClassRow
-              key={classItem.id}
-              classItem={classItem}
-              isOpen={openSections[classItem.id]}
-              toggleOpen={toggleOpen}
-              updateClass={store.updateClass}
-            />
-            {openSections[classItem.id] &&
-              classItem.sections.map((section: any) => (
-                <SectionRow
-                  key={section.id}
-                  section={section}
-                  classId={classItem.id}
-                  updateSection={store.updateSection}
-                />
-              ))}
-          </>
-        ))}
-      </TableBody>
+          {store.classes.map((classItem: any) => (
+            <React.Fragment key={classItem.id}>
+              <ClassRow
+                classItem={classItem}
+                isOpen={openSections[classItem.id]}
+                toggleOpen={toggleOpen}
+                updateClass={store.updateClass}
+              />
+              {openSections[classItem.id] &&
+                classItem.sections.map((section: any) => (
+                  <SectionRow
+                    key={section.id}
+                    section={section}
+                    classId={classItem.id}
+                    updateSection={store.updateSection}
+                  />
+                ))}
+            </React.Fragment>
+          ))}
+        </TableBody>
+
     </Table>
     <Card>
       <CardHeader>

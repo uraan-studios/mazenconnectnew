@@ -61,56 +61,63 @@ const EmployeesTable = ({data}:{data:data[]}) => {
         </TableRow>
     </TableHeader>
     <TableBody>
-    {
-        store.departments.map((department) => (
-            <>
-                <TableRow key={department.id}>
-                    <TableCell colSpan={7} className='bg-primary/15 text-center'>{department.name}</TableCell>
-                </TableRow>
-                    {
-                        department.designations.map((designation, index) => (
-                            <TableRow key={index}>
-                                <TableCell >{designation.id}</TableCell>
-                                <TableCell colSpan={2}>{designation.name}</TableCell>
-                                
-                                <TableCell >
-                                    <Input
-                                    className='max-w-20'
-                                    type='number'
-                                    min={0}
-                                    value={designation.previous}
-                                    onChange={(e) => store.updateDesignation(department.id,designation.id, { previous: parseInt(e.target.value) })}
-                                    />
-                                </TableCell>
-                                
-                                <TableCell >
-                                    <Input
-                                    className='max-w-20'
-                                    type='number'
-                                    min={0}
-                                    value={designation.left}
-                                    onChange={(e) => store.updateDesignation(department.id,designation.id, { left: parseInt(e.target.value) })}
-                                    />
-                                </TableCell>
-                                
-                                <TableCell >
-                                    <Input
-                                    className='max-w-20'
-                                    type='number'
-                                    min={0}
-                                    value={designation.new}
-                                    onChange={(e) => store.updateDesignation(department.id,designation.id, { new: parseInt(e.target.value) })}
-                                    />
-                                </TableCell>
-                                <TableCell >{designation.total}</TableCell>
-                            </TableRow>
-                        ))
-                    }
-            </>
-        ))
+  {store.departments.map((department) => (
+    <React.Fragment key={department.id}>
+      <TableRow>
+        <TableCell colSpan={7} className="bg-primary/15 text-center">
+          {department.name}
+        </TableCell>
+      </TableRow>
+      {department.designations.map((designation) => (
+        <TableRow key={designation.id}>
+          <TableCell>{designation.id}</TableCell>
+          <TableCell colSpan={2}>{designation.name}</TableCell>
+          <TableCell>
+            <Input
+              className="max-w-20"
+              type="number"
+              min={0}
+              value={designation.previous}
+              onChange={(e) =>
+                store.updateDesignation(department.id, designation.id, {
+                  previous: parseInt(e.target.value, 10),
+                })
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <Input
+              className="max-w-20"
+              type="number"
+              min={0}
+              value={designation.left}
+              onChange={(e) =>
+                store.updateDesignation(department.id, designation.id, {
+                  left: parseInt(e.target.value, 10),
+                })
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <Input
+              className="max-w-20"
+              type="number"
+              min={0}
+              value={designation.new}
+              onChange={(e) =>
+                store.updateDesignation(department.id, designation.id, {
+                  new: parseInt(e.target.value, 10),
+                })
+              }
+            />
+          </TableCell>
+          <TableCell>{designation.total}</TableCell>
+        </TableRow>
+      ))}
+    </React.Fragment>
+  ))}
+</TableBody>
 
-    }
-  </TableBody>
     </Table>
 
     <Card>

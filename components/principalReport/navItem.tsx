@@ -47,7 +47,7 @@ const NavItem: FC<NavItemProps> = ({ active, href, icon: Icon, label, delay = 0 
           />
         </div>
       </div>
-      <Badge variant={active ? 'default' : 'outline'}>{label}</Badge>
+      <Badge variant={active ? 'default' : 'outline'} className='text-xs'>{label}</Badge>
     </Link>
   );
 };

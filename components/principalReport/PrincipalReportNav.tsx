@@ -1,5 +1,5 @@
 "use client";
-import { Building, User2, Projector, Weight, Brain, SquareActivity, AlbumIcon, NotebookText, BedSingle, ArrowRight, ArrowLeft } from 'lucide-react'; // Import your icons
+import { Building, User2, Projector, Weight, Brain, SquareActivity, AlbumIcon, NotebookText, BedSingle, ArrowRight, ArrowLeft, GraduationCap, Mountain } from 'lucide-react'; // Import your icons
 import { FC } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -21,12 +21,14 @@ const PrincipalReportNav: FC = () => {
   const items: NavItemData[] = [
     { href: '/principal-report/add', icon: Building, label: 'Students' },
     { href: '/principal-report/add/employees', icon: User2, label: 'Employees' },
+    { href: '/principal-report/add/academics', icon: GraduationCap, label: 'Academics' },
     { href: '/principal-report/add/workload', icon: Weight, label: 'Workload' },
     { href: '/principal-report/add/rechecking', icon: NotebookText, label: 'Recheking' },
     { href: '/principal-report/add/ttbl', icon: Projector, label: 'TTBL' },
     { href: '/principal-report/add/hcd', icon: Brain, label: 'HCD' },
     { href: '/principal-report/add/teneffus', icon: BedSingle, label: 'Tennufus' },
-    { href: '/principal-report/add/activity', icon: SquareActivity, label: 'Activity' },
+    { href: '/principal-report/add/elp', icon: Mountain, label: 'ELP' },
+    { href: '/principal-report/add/activity', icon: SquareActivity, label: 'OSA' },
     { href: '/principal-report/add/conclusion', icon: AlbumIcon, label: 'S.W.O.T' },
   ];
 
@@ -60,7 +62,7 @@ const PrincipalReportNav: FC = () => {
       </Button>
 
       {/* Navigation Items with Progress Bar */}
-      <div className="flex justify-between items-center py-4 relative w-2/3 mx-auto bg-secondary/10 px-6 rounded-full overflow-clip">
+      <div className="flex justify-between items-center py-4 relative w-4/5 mx-auto bg-secondary/10 px-6 rounded-full overflow-clip">
         {items.map((item, index) => (
           <div key={index} className="relative flex flex-col items-center">
             {/* Navigation Item */}
