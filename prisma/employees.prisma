@@ -1,0 +1,50 @@
+// EMPLOYEES MODULE
+model Department {
+  id          Int           @id @default(autoincrement())
+  name        String
+  Designation Designation[]
+  PRStaffDeps PRStaffDeps[]
+
+  @@index([name], map: "department_name_idx") // Index for department name
+}
+
+model Designation {
+  id           Int            @id @default(autoincrement())
+  name         String
+  departmentId Int
+  department   Department     @relation(fields: [departmentId], references: [id])
+  Staff        Staff[]
+  PRStaffDesig PRStaffDesig[]
+
+  @@index([departmentId], map: "designation_departmentId_idx") // Index for departmentId
+  @@index([name], map: "designation_name_idx") // Index for designation name
+}
+
+model StaffStatus {
+  id    Int     @id @default(autoincrement())
+  name  String
+  Staff Staff[]
+
+  @@index([name], map: "staff_status_name_idx") // Index for staff status name
+}
+
+model Staff {
+  id                      Int                       @id @default(autoincrement())
+  campusId                Int
+  campus                  User                      @relation(fields: [campusId], references: [fkId])
+  name                    String
+  designationId           Int
+  designation             Designation               @relation(fields: [designationId], references: [id])
+  salary                  Int
+  isActive                Boolean
+  dateJoined              DateTime
+  statusId                Int
+  status                  StaffStatus               @relation(fields: [statusId], references: [id])
+  PRworkloadCell          PRworkloadCell[]
+  PRObservationRecordCell PRObservationRecordCell[]
+  PRrecheckingCell        PRrecheckingCell[]
+
+  @@index([campusId], map: "staff_campusId_idx") // Index for campusId
+  @@index([designationId], map: "staff_designationId_idx") // Index for designationId
+  @@index([statusId], map: "staff_statusId_idx") // Index for statusId
+}

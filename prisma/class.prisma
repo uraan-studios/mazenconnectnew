@@ -1,0 +1,54 @@
+model Division {
+  id     Int     @id @default(autoincrement())
+  name   String
+  grades Grade[]
+}
+
+model Grade {
+  id         Int        @id @default(autoincrement())
+  name       String
+  divisionId Int
+  division   Division   @relation(fields: [divisionId], references: [id])
+  Subjects   Subjects[]
+  Class      Class[]
+}
+
+// Classes
+model Class {
+  id                      Int                       @id @default(autoincrement())
+  name                    String
+  description             String
+  campusId                Int
+  campus                  User                      @relation(fields: [campusId], references: [fkId])
+  gradeId                 Int
+  grade                   Grade                     @relation(fields: [gradeId], references: [id])
+  ClassSection            ClassSection[]
+  PRstudentClassCell      PRstudentClassCell[]
+  PRObservationRecordCell PRObservationRecordCell[]
+  PRrecheckingCell        PRrecheckingCell[]
+
+  @@index([name], map: "class_name_idx")
+  @@index([campusId], map: "class_campusId_idx")
+  @@index([gradeId], map: "class_gradeId_idx")
+}
+
+model ClassSection {
+  id                      Int                       @id @default(autoincrement())
+  name                    String
+  classId                 Int
+  class                   Class                     @relation(fields: [classId], references: [id])
+  PRstudentSectionCell    PRstudentSectionCell[]
+  PRObservationRecordCell PRObservationRecordCell[]
+
+  @@index([classId], map: "classsection_classId_idx") // Index for classId
+  @@index([name], map: "classsection_name_idx") // Index for class section name
+}
+
+model Subjects {
+  id                      Int                       @id @default(autoincrement())
+  name                    String
+  gradeId                 Int
+  grade                   Grade                     @relation(fields: [gradeId], references: [id])
+  PRObservationRecordCell PRObservationRecordCell[]
+  PRrecheckingCell        PRrecheckingCell[]
+}

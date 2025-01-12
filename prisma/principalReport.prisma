@@ -1,0 +1,255 @@
+model PrincipalReport {
+  id                  Int                  @id @default(autoincrement())
+  campusId            Int
+  campus              User                 @relation(fields: [campusId], references: [fkId])
+  createdAt           DateTime             @default(now())
+  // Remarks
+  studentRemarks      String?
+  staffRemarks        String?
+  workloadRemarks     String?
+  ttblRemarks         String?
+  parentFeedback      String?
+  PRswot              PRswot?
+  PRttbl              PRttbl?
+  PRttblContent       PRTTBLContent?
+  PRstudent           PRstudent?
+  PRStaff             PRStaff?
+  PRworkload          PRworkload?
+  PRactivity          PRactivity?
+  PRHcd               PRHcd?
+  PRTenuffus          PRTenuffus?
+  PRObservationRecord PRObservationRecord?
+  PRrechecking        PRrechecking?
+  //   New Stuff
+completed Boolean @default(false)
+
+  @@index([campusId], map: "principalreport_campusId_idx")
+}
+
+model PRrechecking {
+  reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+
+  PRrecheckingCell PRrecheckingCell[]
+}
+
+model PRrecheckingCell {
+  id           Int          @id @default(autoincrement())
+  rowId        Int
+  PRrechecking PRrechecking @relation(fields: [rowId], references: [reportId])
+  classId      Int
+  class        Class        @relation(fields: [classId], references: [id])
+  teacherId    Int
+  teacher      Staff        @relation(fields: [teacherId], references: [id])
+  subjectId    Int
+  subject      Subjects     @relation(fields: [subjectId], references: [id])
+  status       Boolean
+}
+
+model PRTenuffus {
+  reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+  ealyYears Int
+  primaryYears Int
+  middleYears Int
+  number   String?
+  remarks  String
+}
+
+// ! Need to add other subjects
+model PRTTBLContent {
+  reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+
+  preNurseryCLLE Boolean
+  preNurseryCLLU Boolean
+  preNurseryMD   Boolean
+
+  nurseryCLLE Boolean
+  nurseryCLLU Boolean
+  nurseryMD   Boolean
+
+  kindergartenCLLE Boolean
+  kindergartenCLLU Boolean
+  kindergartenyMD  Boolean
+}
+
+model PRHcd {
+  reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks  String
+  meetings Int
+  workload Int
+}
+
+// ACTIVITY MODULE
+model PRactivity {
+  reportId       Int              @id @unique
+  report         PrincipalReport  @relation(fields: [reportId], references: [id])
+  remarks        String
+  PRactivityCell PRactivityCell[]
+}
+
+model PRactivityCell {
+  id          Int        @id @default(autoincrement())
+  rowId       Int
+  cellValue   String
+  date        DateTime   @default(now())
+  description String
+  PRactivity  PRactivity @relation(fields: [rowId], references: [reportId])
+}
+
+// WORKLOAD MODULE
+model PRworkload {
+  reportId       Int              @id @unique
+  report         PrincipalReport  @relation(fields: [reportId], references: [id])
+  remarks        String
+  PRworkloadCell PRworkloadCell[]
+}
+
+model PRworkloadCell {
+  id         Int        @id @default(autoincrement())
+  rowId      Int
+  PRworkload PRworkload @relation(fields: [rowId], references: [reportId])
+  teacherId  Int
+  teacher    Staff      @relation(fields: [teacherId], references: [id])
+  workload   Int
+  students   Int
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+model PRObservationRecord {
+  reportId                Int                       @id @unique
+  report                  PrincipalReport           @relation(fields: [reportId], references: [id])
+  PRObservationRecordCell PRObservationRecordCell[]
+}
+
+model PRObservationRecordCell {
+  id                  Int                 @id @default(autoincrement())
+  rowId               Int
+  PRObservationRecord PRObservationRecord @relation(fields: [rowId], references: [reportId])
+  teacherId           Int
+  teacher             Staff               @relation(fields: [teacherId], references: [id])
+  classId             Int
+  class               Class               @relation(fields: [classId], references: [id])
+  sectionId           Int?
+  section             ClassSection?       @relation(fields: [sectionId], references: [id])
+
+  subjectId Int
+  subject   Subjects @relation(fields: [subjectId], references: [id])
+
+  walkthrough String
+  informed    String
+  uninformed  String
+}
+
+// SWOT MODULE
+model PRswot {
+  reportId    Int             @id @unique
+  report      PrincipalReport @relation(fields: [reportId], references: [id])
+  strength    String
+  weakness    String
+  opportunity String
+  threat      String
+}
+
+// TTBL MODULE
+model PRttbl {
+  reportId   Int             @id @unique
+  report     PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks    String
+  PRttblCell PRttblCell[]
+}
+
+model PRttblCell {
+  id         Int    @id @default(autoincrement())
+  rowId      Int
+  PRttbl     PRttbl @relation(fields: [rowId], references: [reportId])
+  name       String
+  avaliable  Int
+  working    Int
+  outOfOrder Int
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+// STUDENT MODULE
+model PRstudent {
+  reportId           Int                  @id @unique
+  report             PrincipalReport      @relation(fields: [reportId], references: [id])
+  remarks            String
+  PRstudentClassCell PRstudentClassCell[]
+}
+
+model PRstudentClassCell {
+  id                   Int                    @id @default(autoincrement())
+  rowId                Int
+  PRstudent            PRstudent              @relation(fields: [rowId], references: [reportId])
+  classId              Int
+  class                Class                  @relation(fields: [classId], references: [id])
+  prev                 Int
+  left                 Int
+  new                  Int
+  movedOver            Int
+  promoted             Int
+  transfered           Int
+  total                Int
+  boys                 Int
+  girls                Int
+  PRstudentSectionCell PRstudentSectionCell[]
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+model PRstudentSectionCell {
+  id         Int                @id @default(autoincrement())
+  rowId      Int
+  PRstudent  PRstudentClassCell @relation(fields: [rowId], references: [id])
+  sectionId  Int
+  section    ClassSection       @relation(fields: [sectionId], references: [id])
+  prev       Int
+  left       Int
+  new        Int
+  movedOver  Int
+  promoted   Int
+  transfered Int
+  total      Int
+  boys       Int
+  girls      Int
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+// EMPLOYEES MODULE
+model PRStaff {
+  reportId    Int             @id @unique
+  report      PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks     String
+  PRStaffDeps PRStaffDeps[]
+}
+
+model PRStaffDeps {
+  id           Int            @id @default(autoincrement())
+  rowId        Int
+  PRStaff      PRStaff        @relation(fields: [rowId], references: [reportId])
+  departmentId Int
+  department   Department     @relation(fields: [departmentId], references: [id])
+  PRStaffDesig PRStaffDesig[]
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+model PRStaffDesig {
+  id            Int         @id @default(autoincrement())
+  rowId         Int
+  PRStaffDeps   PRStaffDeps @relation(fields: [rowId], references: [id])
+  designationId Int
+  designation   Designation @relation(fields: [designationId], references: [id])
+  prev          Int
+  left          Int
+  new           Int
+  total         Int
+
+  @@index([rowId]) // Unique constraint added here
+}
