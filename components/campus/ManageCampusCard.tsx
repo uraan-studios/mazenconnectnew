@@ -24,11 +24,11 @@ const ManageCampusCard = async () => {
   return (
     <Card>
                 <CardHeader>
-                    <CardTitle>Campuses</CardTitle>
-                    <CardDescription>Manage Campuses</CardDescription>
+                    <CardTitle>Mazen Schools Campuses</CardTitle>
+                    <CardDescription>All Campuses are listed Below</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table className='bg-accent p-6 rounded-md my-4 overflow-clip'>
+                    <Table className='bg-secondary/15 p-6 rounded-md my-4 overflow-clip'>
                         <TableHeader className='bg-secondary '>
                             <TableRow>
                                 <TableHead className="w-[100px] text-secondary-foreground">ID</TableHead>
@@ -39,7 +39,7 @@ const ManageCampusCard = async () => {
                                 <TableHead className='text-right text-secondary-foreground'>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className='bg-secondary/15'>
                             {campuses.length > 0 ? (
                                 campuses.map((campus, index) => (
                                     <CampusCell key={index} data={campus} />
@@ -52,7 +52,7 @@ const ManageCampusCard = async () => {
                                 </TableRow>
                             )}
                         </TableBody>
-                        <TableFooter>
+                        <TableFooter className='bg-secondary/50'>
                             <TableRow>
                                 <TableCell colSpan={5}>Total Campuses</TableCell>
                                 <TableCell className="text-right">{campuses.length}</TableCell>

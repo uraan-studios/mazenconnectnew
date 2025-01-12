@@ -39,6 +39,10 @@ const AddCampus =  ({cities}: {cities: city[]}) => {
     setLoading(true)
 
     setError("")
+    if (campusStore.password !== campusStore.confirmPassword) {
+      setError("Passwords do not match.")
+      return;
+    }
 
     // const response = await createCity({name: campusStore.name})
     const response = await createCampus({name: campusStore.name, email: campusStore.email, city: campusStore.city, password: campusStore.password})
@@ -54,6 +58,7 @@ const AddCampus =  ({cities}: {cities: city[]}) => {
     campusStore.setEmail("")
     campusStore.setCity("0")  
     campusStore.setPassword("")
+    campusStore.setConfirmPassword("")
   }
 
   return (
@@ -119,6 +124,15 @@ const AddCampus =  ({cities}: {cities: city[]}) => {
             onChange={(e) => campusStore.setPassword(e.target.value)}
             />
           </div>
+
+          <div>
+            <Label className=''>Confirm Password</Label>
+            <Input
+            placeholder='********'
+            value={campusStore.confirmPassword}
+            onChange={(e) => campusStore.setConfirmPassword(e.target.value)}
+            />
+          </div>
           
           {error &&
             <Alert variant={'destructive'}>
@@ -130,7 +144,7 @@ const AddCampus =  ({cities}: {cities: city[]}) => {
             </Alert>
           }
 
-          <Button  disabled= {loading}  type='submit'>Add</Button>
+          <Button  disabled= {loading}  type='submit'>{loading ? "Loading..." : "Add Campus"}</Button>
         </form>
       </div>
     </CardContent>

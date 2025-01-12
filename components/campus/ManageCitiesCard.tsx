@@ -30,7 +30,7 @@ const ManageCitiesCard = async () => {
                     <CardDescription>Manage Cities</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table className='bg-accent p-6 rounded-md my-4 overflow-clip'>
+                    <Table className='bg-secondary/15 p-6 rounded-md my-4 overflow-clip'>
                         <TableHeader className='bg-secondary '>
                             <TableRow>
                                 <TableHead className="w-[100px] text-secondary-foreground">Serial</TableHead>

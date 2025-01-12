@@ -1,35 +1,23 @@
-import { validateRequest } from '@/lib/validateSession'
+import { validateRequest } from '@/lib/validateSessions'
 import Image from 'next/image'
 import React from 'react'
 import Logout from './Logout'
 import { Button } from '../ui/button'
 import { HelpCircleIcon } from 'lucide-react'
 import Link from 'next/link'
+import { SidebarTrigger } from '../ui/sidebar'
+import SessionExpiry from './SessionExpiry'
 
 const Header = async () => {
     const request = await validateRequest()
   return (
-    <div className='top-0 z-50 fixed h-20 w-full bg-white dark:bg-black'>
+    <div className='top-0 left-0 z-50 absolute h-20 w-full bg-white dark:bg-black text-secondary-foreground'>
     <div className='bg-secondary/15 w-full flex justify-between items-center'>
       {/* Light theme image */}
-      <Image
-        draggable={false}
-        className="mx-4 w-60 h-20 rounded-xl object-contain dark:hidden"
-        src={"/nav/mazen-nav-light.png"}
-        alt="Mazen Banner"
-        width={240}
-        height={80}
-      />
-
-      {/* Dark theme image */}
-      <Image
-        draggable={false}
-        className="mx-4 w-60 h-20 rounded-xl object-contain hidden dark:block"
-        src={"/nav/mazen-nav-dark.png"}
-        alt="Mazen Banner"
-        width={240}
-        height={80}
-      />
+      <div className="mx-4 space-x-4 flex items-center gap-4">
+        <SidebarTrigger/>
+        <SessionExpiry sessionExpiry={request.session?.expiresAt}/>
+      </div>
 
       {/* Session expiration */}
 

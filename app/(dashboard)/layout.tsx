@@ -1,3 +1,4 @@
+import Header from '@/components/general/header';
 import { AppSidebar } from '@/components/general/SidebarNew';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { validateRequest } from '@/lib/validateSessions';
@@ -8,7 +9,8 @@ const DashboardLayout = async ({ children }: React.PropsWithChildren) => {
   return (
     <SidebarProvider>
     <AppSidebar isAdmin={session?.user?.isSuperUser || false} />
-    <main className='flex-grow px-4 bg-white dark:bg-black'>
+    <main className='pt-8 relative flex-grow px-4 bg-white dark:bg-black text-foreground'>
+      <Header/>
       <SidebarTrigger />
       {children}
     </main>

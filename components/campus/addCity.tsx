@@ -68,7 +68,7 @@ const AddCityForm = () => {
           </Alert>
         }
 
-        <Button disabled= {loading} type='submit'>Add</Button>
+        <Button disabled= {loading} type='submit'>{loading ? "Loading..." : "Add City"}</Button>
       </form>
       </CardContent>
     </Card>

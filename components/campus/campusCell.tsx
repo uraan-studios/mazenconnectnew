@@ -35,11 +35,11 @@ const CampusCell: React.FC<CityProps> = ({ data }) => {
   return (
     <TableRow className="relative">
       <TableCell className="font-medium">{data.fkId}</TableCell>
-      <TableCell>{data.name}</TableCell>
+      <TableCell className="font-semibold">{data.name}</TableCell>
       <TableCell>{data.email}</TableCell>
-      <TableCell>{data.city.name}</TableCell>
+      <TableCell><Badge variant="outline">{data.city.name}</Badge></TableCell>
       <TableCell>
-          <Badge variant="outline">{data.isSuperUser ? "Admin" : "Campus"}</Badge>
+          <Badge variant="secondary">{data.isSuperUser ? "Admin" : "Campus"}</Badge>
       </TableCell>
       <TableCell className="text-right">
         <Dialog>

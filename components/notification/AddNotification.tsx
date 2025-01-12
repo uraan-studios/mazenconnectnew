@@ -56,7 +56,7 @@ const AddNotification = () => {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <form onSubmit={onSubmit} className="space-y-4 flex flex-col bg-accent p-4 rounded-xl">
+                <form onSubmit={onSubmit} className="space-y-4 flex flex-col bg-secondary/85 p-4 rounded-xl">
 
                     <div>
                         <Label>Title</Label>

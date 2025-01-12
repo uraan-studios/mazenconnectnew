@@ -25,16 +25,23 @@ const EmployeesTable = async () => {
     const academic = await getEmployeesByDepartment(1,1) // Department ID, Page Number
 
   return (
+    <>
     <Card>
       <CardContent>       
         <DepartmentEmployees departmentId={1} departmentName="Academic" />
-        <Separator className='my-4'/>
-        <DepartmentEmployees departmentId={2} departmentName="Administration" />
-        <Separator className='my-4'/>
-        <DepartmentEmployees departmentId={3} departmentName="Non-Academics" />
-        <Separator className='my-4'/>
       </CardContent>
     </Card>
+    <Card>
+      <CardContent>       
+        <DepartmentEmployees departmentId={2} departmentName="Administration" />
+      </CardContent>
+    </Card>
+    <Card>
+      <CardContent>       
+        <DepartmentEmployees departmentId={3} departmentName="Non-Academics" />
+      </CardContent>
+    </Card>
+    </>
   )
 }
 

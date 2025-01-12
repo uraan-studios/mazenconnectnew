@@ -19,7 +19,7 @@ const CityCell: React.FC<CityProps> = ({ data }) => {
   return (
     <TableRow className="relative">
       <TableCell className="font-medium">{data.id}</TableCell>
-      <TableCell>{data.name}</TableCell>
+      <TableCell className="font-semibold">{data.name}</TableCell>
       <TableCell className="text-right">
         <Dialog>
           {/* Use DialogTrigger with asChild to prevent button nesting */}
