@@ -26,6 +26,7 @@ model Class {
   PRstudentClassCell      PRstudentClassCell[]
   PRObservationRecordCell PRObservationRecordCell[]
   PRrecheckingCell        PRrecheckingCell[]
+  PRacademicCell          PRacademicCell[]
 
   @@index([name], map: "class_name_idx")
   @@index([campusId], map: "class_campusId_idx")

@@ -20,6 +20,8 @@ model PrincipalReport {
   PRTenuffus          PRTenuffus?
   PRObservationRecord PRObservationRecord?
   PRrechecking        PRrechecking?
+  PRELP              PRELP?
+  PRacademic         PRacademic?
   //   New Stuff
 completed Boolean @default(false)
 
@@ -72,16 +74,183 @@ model PRTTBLContent {
   kindergartenCLLE Boolean
   kindergartenCLLU Boolean
   kindergartenyMD  Boolean
+
+  // Grade 1
+  g1Eng Int
+  g1Urdu Int
+  g1Math Int
+  g1GK Int
+  g1ICT Int
+  g1Isl Int
+
+  // Grade 2
+  g2Eng Int
+  g2Urdu Int
+  g2Math Int
+  g2GK Int
+  g2ICT Int
+  g2Isl Int
+
+  // Grade 3
+  g3Eng Int
+  g3Urdu Int
+  g3Math Int
+  g3GK Int
+  g3ICT Int
+  g3Isl Int
+
+  // Grade 4
+  g4Eng Int
+  g4Urdu Int
+  g4Math Int
+  g4SS Int
+  g4ICT Int
+  g4Isl Int
+  g4Sci Int
+
+  // Grade 5
+  g5Eng Int
+  g5Urdu Int
+  g5Math Int
+  g5SS Int
+  g5ICT Int
+  g5Isl Int
+  g5Sci Int
+
 }
 
+// ? HCD Changed
+// model PRHcd {
+//   reportId Int             @id @unique
+//   report   PrincipalReport @relation(fields: [reportId], references: [id])
+//   remarks  String
+//   meetings Int
+//   workload Int
+// }
+
+//? HCD MODULE 
 model PRHcd {
   reportId Int             @id @unique
   report   PrincipalReport @relation(fields: [reportId], references: [id])
   remarks  String
-  meetings Int
-  workload Int
+ 
+    //! Early Years
+    // Pre Nursery
+    preNurseryPlanner Int
+    preNurseryWorksheets Int
+    preNuseryTTBL Int
+
+    // Nursery
+    nurseryPlanner Int
+    nurseryWorksheets Int
+    nurseryTTBL Int
+
+    // Kindergarten
+    kindergartenPlanner Int
+    kindergartenWorksheets Int    
+    kindergartenTTBL Int
+
+    //! Primary & Middle Years
+    // Grade 1
+    grade1Planner Int
+    grade1Worksheets Int
+    grade1TTBL Int
+
+    // Grade 2
+    grade2Planner Int
+    grade2Worksheets Int
+    grade2TTBL Int
+
+    // Grade 3
+    grade3Planner Int
+    grade3Worksheets Int
+    grade3TTBL Int
+
+    // Grade 4
+    grade4Planner Int
+    grade4Worksheets Int    
+    grade4TTBL Int
+
+    // Grade 5
+    grade5Planner Int
+    grade5Worksheets Int
+    grade5TTBL Int
+
+    // Grade 6
+    grade6Planner Int
+    grade6Worksheets Int
+
+    // Grade 7
+    grade7Planner Int
+    grade7Worksheets Int
+
+    // Grade 8
+    grade8Planner Int
+    grade8Worksheets Int
 }
 
+// ? ELP MODULE
+model PRELP {
+  reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks  String
+    
+    // Grade 1
+    grade1Planner Int
+    grade1Worksheets Int
+
+    // Grade 2
+    grade2Planner Int
+    grade2Worksheets Int
+
+    // Grade 3
+    grade3Planner Int
+    grade3Worksheets Int
+
+    // Grade 4
+    grade4Planner Int
+    grade4Worksheets Int    
+
+    // Grade 5
+    grade5Planner Int
+    grade5Worksheets Int
+
+    // Grade 6
+    grade6Planner Int
+    grade6Worksheets Int
+
+    // Grade 7
+    grade7Planner Int
+    grade7Worksheets Int
+
+    // Grade 8
+    grade8Planner Int    
+    grade8Worksheets Int
+}
+
+// ? ACADEMIC MODULE
+model PRacademic {
+
+   reportId Int             @id @unique
+  report   PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks  String
+  PRacademicCell PRacademicCell[]
+
+  @@index([reportId], map: "PRacademic_reportId_idx")
+}
+
+model PRacademicCell {
+  id          Int        @id @default(autoincrement())
+  rowId       Int
+  PRacademic  PRacademic @relation(fields: [rowId], references: [reportId])
+  classId     Int
+  class       Class      @relation(fields: [classId], references: [id])
+  total       Int
+  passed      Int
+  failed      Int
+
+  @@index([rowId]) // Unique constraint added here
+}
 // ACTIVITY MODULE
 model PRactivity {
   reportId       Int              @id @unique
