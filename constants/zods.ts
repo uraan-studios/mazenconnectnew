@@ -4,7 +4,7 @@ import { number, z } from "zod";
 
 export const studentSchema = z.object({
     reportId: z.number().min(0, 'Student reportId is required').max(1000, 'Student reportId is too long'),
-    remarks: z.string().min(1, 'Principal Report student remarks are required').max(100, 'Principal Report student remarks is too long'),
+    remarks: z.string().min(5, 'Principal Report student remarks are required').max(100, 'Principal Report student remarks is too long'),
     PRstudentClassCell: z.object({
     id: z.number().min(0, 'Student classId is required').max(1000, 'Student classId is too long'),
     name: z.string().min(1, 'Student name is required').max(100, 'Student name is too long'),
@@ -75,17 +75,19 @@ export const observationSchema = z.object({
 
 export const RecheckingSchema = z.object({
     reportId: z.number().min(0, 'Rechecking reportId is required').max(1000, 'Rechecking reportId is too long'),
+    remarks: z.string().min(1, 'Principal Report Rechecking remarks are required').max(100, 'Principal Report Rechecking remarks is too long'),
     PRrecheckingCell: z.object({
         classId: z.number().min(0, 'Rechecking classId is required').max(1000, 'Rechecking classId is too long'),
         teacherId: z.number().min(0, 'Rechecking teacherId is required').max(1000, 'Rechecking teacherId is too long'),
         subjectId: z.number().min(0, 'Rechecking subjectId is required').max(1000, 'Rechecking subjectId is too long'),
-        status: z.boolean(),
+        count: z.number().min(0, 'Rechecking count is required').max(1000, 'Rechecking count is too long'),
+        total: z.number().min(0, 'Rechecking total is required').max(1000, 'Rechecking total is too long'),
     }).array(),
 })
 
 export const ttblSchema = z.object({
-    reportId: z.number().min(0, 'TTBL reportId is required').max(1000, 'TTBL reportId is too long'),
-    remarks: z.string().min(1, 'Principal Report TTBL remarks are required').max(100, 'Principal Report TTBL remarks is too long'),
+    reportId: z.number().min(0, 'TTBL reportId is required').max(100, 'TTBL reportId is too long'),
+    remarks: z.string().min(0, 'Principal Report TTBL remarks are required').max(1000, 'Principal Report TTBL remarks is too long'),
     PRttblCell: z.object({
         name: z.string().min(1, 'TTBL name is required').max(100, 'TTBL name is too long'),
         available: z.number().min(0, 'TTBL available is required').max(1000, 'TTBL available is too long'),
@@ -95,17 +97,56 @@ export const ttblSchema = z.object({
 })
 
 export const TTBLContentSchema = z.object({
-    reportId: z.number().min(0, 'TTBL reportId is required').max(1000, 'TTBL reportId is too long'),
-    preNurseryCLLE : z.boolean(),
-    preNurseryCLLU : z.boolean(),
-    preNurseryMD : z.boolean(),
-    nurseryCLLE : z.boolean(),
-    nurseryCLLU : z.boolean(),
-    nurseryMD : z.boolean(),
-    kindergartenCLLE : z.boolean(),
-    kindergartenCLLU : z.boolean(),
-    kindergartenyMD : z.boolean(),
-})
+  reportId: z.number().min(0, "TTBL reportId is required").max(1000, "TTBL reportId is too long"),
+  tbisRemarks: z.string().min(1, "TTBL tbisRemarks are required").max(100, "TTBL tbisRemarks is too long"),
+
+  preNurseryCLLE: z.boolean(),
+  preNurseryCLLU: z.boolean(),
+  preNurseryMD: z.boolean(),
+  nurseryCLLE: z.boolean(),
+  nurseryCLLU: z.boolean(),
+  nurseryMD: z.boolean(),
+  kindergartenCLLE: z.boolean(),
+  kindergartenCLLU: z.boolean(),
+  kindergartenMD: z.boolean(),
+
+  g1Eng: z.boolean(),
+  g1Urdu: z.boolean(),
+  g1Math: z.boolean(),
+  g1GK: z.boolean(),
+  g1ICT: z.boolean(),
+  g1Isl: z.boolean(),
+
+  g2Eng: z.boolean(),
+  g2Urdu: z.boolean(),
+  g2Math: z.boolean(),
+  g2GK: z.boolean(),
+  g2ICT: z.boolean(),
+  g2Isl: z.boolean(),
+
+  g3Eng: z.boolean(),
+  g3Urdu: z.boolean(),
+  g3Math: z.boolean(),
+  g3GK: z.boolean(),
+  g3ICT: z.boolean(),
+  g3Isl: z.boolean(),
+
+  g4Eng: z.boolean(),
+  g4Urdu: z.boolean(),
+  g4Math: z.boolean(),
+  g4SS: z.boolean(),
+  g4ICT: z.boolean(),
+  g4Isl: z.boolean(),
+  g4Sci: z.boolean(),
+
+  g5Eng: z.boolean(),
+  g5Urdu: z.boolean(),
+  g5Math: z.boolean(),
+  g5SS: z.boolean(),
+  g5ICT: z.boolean(),
+  g5Isl: z.boolean(),
+  g5Sci: z.boolean(),
+});
 
 export const tenuusSchema = z.object({
     reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),
@@ -116,11 +157,80 @@ export const tenuusSchema = z.object({
 })
 
 export const hcdSchema = z.object({
-    reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),
-    remarks: z.string().min(1, 'Principal Report Tenuus remarks are required').max(100, 'Principal Report Tenuus remarks is too long'),
-    meetings: z.number().min(0),
-    workload: z.number().min(0)
-})
+  reportId: z.number().min(0, "HCD reportId is required").max(1000, "HCD reportId is too long"),
+  remarks: z.string().min(1, "Remarks are required").max(100, "Remarks must be less than 100 characters"),
+
+  preNurseryPlanner: z.number().min(0, "Pre-Nursery Planner must be 0 or greater"),
+  preNurseryWorksheets: z.number().min(0, "Pre-Nursery Worksheets must be 0 or greater"),
+  preNurseryTTBL: z.number().min(0, "Pre-Nursery TTBL must be 0 or greater"),
+
+  nurseryPlanner: z.number().min(0, "Nursery Planner must be 0 or greater"),
+  nurseryWorksheets: z.number().min(0, "Nursery Worksheets must be 0 or greater"),
+  nurseryTTBL: z.number().min(0, "Nursery TTBL must be 0 or greater"),
+
+  kindergartenPlanner: z.number().min(0, "Kindergarten Planner must be 0 or greater"),
+  kindergartenWorksheets: z.number().min(0, "Kindergarten Worksheets must be 0 or greater"),
+  kindergartenTTBL: z.number().min(0, "Kindergarten TTBL must be 0 or greater"),
+
+  grade1Planner: z.number().min(0, "Grade 1 Planner must be 0 or greater"),
+  grade1Worksheets: z.number().min(0, "Grade 1 Worksheets must be 0 or greater"),
+  grade1TTBL: z.number().min(0, "Grade 1 TTBL must be 0 or greater"),
+
+  grade2Planner: z.number().min(0, "Grade 2 Planner must be 0 or greater"),
+  grade2Worksheets: z.number().min(0, "Grade 2 Worksheets must be 0 or greater"),
+  grade2TTBL: z.number().min(0, "Grade 2 TTBL must be 0 or greater"),
+
+  grade3Planner: z.number().min(0, "Grade 3 Planner must be 0 or greater"),
+  grade3Worksheets: z.number().min(0, "Grade 3 Worksheets must be 0 or greater"),
+  grade3TTBL: z.number().min(0, "Grade 3 TTBL must be 0 or greater"),
+
+  grade4Planner: z.number().min(0, "Grade 4 Planner must be 0 or greater"),
+  grade4Worksheets: z.number().min(0, "Grade 4 Worksheets must be 0 or greater"),
+  grade4TTBL: z.number().min(0, "Grade 4 TTBL must be 0 or greater"),
+
+  grade5Planner: z.number().min(0, "Grade 5 Planner must be 0 or greater"),
+  grade5Worksheets: z.number().min(0, "Grade 5 Worksheets must be 0 or greater"),
+  grade5TTBL: z.number().min(0, "Grade 5 TTBL must be 0 or greater"),
+
+  grade6Planner: z.number().min(0, "Grade 6 Planner must be 0 or greater"),
+  grade6Worksheets: z.number().min(0, "Grade 6 Worksheets must be 0 or greater"),
+
+  grade7Planner: z.number().min(0, "Grade 7 Planner must be 0 or greater"),
+  grade7Worksheets: z.number().min(0, "Grade 7 Worksheets must be 0 or greater"),
+
+  grade8Planner: z.number().min(0, "Grade 8 Planner must be 0 or greater"),
+  grade8Worksheets: z.number().min(0, "Grade 8 Worksheets must be 0 or greater"),
+});
+
+export const elpSchema = z.object({
+    reportId: z.number().min(0, "Report ID is required"),
+  
+    remarks: z.string().min(1, "Remarks are required").max(100, "Remarks must be less than 100 characters"),
+  
+    grade1Planner: z.number().min(0, "Grade 1 Planner must be 0 or greater"),
+    grade1Worksheets: z.number().min(0, "Grade 1 Worksheets must be 0 or greater"),
+  
+    grade2Planner: z.number().min(0, "Grade 2 Planner must be 0 or greater"),
+    grade2Worksheets: z.number().min(0, "Grade 2 Worksheets must be 0 or greater"),
+  
+    grade3Planner: z.number().min(0, "Grade 3 Planner must be 0 or greater"),
+    grade3Worksheets: z.number().min(0, "Grade 3 Worksheets must be 0 or greater"),
+  
+    grade4Planner: z.number().min(0, "Grade 4 Planner must be 0 or greater"),
+    grade4Worksheets: z.number().min(0, "Grade 4 Worksheets must be 0 or greater"),
+  
+    grade5Planner: z.number().min(0, "Grade 5 Planner must be 0 or greater"),
+    grade5Worksheets: z.number().min(0, "Grade 5 Worksheets must be 0 or greater"),
+  
+    grade6Planner: z.number().min(0, "Grade 6 Planner must be 0 or greater"),
+    grade6Worksheets: z.number().min(0, "Grade 6 Worksheets must be 0 or greater"),
+  
+    grade7Planner: z.number().min(0, "Grade 7 Planner must be 0 or greater"),
+    grade7Worksheets: z.number().min(0, "Grade 7 Worksheets must be 0 or greater"),
+  
+    grade8Planner: z.number().min(0, "Grade 8 Planner must be 0 or greater"),
+    grade8Worksheets: z.number().min(0, "Grade 8 Worksheets must be 0 or greater"),
+  });
 
 export const activitySchema = z.object({ 
     reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),

@@ -31,6 +31,7 @@ completed Boolean @default(false)
 model PRrechecking {
   reportId Int             @id @unique
   report   PrincipalReport @relation(fields: [reportId], references: [id])
+  remarks  String
 
   PRrecheckingCell PRrecheckingCell[]
 }
@@ -45,7 +46,8 @@ model PRrecheckingCell {
   teacher      Staff        @relation(fields: [teacherId], references: [id])
   subjectId    Int
   subject      Subjects     @relation(fields: [subjectId], references: [id])
-  status       Boolean
+  count  Int
+  total Int
 }
 
 model PRTenuffus {
@@ -63,6 +65,8 @@ model PRTTBLContent {
   reportId Int             @id @unique
   report   PrincipalReport @relation(fields: [reportId], references: [id])
 
+  tbisRemarks String?
+
   preNurseryCLLE Boolean
   preNurseryCLLU Boolean
   preNurseryMD   Boolean
@@ -75,47 +79,47 @@ model PRTTBLContent {
   kindergartenCLLU Boolean
   kindergartenyMD  Boolean
 
-  // Grade 1
-  g1Eng Int
-  g1Urdu Int
-  g1Math Int
-  g1GK Int
-  g1ICT Int
-  g1Isl Int
+// Grade 1
+g1Eng Boolean
+g1Urdu Boolean
+g1Math Boolean
+g1GK Boolean
+g1ICT Boolean
+g1Isl Boolean
 
-  // Grade 2
-  g2Eng Int
-  g2Urdu Int
-  g2Math Int
-  g2GK Int
-  g2ICT Int
-  g2Isl Int
+// Grade 2
+g2Eng Boolean
+g2Urdu Boolean
+g2Math Boolean
+g2GK Boolean
+g2ICT Boolean
+g2Isl Boolean
 
-  // Grade 3
-  g3Eng Int
-  g3Urdu Int
-  g3Math Int
-  g3GK Int
-  g3ICT Int
-  g3Isl Int
+// Grade 3
+g3Eng Boolean
+g3Urdu Boolean
+g3Math Boolean
+g3GK Boolean
+g3ICT Boolean
+g3Isl Boolean
 
-  // Grade 4
-  g4Eng Int
-  g4Urdu Int
-  g4Math Int
-  g4SS Int
-  g4ICT Int
-  g4Isl Int
-  g4Sci Int
+// Grade 4
+g4Eng Boolean
+g4Urdu Boolean
+g4Math Boolean
+g4SS Boolean
+g4ICT Boolean
+g4Isl Boolean
+g4Sci Boolean
 
-  // Grade 5
-  g5Eng Int
-  g5Urdu Int
-  g5Math Int
-  g5SS Int
-  g5ICT Int
-  g5Isl Int
-  g5Sci Int
+// Grade 5
+g5Eng Boolean
+g5Urdu Boolean
+g5Math Boolean
+g5SS Boolean
+g5ICT Boolean
+g5Isl Boolean
+g5Sci Boolean
 
 }
 

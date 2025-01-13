@@ -18,6 +18,9 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import useStudentModule from '@/stores/principalReport/students';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 
 type Division = {
     grades: {
@@ -29,6 +32,7 @@ type Division = {
 }
 
 const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
+    const studentStore = useStudentModule();
     const classStore = useClassStore();
     const subjectStore = useSubjectStore();
     const teacherStore = useTeacherStore();
@@ -37,7 +41,7 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
     // State for selected teacher, subject, and status
     const [selectedTeacherId, setSelectedTeacherId] = useState<string | null>(null);
     const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
-    const [newStatus, setNewStatus] = useState<boolean>(false);  // Track status for new entries
+    const [newCount, setNewCount] = useState<number>(0);
 
     useEffect(() => {
         const session = sessionStorage.getItem("student-module-storage");
@@ -46,8 +50,8 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
         }
     }, [divisions]);
 
-    const handleAddRechecking = (classId: number, teacherId: number, subjectId: number, status: boolean) => {
-        recheckingStore.addRechecking(classId, teacherId, subjectId, status);
+    const handleAddRechecking = (classId: number, teacherId: number, subjectId: number, count: number) => {
+        recheckingStore.addRechecking(classId, teacherId, subjectId, count);
     };
 
     // Filter out divisions with no classes
@@ -63,12 +67,17 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                     <Separator className='my-10'/>
 
                     <div className="mb-6">
-                        <h2 className='bg-accent/50 p-4 rounded-xl'>DIVISION: {division.name}</h2>
+                        <h2 className='bg-primary/30 p-4 font-semibold text-center rounded-xl'>DIVISION: {division.name}</h2>
                         {division.grades.map((grade) => (
                             <div key={grade.id} className="mb-6">
                                 {classStore.getClassByGrade(grade.id).map((classItem) => (
                                     <div key={classItem.id} className="mb-6 bg-primary/10 rounded-md">
-                                        <h4 className='text-center mt-4 pt-4 rounded-md'>{classItem.name}</h4>
+                                        <div className='text-center mt-4 pt-2 px-4  rounded-md flex justify-between items-center'>
+                                            <p className="font-semibold"></p>
+                                            <p className="font-semibold">{classItem.name}</p>
+                                            <Badge variant={'destructive'} className='text-secondary-foreground'>Total Students: {studentStore.getClassStrength(classItem.id)}</Badge>
+                                              
+                                        </div>
 
                                         <Table className='bg-accent p-6 rounded-md my-4 overflow-clip'>
                                             <TableHeader className='bg-secondary'>
@@ -76,6 +85,7 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                                                     <TableHead className='text-secondary-foreground'>Teacher</TableHead>
                                                     <TableHead className='text-secondary-foreground'>Subject</TableHead>
                                                     <TableHead className='text-secondary-foreground'>Status</TableHead>
+                                                    <TableHead className='text-secondary-foreground'>Percent</TableHead>
                                                     <TableHead className='text-secondary-foreground text-right'>Delete</TableHead>
                                                 </TableRow>
                                             </TableHeader>
@@ -91,9 +101,16 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                                                                 {subjectStore.subjects.find(subject => subject.id === item.subjectId)?.name || "N/A"}
                                                             </TableCell>
                                                             <TableCell>
-                                                                <Switch checked={item.status} onCheckedChange={(checked) => {
-                                                                    recheckingStore.updateRecheckingStatus(item.classId, item.teacherId, item.subjectId, checked);
-                                                                }} />
+                                                                <Input
+                                                                    type='number'
+                                                                    min={0}
+                                                                    value={item.count}
+                                                                    onChange={(e) => recheckingStore.updateRecheckingCount(item.classId, item.teacherId, item.subjectId, parseInt(e.target.value, 10) || 0)}
+                                                                />
+
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {(item.count / studentStore.getClassStrength(item.classId) * 100).toFixed(2)}%
                                                             </TableCell>
                                                             <TableCell className='text-right'>
                                                                 <Button
@@ -136,7 +153,13 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                                                     </SelectContent>
                                                 </Select>
 
-                                                <Switch checked={newStatus} onCheckedChange={setNewStatus} />
+                                                <Input
+                                                    type='number'
+                                                    className='max-w-xs'
+                                                    min={0}
+                                                    value={newCount}
+                                                    onChange={(e) => setNewCount(parseInt(e.target.value, 10) || 0)}
+                                                />
 
                                                 <Button
                                                     variant={'default'}
@@ -146,7 +169,7 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                                                                 classItem.id,
                                                                 parseInt(selectedTeacherId),
                                                                 parseInt(selectedSubjectId),
-                                                                newStatus // Set status based on the Switch value
+                                                                newCount // Set status based on the Switch value
                                                             );
                                                         }
                                                     }}

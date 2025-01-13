@@ -35,6 +35,7 @@ interface StudentModule {
     remarks: string;
 
     // Methods for updating the state
+    getClassStrength: (classId: number) => number;
     setClasses: (classes: StudentModuleClass[]) => void;
     setRemarks: (remarks: string) => void;
 
@@ -51,13 +52,15 @@ interface StudentModule {
 
 const useStudentModule = create<StudentModule>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             classes: [],
             remarks: "",
 
             setClasses: (classes: StudentModuleClass[]) => set({ classes }),
             setRemarks: (remarks: string) => set({ remarks }),
 
+            getClassStrength: (classId: number) =>
+                get().classes.find((cls) => cls.id === classId)?.total || 0,
             addClass: (newClass: StudentModuleClass) =>
                 set((state) => ({
                     classes: [...state.classes, newClass],

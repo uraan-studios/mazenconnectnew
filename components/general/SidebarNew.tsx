@@ -85,8 +85,8 @@ import { usePathname } from "next/navigation"
                                     item.submenu.map((subItem, index) => (
                                         (!subItem.secure || isAdmin) &&
                                         (<SidebarMenuSubItem key={index}>
-                                            <SidebarMenuButton asChild  className={`${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
-                                                <a href={subItem.path}>
+                                            <SidebarMenuButton asChild  className={`text-primary-foreground/50 ${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
+                                                <a className="" href={subItem.path}>
                          
                                                     {subItem.name}
                                                 </a>
@@ -125,7 +125,7 @@ import { usePathname } from "next/navigation"
                                     item.submenu.map((subItem, index) => (
                                         (!subItem.secure || isAdmin) &&
                                         (<SidebarMenuSubItem key={index}>
-                                            <SidebarMenuButton asChild  className={`${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
+                                            <SidebarMenuButton asChild  className={`text-primary-foreground/50 ${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
                                                 <a href={subItem.path}>
                          
                                                     {subItem.name}
@@ -161,7 +161,7 @@ import { usePathname } from "next/navigation"
                                     item.submenu.map((subItem, index) => (
                                         (!subItem.secure || isAdmin) &&
                                         (<SidebarMenuSubItem key={index}>
-                                            <SidebarMenuButton asChild  className={`${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
+                                            <SidebarMenuButton asChild  className={`text-primary-foreground/50 ${path === subItem.path ? 'bg-primary text-primary-foreground' : ''}`}>
                                                 <a href={subItem.path}>
                          
                                                     {subItem.name}

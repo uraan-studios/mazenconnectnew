@@ -4,10 +4,11 @@ import { validateRequest } from "@/lib/validateSessions";
 import { report } from "process";
 import { number, z } from "zod";
 import { unstable_cache } from 'next/cache'
-import { activitySchema, hcdSchema, observationSchema, RecheckingSchema, staffSchema, studentSchema, swotSchema, tenuusSchema, TTBLContentSchema, ttblSchema, workloadSchema } from "@/constants/zods";
+import { activitySchema, elpSchema, hcdSchema, observationSchema, RecheckingSchema, staffSchema, studentSchema, swotSchema, tenuusSchema, TTBLContentSchema, ttblSchema, workloadSchema } from "@/constants/zods";
 
 
 export const validateModuleData = async (data: any, schema: z.ZodType<any, any, any>) => {
+    "use client"
     const validationResult = schema.safeParse(data);
     if (!validationResult.success) {
         return validationResult.error.flatten().fieldErrors;
@@ -32,6 +33,7 @@ export const createReport = async () => {
 
 
 export const createStudent = async (data: z.infer<typeof studentSchema>) => {
+    const errors = await validateModuleData
     const session = await validateRequest()
     if(!session.user) return {errors: "You must be logged in to create a report."}
 
@@ -247,13 +249,15 @@ export const createRechecking = async (data: z.infer<typeof RecheckingSchema>) =
         const recheckingModule = await db.pRrechecking.create({
             data: {
                 reportId: validationResult.data.reportId,
+                remarks: validationResult.data.remarks,
                 PRrecheckingCell: {
                     createMany: { 
                         data: validationResult.data.PRrecheckingCell.map((cell) => ({
                         classId: cell.classId,
                         teacherId: cell.teacherId,
                         subjectId: cell.subjectId,
-                        status: cell.status,
+                        count: cell.count,
+                        total: cell.total,
                     }))
                 }
 
@@ -328,18 +332,60 @@ export const createTTBLContent = async (data: z.infer<typeof TTBLContentSchema>)
         try {
             const ttblModule = await db.pRTTBLContent.create({
                 data: {
-                    reportId: validationResult.data.reportId,
-                    preNurseryCLLE: validationResult.data.preNurseryCLLE,
-                    preNurseryCLLU: validationResult.data.preNurseryCLLU,
-                    preNurseryMD: validationResult.data.preNurseryMD,
-                    nurseryCLLE: validationResult.data.nurseryCLLE,
-                    nurseryCLLU: validationResult.data.nurseryCLLU,
-                    nurseryMD: validationResult.data.nurseryMD,
-                    kindergartenCLLE: validationResult.data.kindergartenCLLE,
-                    kindergartenCLLU: validationResult.data.kindergartenCLLU,
-                    kindergartenyMD: validationResult.data.kindergartenyMD,
-                }    
-            })
+                  reportId: validationResult.data.reportId,
+                  tbisRemarks: validationResult.data.tbisRemarks,
+              
+                  preNurseryCLLE: validationResult.data.preNurseryCLLE,
+                  preNurseryCLLU: validationResult.data.preNurseryCLLU,
+                  preNurseryMD: validationResult.data.preNurseryMD,
+              
+                  nurseryCLLE: validationResult.data.nurseryCLLE,
+                  nurseryCLLU: validationResult.data.nurseryCLLU,
+                  nurseryMD: validationResult.data.nurseryMD,
+              
+                  kindergartenCLLE: validationResult.data.kindergartenCLLE,
+                  kindergartenCLLU: validationResult.data.kindergartenCLLU,
+                  kindergartenyMD: validationResult.data.kindergartenMD,
+              
+                  g1Eng: validationResult.data.g1Eng,
+                  g1Urdu: validationResult.data.g1Urdu,
+                  g1Math: validationResult.data.g1Math,
+                  g1GK: validationResult.data.g1GK,
+                  g1ICT: validationResult.data.g1ICT,
+                  g1Isl: validationResult.data.g1Isl,
+              
+                  g2Eng: validationResult.data.g2Eng,
+                  g2Urdu: validationResult.data.g2Urdu,
+                  g2Math: validationResult.data.g2Math,
+                  g2GK: validationResult.data.g2GK,
+                  g2ICT: validationResult.data.g2ICT,
+                  g2Isl: validationResult.data.g2Isl,
+              
+                  g3Eng: validationResult.data.g3Eng,
+                  g3Urdu: validationResult.data.g3Urdu,
+                  g3Math: validationResult.data.g3Math,
+                  g3GK: validationResult.data.g3GK,
+                  g3ICT: validationResult.data.g3ICT,
+                  g3Isl: validationResult.data.g3Isl,
+              
+                  g4Eng: validationResult.data.g4Eng,
+                  g4Urdu: validationResult.data.g4Urdu,
+                  g4Math: validationResult.data.g4Math,
+                  g4SS: validationResult.data.g4SS,
+                  g4ICT: validationResult.data.g4ICT,
+                  g4Isl: validationResult.data.g4Isl,
+                  g4Sci: validationResult.data.g4Sci,
+              
+                  g5Eng: validationResult.data.g5Eng,
+                  g5Urdu: validationResult.data.g5Urdu,
+                  g5Math: validationResult.data.g5Math,
+                  g5SS: validationResult.data.g5SS,
+                  g5ICT: validationResult.data.g5ICT,
+                  g5Isl: validationResult.data.g5Isl,
+                  g5Sci: validationResult.data.g5Sci,
+                },
+              });
+              
 
             return ttblModule
 
@@ -391,29 +437,102 @@ export const createTenuus = async (data: z.infer<typeof tenuusSchema>) => {
         
 
 
-export const createHCDModule = async (data: z.infer<typeof hcdSchema>) => {
-    const session = await validateRequest()
-    if(!session.user) return {errors: "You must be logged in to create a report."}
-
-    const validationResult = hcdSchema.safeParse(data)
-    if(!validationResult.success) return {errors: validationResult.error.issues}
-
-    try {
-        const report = await db.pRHcd.create({
-            data: {
-                reportId: data.reportId,
-                remarks: data.remarks,
-                meetings: data.meetings,
-                workload: data.workload,
+        export const createHCDModule = async (data: z.infer<typeof hcdSchema>) => {
+            const session = await validateRequest();
+            if (!session.user) return { errors: "You must be logged in to create a report." };
+        
+            const validationResult = hcdSchema.safeParse(data);
+            if (!validationResult.success) return { errors: validationResult.error.issues };
+        
+            try {
+                const report = await db.pRHcd.create({
+                    data: {
+                        reportId: data.reportId,
+                        remarks: data.remarks,
+                        preNurseryPlanner: data.preNurseryPlanner,
+                        preNurseryWorksheets: data.preNurseryWorksheets,
+                        preNuseryTTBL: data.preNurseryTTBL,
+                        nurseryPlanner: data.nurseryPlanner,
+                        nurseryWorksheets: data.nurseryWorksheets,
+                        nurseryTTBL: data.nurseryTTBL,
+                        kindergartenPlanner: data.kindergartenPlanner,
+                        kindergartenWorksheets: data.kindergartenWorksheets,
+                        kindergartenTTBL: data.kindergartenTTBL,
+                        grade1Planner: data.grade1Planner,
+                        grade1Worksheets: data.grade1Worksheets,
+                        grade1TTBL: data.grade1TTBL,
+                        grade2Planner: data.grade2Planner,
+                        grade2Worksheets: data.grade2Worksheets,
+                        grade2TTBL: data.grade2TTBL,
+                        grade3Planner: data.grade3Planner,
+                        grade3Worksheets: data.grade3Worksheets,
+                        grade3TTBL: data.grade3TTBL,
+                        grade4Planner: data.grade4Planner,
+                        grade4Worksheets: data.grade4Worksheets,
+                        grade4TTBL: data.grade4TTBL,
+                        grade5Planner: data.grade5Planner,
+                        grade5Worksheets: data.grade5Worksheets,
+                        grade5TTBL: data.grade5TTBL,
+                        grade6Planner: data.grade6Planner,
+                        grade6Worksheets: data.grade6Worksheets,
+                        grade7Planner: data.grade7Planner,
+                        grade7Worksheets: data.grade7Worksheets,
+                        grade8Planner: data.grade8Planner,
+                        grade8Worksheets: data.grade8Worksheets,
+                    },
+                });
+                return { report };
+            } catch (error) {
+                console.error(error);
+                return { errors: "An error occurred while creating the report." };
             }
-        })
-        return {report}
-    } catch (error) {
-        console.error(error)
-        return {errors: "An error occurred while creating the report."}
-    }
-}
+        };
+        
 
+        export const createELPModule = async (data: z.infer<typeof elpSchema>) => {
+            const session = await validateRequest();
+            if (!session.user) return { errors: "You must be logged in to create a report." };
+        
+            const validationResult = elpSchema.safeParse(data);
+            if (!validationResult.success) return { errors: validationResult.error.issues };
+        
+            try {
+                const report = await db.pRELP.create({
+                    data: {
+                        reportId: data.reportId,
+                        remarks: data.remarks,
+        
+                        grade1Planner: data.grade1Planner,
+                        grade1Worksheets: data.grade1Worksheets,
+        
+                        grade2Planner: data.grade2Planner,
+                        grade2Worksheets: data.grade2Worksheets,
+        
+                        grade3Planner: data.grade3Planner,
+                        grade3Worksheets: data.grade3Worksheets,
+        
+                        grade4Planner: data.grade4Planner,
+                        grade4Worksheets: data.grade4Worksheets,
+        
+                        grade5Planner: data.grade5Planner,
+                        grade5Worksheets: data.grade5Worksheets,
+        
+                        grade6Planner: data.grade6Planner,
+                        grade6Worksheets: data.grade6Worksheets,
+        
+                        grade7Planner: data.grade7Planner,
+                        grade7Worksheets: data.grade7Worksheets,
+        
+                        grade8Planner: data.grade8Planner,
+                        grade8Worksheets: data.grade8Worksheets,
+                    },
+                });
+                return { report };
+            } catch (error) {
+                console.error(error);
+                return { errors: "An error occurred while creating the report." };
+            }
+        };
 
 export const createActivity = async (data: z.infer<typeof activitySchema>) => {
     const session = await validateRequest()
@@ -480,6 +599,25 @@ export const createSWOT = async (data: z.infer<typeof swotSchema>) => {
         return {
             errors: "Failed to create SWOT module. Please try again later.",
         };
+    }
+}
+
+export const updateReportStatus = async (id: number, status: boolean) => {
+    const session = await validateRequest()
+    if (!session.user) return { errors: "You must be logged in to create a report." }
+    try {
+        await db.principalReport.update({
+            where: {
+                id: id,
+            },
+            data: {
+                completed: status,
+            },
+        })
+        return { report: status }
+    } catch (error) {
+        console.error(error)
+        return { errors: "An error occurred while updating the report." }
     }
 }
 

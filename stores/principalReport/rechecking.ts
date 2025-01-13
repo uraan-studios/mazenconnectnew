@@ -6,7 +6,7 @@ interface RecheckingModuleItem {
     classId: number;
     teacherId: number;
     subjectId: number;
-    status: boolean;
+    count: number;
 }
 
 interface RecheckingModule {
@@ -14,9 +14,9 @@ interface RecheckingModule {
     remarks: string;
     setRemarks: (remarks: string) => void;
     setRechecking: (rechecking: RecheckingModuleItem[]) => void;
-    addRechecking: (classId: number, teacherId: number, subjectId: number, status: boolean) => void;
+    addRechecking: (classId: number, teacherId: number, subjectId: number, count: number) => void;
     removeRechecking: (classId: number, teacherId: number, subjectId: number) => void;
-    updateRecheckingStatus: (classId: number, teacherId: number, subjectId: number, status: boolean) => void;
+    updateRecheckingCount: (classId: number, teacherId: number, subjectId: number, count: number) => void;
 }
 
 const useRecheckingStore = create<RecheckingModule>()(
@@ -26,19 +26,18 @@ const useRecheckingStore = create<RecheckingModule>()(
             remarks: "",
             setRemarks: (remarks: string) => set({ remarks }),
             setRechecking: (rechecking: RecheckingModuleItem[]) => set({ rechecking }),
-            addRechecking: (classId: number, teacherId: number, subjectId: number, status: boolean) =>
+            addRechecking: (classId: number, teacherId: number, subjectId: number, count: number) =>
                 set((state) => ({
-                    rechecking: [...state.rechecking, { classId, teacherId, subjectId, status: status }],
+                    rechecking: [...state.rechecking, { classId, teacherId, subjectId, count: count }],
                 })),
-            updateRecheckingStatus: (classId: number, teacherId: number, subjectId: number, status: boolean) =>
+            updateRecheckingCount: (classId: number, teacherId: number, subjectId: number, count: number) =>
                 set((state) => ({
                     rechecking: state.rechecking.map((item) =>
                         item.classId === classId && item.teacherId === teacherId && item.subjectId === subjectId
-                            ? { ...item, status: status }
+                            ? { ...item, count: count }
                             : item
                     ),
                 })),
-
             removeRechecking: (classId: number, teacherId: number, subjectId: number) =>
                 set((state) => ({
                     rechecking: state.rechecking.filter(

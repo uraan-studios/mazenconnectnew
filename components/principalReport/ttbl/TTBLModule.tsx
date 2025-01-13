@@ -173,7 +173,7 @@ min= {0}
 
       <Card>
       <CardHeader>
-          <CardTitle>TTBI Remarks</CardTitle>
+          <CardTitle>TBIS Remarks</CardTitle>
           <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
       </CardHeader>
       <CardContent>
