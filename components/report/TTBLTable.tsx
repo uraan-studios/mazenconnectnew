@@ -67,8 +67,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
 // Create TTBL component
 const TTBL = ({ report }: { report: Report }) => {
   return (
@@ -111,8 +109,8 @@ const TTBL = ({ report }: { report: Report }) => {
         </View>
       </View>
 
-      {/* TTBL CONTENC */}
-      <Text style={{...styles.remarks, marginTop: 10}}>TTBL Content:</Text>
+      {/* TTBL CONTENT */}
+      <Text style={{ ...styles.remarks, marginTop: 10 }}>TTBL Content:</Text>
       <View style={styles.table}>
         {/* Header Row */}
         <View style={styles.headerRow}>
@@ -122,34 +120,92 @@ const TTBL = ({ report }: { report: Report }) => {
           <Text style={[styles.cell, { borderRightWidth: 0 }]}>MD</Text>
         </View>
 
-        {/* DATA */}
+        {/* DATA for Pre-Nursery, Nursery, and Kindergarten */}
+        {['preNursery', 'nursery', 'kindergarten'].map((grade, index) => (
           <View
-            style={[styles.row, 0 % 2 === 1 ? styles.alternateRow : {}]}
+            key={grade}
+            style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}
           >
-            <Text style={styles.cell}>Pre-Nursery</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.preNurseryCLLE ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.preNurseryCLLU ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.preNurseryMD ? "Yes" : "No"}</Text>
-          </View>
+            <Text style={styles.cell}>{grade.charAt(0).toUpperCase() + grade.slice(1)}</Text>
+            <Text style={styles.cell}>
 
+              {report.PRttblContent?.[`${grade}CLLE`] ? 'Yes' : 'No'}
+            </Text>
+            <Text style={styles.cell}>
+              {report.PRttblContent?.[`${grade}CLLU`] ? 'Yes' : 'No'}
+            </Text>
+            <Text style={styles.cell}>
+              {report.PRttblContent?.[`${grade}MD`] ? 'Yes' : 'No'}
+            </Text>
+          </View>
+        ))}
+      </View>
+
+      {/* GRADE 1-3 */}
+      <Text style={{ ...styles.remarks, marginTop: 10 }}>Grade 1-3 Content:</Text>
+      <View style={styles.table}>
+        {/* Header Row */}
+        <View style={styles.headerRow}>
+          <Text style={styles.cell}>Grade</Text>
+          <Text style={styles.cell}>English</Text>
+          <Text style={styles.cell}>Urdu</Text>
+          <Text style={styles.cell}>Math</Text>
+          <Text style={styles.cell}>GK</Text>
+          <Text style={styles.cell}>ICT</Text>
+          <Text style={[styles.cell, { borderRightWidth: 0 }]}>Islamiyat</Text>
+        </View>
+
+        {/* Data Rows for Grades 1-3 */}
+        {['g1', 'g2', 'g3'].map((grade, index) => (
           <View
-            style={[styles.row, 1 % 2 === 1 ? styles.alternateRow : {}]}
+            key={grade}
+            style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}
           >
-            <Text style={styles.cell}>Nursery</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.nurseryCLLE ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.nurseryCLLU ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.nurseryMD ? "Yes" : "No"}</Text>
+            <Text style={styles.cell}>{grade.toUpperCase()}</Text>
+            {['Eng', 'Urdu', 'Math', 'GK', 'ICT', 'Isl'].map(subject => {
+              const key = `${grade}${subject}` as keyof typeof report.PRttblContent;
+              return (
+                <Text key={subject} style={styles.cell}>
+                  {report.PRttblContent?.[key] ? 'Yes' : 'No'}
+                </Text>
+              );
+            })}
           </View>
+        ))}
+      </View>
 
+      {/* GRADE 4-5 */}
+      <Text style={{ ...styles.remarks, marginTop: 10 }}>Grade 4-5 Content:</Text>
+      <View style={styles.table}>
+        {/* Header Row */}
+        <View style={styles.headerRow}>
+          <Text style={styles.cell}>Grade</Text>
+          <Text style={styles.cell}>English</Text>
+          <Text style={styles.cell}>Urdu</Text>
+          <Text style={styles.cell}>Math</Text>
+          <Text style={styles.cell}>SS</Text>
+          <Text style={styles.cell}>ICT</Text>
+          <Text style={styles.cell}>Islamiyat</Text>
+          <Text style={[styles.cell, { borderRightWidth: 0 }]}>Science</Text>
+        </View>
+
+        {/* Data Rows for Grades 4-5 */}
+        {['g4', 'g5'].map((grade, index) => (
           <View
-            style={[styles.row, 2 % 2 === 1 ? styles.alternateRow : {}]}
+            key={grade}
+            style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}
           >
-            <Text style={styles.cell}>Kindergarten</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.kindergartenCLLE ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.kindergartenCLLU ? "Yes" : "No"}</Text>
-            <Text style={styles.cell}>{report.PRttblContent?.kindergartenyMD ? "Yes" : "No"}</Text>
+            <Text style={styles.cell}>{grade.toUpperCase()}</Text>
+            {['Eng', 'Urdu', 'Math', 'SS', 'ICT', 'Isl', 'Sci'].map(subject => {
+              const key = `${grade}${subject}` as keyof typeof report.PRttblContent;
+              return (
+                <Text key={subject} style={styles.cell}>
+                  {report.PRttblContent?.[key] ? 'Yes' : 'No'}
+                </Text>
+              );
+            })}
           </View>
-
+        ))}
       </View>
 
       {/* Remarks */}

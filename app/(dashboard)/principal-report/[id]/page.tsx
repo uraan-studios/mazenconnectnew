@@ -1,35 +1,43 @@
-"use client"
-// import { getReport } from '@/actions/prinicpalReport';
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import AnimatedHeading from '@/components/general/animatedHeading';
 import Link from 'next/link';
 import { ArrowLeftToLineIcon } from 'lucide-react';
 import { MasterReport, Report } from '@/constants/types';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useParams } from 'next/navigation';
 import { getReport } from '@/actions/newPrincipalReport';
 
 // Dynamic import for ReportPageRenderer
 const DynamicReportPageRenderer = React.lazy(() => import('@/components/report/renderer'));
 
-const RerportPage = ({ params }: { params: { id: string } }) => {
+const ReportPage = () => {
+  const params = useParams(); // Use this hook to get the params object
   const searchParams = useSearchParams();
   const [report, setReport] = useState<Report | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Fetch the report data
   useEffect(() => {
     const fetchReport = async () => {
-      const fetchedReport = await getReport(parseInt(params.id), parseInt(searchParams.get('campusId') || ''));
-      
-      // Check if fetchedReport contains 'errors', then handle it separately.
-      if (fetchedReport == null) {
-        return <div>Report not found</div>;
+      const id = parseInt(Array.isArray(params?.id) ? params.id[0] : params?.id || '0', 10);
+      const campusId = parseInt((searchParams.get('campusId') || '0') as string, 10);
+  
+      if (isNaN(id) || isNaN(campusId)) {
+        setIsLoaded(true);
+        return;
       }
+  
+      const fetchedReport = await getReport(id, campusId);
+  
+      if (!fetchedReport) {
+        console.error("Report not found");
+        setIsLoaded(true);
+        return;
+      }
+  
       if ('errors' in fetchedReport) {
         console.error(fetchedReport.errors);
-        // Handle the error case here (e.g., set error state)
       } else {
-        // If fetchedReport is indeed a Report, then set it.
         setReport(fetchedReport as unknown as Report);
       }
   
@@ -37,10 +45,13 @@ const RerportPage = ({ params }: { params: { id: string } }) => {
     };
   
     fetchReport();
-  }, [params.id]);
+  }, [params, searchParams]);
+  
 
   if (!isLoaded) {
-    return <div>Loading report...</div>;
+    return <div className='w-full h-full flex items-center justify-center'>
+      <p>Loading report...</p>
+    </div>;
   }
 
   if (!report) {
@@ -61,13 +72,13 @@ const RerportPage = ({ params }: { params: { id: string } }) => {
         <AnimatedHeading className='font-misologist font-normal' title='Principal Report' varient='heading' />
       </div>
 
-      <div>{JSON.stringify(report)}</div>
+      {/* <div>{JSON.stringify(report)}</div> */}
 
-      {/* <React.Suspense fallback={<div>Loading report renderer...</div>}>
+      <React.Suspense fallback={<div>Loading report renderer...</div>}>
         <DynamicReportPageRenderer report={report} />
-      </React.Suspense> */}
+      </React.Suspense>
     </div>
   );
 };
 
-export default RerportPage;
+export default ReportPage;

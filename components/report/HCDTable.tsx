@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 
-// Create styles for the HCD table
+// Styles for the HCD table
 const styles = StyleSheet.create({
   container: {
     padding: '20px 0',
   },
   header: {
-    backgroundColor: 'hsl(0 72.2% 50.6%)', // Using your original header color
+    backgroundColor: 'hsl(0 72.2% 50.6%)',
     borderRadius: 5,
     textAlign: 'center',
     marginBottom: 10,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   headerRow: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: 'hsl(0 72.2% 50.6%)', // Updated to match the main header
+    backgroundColor: 'hsl(0 72.2% 50.6%)',
     fontWeight: 'bold',
     color: 'white',
     alignItems: 'center',
@@ -72,40 +72,125 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   alternateRow: {
-    backgroundColor: 'rgba(255, 204, 204, 0.4)', // Light red for alternate rows
+    backgroundColor: 'rgba(255, 204, 204, 0.4)',
   },
 });
 
-// Define the report type
-interface Report {
-  PRHcd: {
-    meetings: number; // or appropriate type if not a number
-    workload: number; // or appropriate type if not a number
-  };
-  parentFeedback: string;
+// Define the HCD data type
+interface HCDData {
+  reportId: number;
+  remarks: string;
+  preNurseryPlanner: number;
+  preNurseryWorksheets: number;
+  preNuseryTTBL: number;
+  nurseryPlanner: number;
+  nurseryWorksheets: number;
+  nurseryTTBL: number;
+  kindergartenPlanner: number;
+  kindergartenWorksheets: number;
+  kindergartenTTBL: number;
+  grade1Planner: number;
+  grade1Worksheets: number;
+  grade1TTBL: number;
+  grade2Planner: number;
+  grade2Worksheets: number;
+  grade2TTBL: number;
+  grade3Planner: number;
+  grade3Worksheets: number;
+  grade3TTBL: number;
+  grade4Planner: number;
+  grade4Worksheets: number;
+  grade4TTBL: number;
+  grade5Planner: number;
+  grade5Worksheets: number;
+  grade5TTBL: number;
+  grade6Planner: number;
+  grade6Worksheets: number;
+  grade7Planner: number;
+  grade7Worksheets: number;
+  grade8Planner: number;
+  grade8Worksheets: number;
 }
 
-const HCDTable: React.FC<{ report: Report }> = ({ report }) => {
+// Props for the HCDTable component
+interface HCDTableProps {
+  hcdData: HCDData;
+}
+
+const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
   return (
     <View style={styles.container}>
-      {/* Section Header */}
-      <Text style={styles.sectionHeader}>D. HCD</Text>
-
-      {/* Table */}
+      {/* Early Years Table */}
+      <Text style={styles.sectionHeader}>Early Years</Text>
       <View style={styles.table}>
+        {/* Table Header */}
         <View style={styles.headerRow}>
-          <Text style={styles.cell}>Meetings</Text>
-          <Text style={styles.cell}>Workload</Text>
+          <Text style={styles.cell}>Category</Text>
+          <Text style={styles.cell}>Planner</Text>
+          <Text style={styles.cell}>Worksheets</Text>
+          <Text style={styles.cell}>TTBL</Text>
         </View>
-        <View style={[styles.row, styles.alternateRow]}>
-          <Text style={styles.cell}>{report.PRHcd.meetings}</Text>
-          <Text style={styles.cell}>{report.PRHcd.workload}</Text>
+
+        {/* Pre-Nursery Row */}
+        <View style={styles.row}>
+          <Text style={styles.cell}>Pre-Nursery</Text>
+          <Text style={styles.cell}>{hcdData.preNurseryPlanner}</Text>
+          <Text style={styles.cell}>{hcdData.preNurseryWorksheets}</Text>
+          <Text style={styles.cell}>{hcdData.preNuseryTTBL}</Text>
+        </View>
+
+        {/* Nursery Row */}
+        <View style={styles.row}>
+          <Text style={styles.cell}>Nursery</Text>
+          <Text style={styles.cell}>{hcdData.nurseryPlanner}</Text>
+          <Text style={styles.cell}>{hcdData.nurseryWorksheets}</Text>
+          <Text style={styles.cell}>{hcdData.nurseryTTBL}</Text>
+        </View>
+
+        {/* Kindergarten Row */}
+        <View style={styles.row}>
+          <Text style={styles.cell}>Kindergarten</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenPlanner}</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenWorksheets}</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenTTBL}</Text>
         </View>
       </View>
 
-      {/* Parent Feedback */}
-        <Text style={styles.remarks}>{`Parent's Feedback:`} {report.parentFeedback}</Text>
-      
+      {/* Primary and Middle Years Table */}
+      <Text style={styles.sectionHeader}>Primary and Middle Years</Text>
+      <View style={styles.table}>
+        {/* Table Header */}
+        <View style={styles.headerRow}>
+          <Text style={styles.cell}>Grade</Text>
+          <Text style={styles.cell}>Planner</Text>
+          <Text style={styles.cell}>Worksheets</Text>
+          <Text style={styles.cell}>TTBL</Text>
+        </View>
+
+        {/* Grade 1 to 8 Rows */}
+        {[
+          { grade: 'Grade 1', planner: hcdData.grade1Planner, worksheets: hcdData.grade1Worksheets, ttbl: hcdData.grade1TTBL },
+          { grade: 'Grade 2', planner: hcdData.grade2Planner, worksheets: hcdData.grade2Worksheets, ttbl: hcdData.grade2TTBL },
+          { grade: 'Grade 3', planner: hcdData.grade3Planner, worksheets: hcdData.grade3Worksheets, ttbl: hcdData.grade3TTBL },
+          { grade: 'Grade 4', planner: hcdData.grade4Planner, worksheets: hcdData.grade4Worksheets, ttbl: hcdData.grade4TTBL },
+          { grade: 'Grade 5', planner: hcdData.grade5Planner, worksheets: hcdData.grade5Worksheets, ttbl: hcdData.grade5TTBL },
+          { grade: 'Grade 6', planner: hcdData.grade6Planner, worksheets: hcdData.grade6Worksheets, ttbl: '-' },
+          { grade: 'Grade 7', planner: hcdData.grade7Planner, worksheets: hcdData.grade7Worksheets, ttbl: '-' },
+          { grade: 'Grade 8', planner: hcdData.grade8Planner, worksheets: hcdData.grade8Worksheets, ttbl: '-' },
+        ].map((row, index) => (
+          <View key={index} style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}>
+            <Text style={styles.cell}>{row.grade}</Text>
+            <Text style={styles.cell}>{row.planner}</Text>
+            <Text style={styles.cell}>{row.worksheets}</Text>
+            <Text style={styles.cell}>{row.ttbl}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Remarks Section */}
+      <View style={styles.remarksContainer}>
+        <Text style={styles.remarks}>Remarks: {hcdData.remarks}</Text>
+      </View>
     </View>
   );
 };

@@ -135,50 +135,34 @@ export type MasterReport = {
 };
 
 export type Report = {
-    id: number;
-    campusId: number;
-    campus: {
-        id: string; 
-        email: string; 
-        name: string; 
-        phone?: string; 
-        isSuperUser: boolean; 
-        createdAt: Date;
-        updatedAt: Date; 
-    };
-    createdAt: string;
-    studentRemarks?: string | null;
-    staffRemarks?: string | null;
-    workloadRemarks?: string | null;
-    ttblRemarks?: string | null;
-    parentFeedback?: string | null;
-    PRstudent?: {
+  id: number;
+  campusId: number;
+  createdAt: string;
+  studentRemarks: string | null;
+  staffRemarks: string | null;
+  workloadRemarks: string | null;
+  ttblRemarks: string | null;
+  parentFeedback: string | null;
+  completed: boolean;
+  campus: {
+      id: string;
+      fkId: number;
+      email: string;
+      name: string;
+      phone: string;
+      isSuperUser: boolean;
+      password: string;
+      cityId: number;
+      createdAt: string;
+      updatedAt: string;
+  };
+  PRstudent: {
       reportId: number;
       remarks: string;
       PRstudentClassCell: {
-        id: number;
-        rowId: number;
-        classId: number;
-        prev: number;
-        left: number;
-        new: number;
-        movedOver: number;
-        promoted: number;
-        transfered: number;
-        total: number;
-        boys: number;
-        girls: number;
-        class: {
-          id: number;
-          name: string;
-          description: string;
-          campusId: number;
-          gradeId: number;
-        };
-        PRstudentSectionCell: {
           id: number;
           rowId: number;
-          sectionId: number;
+          classId: number;
           prev: number;
           left: number;
           new: number;
@@ -188,169 +172,509 @@ export type Report = {
           total: number;
           boys: number;
           girls: number;
-          section: {
-            id: number;
-            name: string;
-            classId: number;
+          class: {
+              id: number;
+              name: string;
+              description: string;
+              campusId: number;
+              gradeId: number;
           };
-        }[];
+          PRstudentSectionCell: {
+              id: number;
+              rowId: number;
+              sectionId: number;
+              prev: number;
+              left: number;
+              new: number;
+              movedOver: number;
+              promoted: number;
+              transfered: number;
+              total: number;
+              boys: number;
+              girls: number;
+              section: {
+                  id: number;
+                  name: string;
+                  classId: number;
+              };
+          }[];
       }[];
-    };
-    // PRStaff?: {
-    //   reportId: number;
-    //   remarks: string;
-    //   PRStaffDeps: {
-    //     id: number;
-    //     rowId: number;
-    //     departmentId: number;
-    //     department: {
-    //       id: number;
-    //       name: string;
-    //     };
-    //     PRStaffDesig: {
-    //       id: number;
-    //       rowId: number;
-    //       designationId: number;
-    //       prev: number;
-    //       left: number;
-    //       new: number;
-    //       total: number;
-    //       designation: {
-    //         id: number;
-    //         name: string;
-    //         departmentId: number;
-    //       };
-    //     }[];
-    //   }[];
-    // };
-    // PRworkload?: {
-    //   reportId: number;
-    //   remarks: string;
-    //   PRworkloadCell: {
-    //     id: number;
-    //     rowId: number;
-    //     teacherId: number;
-    //     workload: number;
-    //     students: number;
-    //     teacher: {
-    //       id: number;
-    //       campusId: number;
-    //       name: string;
-    //       designationId: number;
-    //       salary: number;
-    //       isActive: boolean;
-    //       dateJoined: string;
-    //       statusId: number;
-    //     };
-    //   }[];
-    // };
-    // PRObservationRecord?:  {
-    //     reportId: number;
-    //     PRObservationRecordCell: {
-    //         id: number;
-    //         rowId: number;
-    //         teacherId: number;
-    //         classId: number;
-    //         sectionId?: number | null;  // optional field
-    //         subjectId: number;
-    //         walkthrough: string;
-    //         informed: string;
-    //         uninformed: string;
-    //         teacher: Teacher;
-    //         class: Class;
-    //         subject: Subject;
-    //       }[];
-    //   };
-    // PRrechecking?: {
-    //   reportId: number;
-    //   PRrecheckingCell: {
-    //     id: number;
-    //     rowId: number;
-    //     classId: number;
-    //     teacherId: number;
-    //     subjectId: number;
-    //     status: boolean;
-    //     class: {
-    //       id: number;
-    //       name: string;
-    //       description: string;
-    //       campusId: number;
-    //       gradeId: number;
-    //     };
-    //     teacher: {
-    //       id: number;
-    //       campusId: number;
-    //       name: string;
-    //       designationId: number;
-    //       salary: number;
-    //       isActive: boolean;
-    //       dateJoined: string;
-    //       statusId: number;
-    //     };
-    //     subject: {
-    //       id: number;
-    //       name: string;
-    //       gradeId: number;
-    //     };
-    //   }[];
-    // };
-    // PRttbl?: {
-    //   reportId: number;
-    //   remarks: string;
-    //   PRttblCell: {
-    //     id: number;
-    //     rowId: number;
-    //     name: string;
-    //     avaliable: number;
-    //     working: number;
-    //     outOfOrder: number;
-    //   }[];
-    // };
-    // PRttblContent?: {
-    //   reportId: number;
-    //   preNurseryCLLE: boolean;
-    //   preNurseryCLLU: boolean;
-    //   preNurseryMD: boolean;
-    //   nurseryCLLE: boolean;
-    //   nurseryCLLU: boolean;
-    //   nurseryMD: boolean;
-    //   kindergartenCLLE: boolean;
-    //   kindergartenCLLU: boolean;
-    //   kindergartenyMD: boolean;
-    // };
-    // PRHcd?: {
-    //   reportId: number;
-    //   remarks: string;
-    //   meetings: number;
-    //   workload: number;
-    // };
-    // PRTenuffus?: {
-    //   reportId: number;
-    //   number: string;
-    //   remarks: string;
-    //   ealyYears: number;
-    //   primaryYears: number;
-    //   middleYears: number;
-    // };
-    // PRactivity?: {
-    //   reportId: number;
-    //   remarks: string;
-    //   PRactivityCell: {
-    //     id: number;
-    //     rowId: number;
-    //     cellValue: string;
-    //     date: string;
-    //     description: string;
-    //   }[];
-    // };
-    // PRswot?: {
-    //   reportId: number;
-    //   strength: string;
-    //   weakness: string;
-    //   opportunity: string;
-    //   threat: string;
-    // };
   };
+  PRStaff: {
+      reportId: number;
+      remarks: string;
+      PRStaffDeps: {
+          id: number;
+          rowId: number;
+          departmentId: number;
+          department: {
+              id: number;
+              name: string;
+          };
+          PRStaffDesig: {
+              id: number;
+              rowId: number;
+              designationId: number;
+              prev: number;
+              left: number;
+              new: number;
+              total: number;
+              designation: {
+                  id: number;
+                  name: string;
+                  departmentId: number;
+              };
+          }[];
+      }[];
+  };
+  PRworkload: {
+      reportId: number;
+      remarks: string;
+      PRworkloadCell: {
+          id: number;
+          rowId: number;
+          teacherId: number;
+          workload: number;
+          students: number;
+          teacher: {
+              id: number;
+              campusId: number;
+              name: string;
+              designationId: number;
+              salary: number;
+              isActive: boolean;
+              dateJoined: string;
+              statusId: number;
+          };
+      }[];
+  };
+  PRObservationRecord: {
+      reportId: number;
+      PRObservationRecordCell: {
+          id: number;
+          rowId: number;
+          teacherId: number;
+          classId: number;
+          sectionId: number | null;
+          subjectId: number;
+          walkthrough: string;
+          informed: string;
+          uninformed: string;
+          teacher: {
+              id: number;
+              campusId: number;
+              name: string;
+              designationId: number;
+              salary: number;
+              isActive: boolean;
+              dateJoined: string;
+              statusId: number;
+          };
+          class: {
+              id: number;
+              name: string;
+              description: string;
+              campusId: number;
+              gradeId: number;
+          };
+          subject: {
+              id: number;
+              name: string;
+              gradeId: number;
+          };
+      }[];
+  };
+  PRrechecking: {
+      reportId: number;
+      remarks: string;
+      PRrecheckingCell: {
+          id: number;
+          rowId: number;
+          classId: number;
+          teacherId: number;
+          subjectId: number;
+          count: number;
+          total: number;
+          class: {
+              id: number;
+              name: string;
+              description: string;
+              campusId: number;
+              gradeId: number;
+          };
+          teacher: {
+              id: number;
+              campusId: number;
+              name: string;
+              designationId: number;
+              salary: number;
+              isActive: boolean;
+              dateJoined: string;
+              statusId: number;
+          };
+          subject: {
+              id: number;
+              name: string;
+              gradeId: number;
+          };
+      }[];
+  };
+  PRttbl: {
+      reportId: number;
+      remarks: string;
+      PRttblCell: {
+          id: number;
+          rowId: number;
+          name: string;
+          avaliable: number;
+          working: number;
+          outOfOrder: number;
+      }[];
+  };
+  PRttblContent: {
+      reportId: number;
+      tbisRemarks: string | null;
+      preNurseryCLLE: boolean;
+      preNurseryCLLU: boolean;
+      preNurseryMD: boolean;
+      nurseryCLLE: boolean;
+      nurseryCLLU: boolean;
+      nurseryMD: boolean;
+      kindergartenCLLE: boolean;
+      kindergartenCLLU: boolean;
+      kindergartenMD: boolean;
+      g1Eng: boolean;
+      g1Urdu: boolean;
+      g1Math: boolean;
+      g1GK: boolean;
+      g1ICT: boolean;
+      g1Isl: boolean;
+      g2Eng: boolean;
+      g2Urdu: boolean;
+      g2Math: boolean;
+      g2GK: boolean;
+      g2ICT: boolean;
+      g2Isl: boolean;
+      g3Eng: boolean;
+      g3Urdu: boolean;
+      g3Math: boolean;
+      g3GK: boolean;
+      g3ICT: boolean;
+      g3Isl: boolean;
+      g4Eng: boolean;
+      g4Urdu: boolean;
+      g4Math: boolean;
+      g4SS: boolean;
+      g4ICT: boolean;
+      g4Isl: boolean;
+      g4Sci: boolean;
+      g5Eng: boolean;
+      g5Urdu: boolean;
+      g5Math: boolean;
+      g5SS: boolean;
+      g5ICT: boolean;
+      g5Isl: boolean;
+      g5Sci: boolean;
+  };
+  PRHcd: {
+      reportId: number;
+      remarks: string;
+      preNurseryPlanner: number;
+      preNurseryWorksheets: number;
+      preNuseryTTBL: number;
+      nurseryPlanner: number;
+      nurseryWorksheets: number;
+      nurseryTTBL: number;
+      kindergartenPlanner: number;
+      kindergartenWorksheets: number;
+      kindergartenTTBL: number;
+      grade1Planner: number;
+      grade1Worksheets: number;
+      grade1TTBL: number;
+      grade2Planner: number;
+      grade2Worksheets: number;
+      grade2TTBL: number;
+      grade3Planner: number;
+      grade3Worksheets: number;
+      grade3TTBL: number;
+      grade4Planner: number;
+      grade4Worksheets: number;
+      grade4TTBL: number;
+      grade5Planner: number;
+      grade5Worksheets: number;
+      grade5TTBL: number;
+      grade6Planner: number;
+      grade6Worksheets: number;
+      grade7Planner: number;
+      grade7Worksheets: number;
+      grade8Planner: number;
+      grade8Worksheets: number;
+  };
+  PRTenuffus: {
+      reportId: number;
+      remarks: string;
+      ealyYears: number;
+      primaryYears: number;
+      middleYears: number;
+      number: string | null;
+  };
+  PRELP: {
+      reportId: number;
+      remarks: string;
+      grade1Planner: number;
+      grade1Worksheets: number;
+      grade2Planner: number;
+      grade2Worksheets: number;
+      grade3Planner: number;
+      grade3Worksheets: number;
+      grade4Planner: number;
+      grade4Worksheets: number;
+      grade5Planner: number;
+      grade5Worksheets: number;
+      grade6Planner: number;
+      grade6Worksheets: number;
+      grade7Planner: number;
+      grade7Worksheets: number;
+      grade8Planner: number;
+      grade8Worksheets: number;
+  };
+  PRswot: {
+      reportId: number;
+      strength: string;
+      weakness: string;
+      opportunity: string;
+      threat: string;
+  };
+  PRactivity: {
+      reportId: number;
+      remarks: string;
+      PRactivityCell: {
+          id: number;
+          rowId: number;
+          cellValue: string;
+          date: string;
+          description: string;
+      }[];
+  };
+};
+
+// export type Report = {
+//     id: number;
+//     campusId: number;
+//     campus: {
+//         id: string; 
+//         email: string; 
+//         name: string; 
+//         phone?: string; 
+//         isSuperUser: boolean; 
+//         createdAt: Date;
+//         updatedAt: Date; 
+//     };
+//     createdAt: string;
+//     studentRemarks?: string | null;
+//     staffRemarks?: string | null;
+//     workloadRemarks?: string | null;
+//     ttblRemarks?: string | null;
+//     parentFeedback?: string | null;
+//     PRstudent?: {
+//       reportId: number;
+//       remarks: string;
+//       PRstudentClassCell: {
+//         id: number;
+//         rowId: number;
+//         classId: number;
+//         prev: number;
+//         left: number;
+//         new: number;
+//         movedOver: number;
+//         promoted: number;
+//         transfered: number;
+//         total: number;
+//         boys: number;
+//         girls: number;
+//         class: {
+//           id: number;
+//           name: string;
+//           description: string;
+//           campusId: number;
+//           gradeId: number;
+//         };
+//         PRstudentSectionCell: {
+//           id: number;
+//           rowId: number;
+//           sectionId: number;
+//           prev: number;
+//           left: number;
+//           new: number;
+//           movedOver: number;
+//           promoted: number;
+//           transfered: number;
+//           total: number;
+//           boys: number;
+//           girls: number;
+//           section: {
+//             id: number;
+//             name: string;
+//             classId: number;
+//           };
+//         }[];
+//       }[];
+//     };
+//     // PRStaff?: {
+//     //   reportId: number;
+//     //   remarks: string;
+//     //   PRStaffDeps: {
+//     //     id: number;
+//     //     rowId: number;
+//     //     departmentId: number;
+//     //     department: {
+//     //       id: number;
+//     //       name: string;
+//     //     };
+//     //     PRStaffDesig: {
+//     //       id: number;
+//     //       rowId: number;
+//     //       designationId: number;
+//     //       prev: number;
+//     //       left: number;
+//     //       new: number;
+//     //       total: number;
+//     //       designation: {
+//     //         id: number;
+//     //         name: string;
+//     //         departmentId: number;
+//     //       };
+//     //     }[];
+//     //   }[];
+//     // };
+//     // PRworkload?: {
+//     //   reportId: number;
+//     //   remarks: string;
+//     //   PRworkloadCell: {
+//     //     id: number;
+//     //     rowId: number;
+//     //     teacherId: number;
+//     //     workload: number;
+//     //     students: number;
+//     //     teacher: {
+//     //       id: number;
+//     //       campusId: number;
+//     //       name: string;
+//     //       designationId: number;
+//     //       salary: number;
+//     //       isActive: boolean;
+//     //       dateJoined: string;
+//     //       statusId: number;
+//     //     };
+//     //   }[];
+//     // };
+//     // PRObservationRecord?:  {
+//     //     reportId: number;
+//     //     PRObservationRecordCell: {
+//     //         id: number;
+//     //         rowId: number;
+//     //         teacherId: number;
+//     //         classId: number;
+//     //         sectionId?: number | null;  // optional field
+//     //         subjectId: number;
+//     //         walkthrough: string;
+//     //         informed: string;
+//     //         uninformed: string;
+//     //         teacher: Teacher;
+//     //         class: Class;
+//     //         subject: Subject;
+//     //       }[];
+//     //   };
+//     // PRrechecking?: {
+//     //   reportId: number;
+//     //   PRrecheckingCell: {
+//     //     id: number;
+//     //     rowId: number;
+//     //     classId: number;
+//     //     teacherId: number;
+//     //     subjectId: number;
+//     //     status: boolean;
+//     //     class: {
+//     //       id: number;
+//     //       name: string;
+//     //       description: string;
+//     //       campusId: number;
+//     //       gradeId: number;
+//     //     };
+//     //     teacher: {
+//     //       id: number;
+//     //       campusId: number;
+//     //       name: string;
+//     //       designationId: number;
+//     //       salary: number;
+//     //       isActive: boolean;
+//     //       dateJoined: string;
+//     //       statusId: number;
+//     //     };
+//     //     subject: {
+//     //       id: number;
+//     //       name: string;
+//     //       gradeId: number;
+//     //     };
+//     //   }[];
+//     // };
+//     // PRttbl?: {
+//     //   reportId: number;
+//     //   remarks: string;
+//     //   PRttblCell: {
+//     //     id: number;
+//     //     rowId: number;
+//     //     name: string;
+//     //     avaliable: number;
+//     //     working: number;
+//     //     outOfOrder: number;
+//     //   }[];
+//     // };
+//     // PRttblContent?: {
+//     //   reportId: number;
+//     //   preNurseryCLLE: boolean;
+//     //   preNurseryCLLU: boolean;
+//     //   preNurseryMD: boolean;
+//     //   nurseryCLLE: boolean;
+//     //   nurseryCLLU: boolean;
+//     //   nurseryMD: boolean;
+//     //   kindergartenCLLE: boolean;
+//     //   kindergartenCLLU: boolean;
+//     //   kindergartenyMD: boolean;
+//     // };
+//     // PRHcd?: {
+//     //   reportId: number;
+//     //   remarks: string;
+//     //   meetings: number;
+//     //   workload: number;
+//     // };
+//     // PRTenuffus?: {
+//     //   reportId: number;
+//     //   number: string;
+//     //   remarks: string;
+//     //   ealyYears: number;
+//     //   primaryYears: number;
+//     //   middleYears: number;
+//     // };
+//     // PRactivity?: {
+//     //   reportId: number;
+//     //   remarks: string;
+//     //   PRactivityCell: {
+//     //     id: number;
+//     //     rowId: number;
+//     //     cellValue: string;
+//     //     date: string;
+//     //     description: string;
+//     //   }[];
+//     // };
+//     // PRswot?: {
+//     //   reportId: number;
+//     //   strength: string;
+//     //   weakness: string;
+//     //   opportunity: string;
+//     //   threat: string;
+//     // };
+//   };
   
 
 type Teacher = {

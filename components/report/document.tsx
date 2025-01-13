@@ -13,6 +13,7 @@ import ReportHeader from './ReportHeader';
 import ObservationRecord from './ObservationRecord';
 import RecheckingModule from './Rechecking';
 import TeneffusModule from './Teneffus';
+import ELPTable from './ELPTable';
 
 const styles = StyleSheet.create({
   page: {
@@ -28,14 +29,15 @@ export const PrincipalReport = ({ report }: { report: any }) => (
       <ReportHeader date={report.createdAt.toLocaleString()} campus={report.campus.name} id={report.id} />
       <StudentTable report={report} />
       <StaffTable report={report} />
-      {/* <WorkloadTable report={report} />
+      <WorkloadTable report={report} />
       <ObservationRecord report={report} />
       <RecheckingModule  report={report} />
       <TTBL report={report} />
-      <HCDTable report={report} />
+      <HCDTable hcdData={report.PRHcd} />
+      <ELPTable prelpData={report.PRELP} />
       <TeneffusModule report={report} />
       <ActivitiesTable report={report} />
-      <SWOTTable report={report} /> */}
+      <SWOTTable report={report} />
       <ReportFooter />
     </Page>
   </Document>

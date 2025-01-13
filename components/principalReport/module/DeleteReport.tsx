@@ -42,7 +42,7 @@ const DeleteReport = ({id}: {id: number}) => {
    (
     <AlertDialog>
     <AlertDialogTrigger>
-        <Button variant="destructive">Delete Report</Button>
+    <div className='bg-destructive py-1 px-4 rounded-xl hover:bg-primary text-primary-foreground'>Delete REPORT</div>
     </AlertDialogTrigger>
     <AlertDialogContent className='bg-card text-card-foreground'>
         <AlertDialogHeader>
