@@ -1,4 +1,5 @@
 "use client"
+"use no memo"
 import { createActivity, createELPModule, createHCDModule, createObservation, createRechecking, createReport, createStaff, createStudent, createSWOT, createTenuus, createTTBL, createTTBLContent, createWorkload, updateReportStatus, validateModuleData } from '@/actions/newPrincipalReport'
 import {activitySchema, elpSchema, hcdSchema, observationSchema, RecheckingSchema, staffSchema, studentSchema, swotSchema, tenuusSchema, TTBLContentSchema, ttblSchema, workloadSchema } from '@/constants/zods'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -358,7 +359,7 @@ const ConclusionModule = () => {
             setLoading(false)
             return
         }
-        else {
+        
                
 
             console.log("validation passed")
@@ -374,9 +375,9 @@ const ConclusionModule = () => {
 
         
 
-            if (!report.student || true){
+            if (!report.student){
                 setStatus("Starting Great with uploading Students🎓...")
-                const studentModule = await createStudent({
+                 await createStudent({
                     reportId: report.id as number,
                     remarks: studentStore.remarks,
                     PRstudentClassCell: studentStore.classes.map((cls) => ({
@@ -406,10 +407,11 @@ const ConclusionModule = () => {
                         }))
                     }))
                 })
+                
                 report.setStudent(true)
             }
 
-            setLoading(false)
+           
 
             
 
@@ -678,7 +680,7 @@ const ConclusionModule = () => {
             setStatus("Report Published - Redirecting to Dashboard...")
             router.push("/principal-report/")
             setLoading(false)
-        }
+        
     }   
 
   return (

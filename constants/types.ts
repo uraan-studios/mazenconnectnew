@@ -196,160 +196,160 @@ export type Report = {
         }[];
       }[];
     };
-    PRStaff?: {
-      reportId: number;
-      remarks: string;
-      PRStaffDeps: {
-        id: number;
-        rowId: number;
-        departmentId: number;
-        department: {
-          id: number;
-          name: string;
-        };
-        PRStaffDesig: {
-          id: number;
-          rowId: number;
-          designationId: number;
-          prev: number;
-          left: number;
-          new: number;
-          total: number;
-          designation: {
-            id: number;
-            name: string;
-            departmentId: number;
-          };
-        }[];
-      }[];
-    };
-    PRworkload?: {
-      reportId: number;
-      remarks: string;
-      PRworkloadCell: {
-        id: number;
-        rowId: number;
-        teacherId: number;
-        workload: number;
-        students: number;
-        teacher: {
-          id: number;
-          campusId: number;
-          name: string;
-          designationId: number;
-          salary: number;
-          isActive: boolean;
-          dateJoined: string;
-          statusId: number;
-        };
-      }[];
-    };
-    PRObservationRecord?:  {
-        reportId: number;
-        PRObservationRecordCell: {
-            id: number;
-            rowId: number;
-            teacherId: number;
-            classId: number;
-            sectionId?: number | null;  // optional field
-            subjectId: number;
-            walkthrough: string;
-            informed: string;
-            uninformed: string;
-            teacher: Teacher;
-            class: Class;
-            subject: Subject;
-          }[];
-      };
-    PRrechecking?: {
-      reportId: number;
-      PRrecheckingCell: {
-        id: number;
-        rowId: number;
-        classId: number;
-        teacherId: number;
-        subjectId: number;
-        status: boolean;
-        class: {
-          id: number;
-          name: string;
-          description: string;
-          campusId: number;
-          gradeId: number;
-        };
-        teacher: {
-          id: number;
-          campusId: number;
-          name: string;
-          designationId: number;
-          salary: number;
-          isActive: boolean;
-          dateJoined: string;
-          statusId: number;
-        };
-        subject: {
-          id: number;
-          name: string;
-          gradeId: number;
-        };
-      }[];
-    };
-    PRttbl?: {
-      reportId: number;
-      remarks: string;
-      PRttblCell: {
-        id: number;
-        rowId: number;
-        name: string;
-        avaliable: number;
-        working: number;
-        outOfOrder: number;
-      }[];
-    };
-    PRttblContent?: {
-      reportId: number;
-      preNurseryCLLE: boolean;
-      preNurseryCLLU: boolean;
-      preNurseryMD: boolean;
-      nurseryCLLE: boolean;
-      nurseryCLLU: boolean;
-      nurseryMD: boolean;
-      kindergartenCLLE: boolean;
-      kindergartenCLLU: boolean;
-      kindergartenyMD: boolean;
-    };
-    PRHcd?: {
-      reportId: number;
-      remarks: string;
-      meetings: number;
-      workload: number;
-    };
-    PRTenuffus?: {
-      reportId: number;
-      number: string;
-      remarks: string;
-      ealyYears: number;
-      primaryYears: number;
-      middleYears: number;
-    };
-    PRactivity?: {
-      reportId: number;
-      remarks: string;
-      PRactivityCell: {
-        id: number;
-        rowId: number;
-        cellValue: string;
-        date: string;
-        description: string;
-      }[];
-    };
-    PRswot?: {
-      reportId: number;
-      strength: string;
-      weakness: string;
-      opportunity: string;
-      threat: string;
-    };
+    // PRStaff?: {
+    //   reportId: number;
+    //   remarks: string;
+    //   PRStaffDeps: {
+    //     id: number;
+    //     rowId: number;
+    //     departmentId: number;
+    //     department: {
+    //       id: number;
+    //       name: string;
+    //     };
+    //     PRStaffDesig: {
+    //       id: number;
+    //       rowId: number;
+    //       designationId: number;
+    //       prev: number;
+    //       left: number;
+    //       new: number;
+    //       total: number;
+    //       designation: {
+    //         id: number;
+    //         name: string;
+    //         departmentId: number;
+    //       };
+    //     }[];
+    //   }[];
+    // };
+    // PRworkload?: {
+    //   reportId: number;
+    //   remarks: string;
+    //   PRworkloadCell: {
+    //     id: number;
+    //     rowId: number;
+    //     teacherId: number;
+    //     workload: number;
+    //     students: number;
+    //     teacher: {
+    //       id: number;
+    //       campusId: number;
+    //       name: string;
+    //       designationId: number;
+    //       salary: number;
+    //       isActive: boolean;
+    //       dateJoined: string;
+    //       statusId: number;
+    //     };
+    //   }[];
+    // };
+    // PRObservationRecord?:  {
+    //     reportId: number;
+    //     PRObservationRecordCell: {
+    //         id: number;
+    //         rowId: number;
+    //         teacherId: number;
+    //         classId: number;
+    //         sectionId?: number | null;  // optional field
+    //         subjectId: number;
+    //         walkthrough: string;
+    //         informed: string;
+    //         uninformed: string;
+    //         teacher: Teacher;
+    //         class: Class;
+    //         subject: Subject;
+    //       }[];
+    //   };
+    // PRrechecking?: {
+    //   reportId: number;
+    //   PRrecheckingCell: {
+    //     id: number;
+    //     rowId: number;
+    //     classId: number;
+    //     teacherId: number;
+    //     subjectId: number;
+    //     status: boolean;
+    //     class: {
+    //       id: number;
+    //       name: string;
+    //       description: string;
+    //       campusId: number;
+    //       gradeId: number;
+    //     };
+    //     teacher: {
+    //       id: number;
+    //       campusId: number;
+    //       name: string;
+    //       designationId: number;
+    //       salary: number;
+    //       isActive: boolean;
+    //       dateJoined: string;
+    //       statusId: number;
+    //     };
+    //     subject: {
+    //       id: number;
+    //       name: string;
+    //       gradeId: number;
+    //     };
+    //   }[];
+    // };
+    // PRttbl?: {
+    //   reportId: number;
+    //   remarks: string;
+    //   PRttblCell: {
+    //     id: number;
+    //     rowId: number;
+    //     name: string;
+    //     avaliable: number;
+    //     working: number;
+    //     outOfOrder: number;
+    //   }[];
+    // };
+    // PRttblContent?: {
+    //   reportId: number;
+    //   preNurseryCLLE: boolean;
+    //   preNurseryCLLU: boolean;
+    //   preNurseryMD: boolean;
+    //   nurseryCLLE: boolean;
+    //   nurseryCLLU: boolean;
+    //   nurseryMD: boolean;
+    //   kindergartenCLLE: boolean;
+    //   kindergartenCLLU: boolean;
+    //   kindergartenyMD: boolean;
+    // };
+    // PRHcd?: {
+    //   reportId: number;
+    //   remarks: string;
+    //   meetings: number;
+    //   workload: number;
+    // };
+    // PRTenuffus?: {
+    //   reportId: number;
+    //   number: string;
+    //   remarks: string;
+    //   ealyYears: number;
+    //   primaryYears: number;
+    //   middleYears: number;
+    // };
+    // PRactivity?: {
+    //   reportId: number;
+    //   remarks: string;
+    //   PRactivityCell: {
+    //     id: number;
+    //     rowId: number;
+    //     cellValue: string;
+    //     date: string;
+    //     description: string;
+    //   }[];
+    // };
+    // PRswot?: {
+    //   reportId: number;
+    //   strength: string;
+    //   weakness: string;
+    //   opportunity: string;
+    //   threat: string;
+    // };
   };
   
 

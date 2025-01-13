@@ -28,14 +28,14 @@ export const PrincipalReport = ({ report }: { report: any }) => (
       <ReportHeader date={report.createdAt.toLocaleString()} campus={report.campus.name} id={report.id} />
       <StudentTable report={report} />
       <StaffTable report={report} />
-      <WorkloadTable report={report} />
+      {/* <WorkloadTable report={report} />
       <ObservationRecord report={report} />
       <RecheckingModule  report={report} />
       <TTBL report={report} />
       <HCDTable report={report} />
       <TeneffusModule report={report} />
       <ActivitiesTable report={report} />
-      <SWOTTable report={report} />
+      <SWOTTable report={report} /> */}
       <ReportFooter />
     </Page>
   </Document>

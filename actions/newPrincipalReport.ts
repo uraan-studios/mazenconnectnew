@@ -33,7 +33,7 @@ export const createReport = async () => {
 
 
 export const createStudent = async (data: z.infer<typeof studentSchema>) => {
-    const errors = await validateModuleData
+    console.log("ADDING STUDENT")
     const session = await validateRequest()
     if(!session.user) return {errors: "You must be logged in to create a report."}
 
@@ -87,10 +87,12 @@ export const createStudent = async (data: z.infer<typeof studentSchema>) => {
                 })
             }
 
-            return studentModule
+            console.log("aDDED")
+            return true
 
         } catch (error) {            
             console.log(error)
+            return false
             return {
                 errors: "Failed to create report. Please try again later.",
             };
@@ -630,6 +632,98 @@ export const getReport = async (id: number, campusId?: number) => {
     // Define a cached function that takes only the data needed for caching
     const fetchReport = unstable_cache(async (id: number, campusId: number) => {
         return await db.principalReport.findUnique({
+            where: { 
+                id: id, campusId: campusId 
+            },
+            include: {
+                campus:true,
+                PRstudent: {
+                    include: {
+                        PRstudentClassCell: {
+                            include: {
+                                class: true,
+                                PRstudentSectionCell: {
+                                    include: {
+                                        section: true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                PRStaff: {
+                    include: {
+                        PRStaffDeps: {
+                            include: {
+                                department: true,
+                                PRStaffDesig: {
+                                    include: {
+                                        designation: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                PRworkload: {
+                    include: {
+                        PRworkloadCell: {
+                            include: {
+                                teacher: true
+                            }
+                        }
+                    }
+                },
+
+                PRObservationRecord: {
+                    include: {
+                        PRObservationRecordCell: {
+                            include: {
+                                teacher: true,
+                                class: true,
+                                subject: true,
+                            }
+                        }
+                    }
+                },
+
+                PRrechecking: {
+                    include: {
+                        PRrecheckingCell: {
+                            include: {
+                                class: true,
+                                teacher: true,
+                                subject: true,
+                            }
+                        }
+                    },
+                    
+                },
+
+                PRttbl: {
+                    include: {
+                        PRttblCell: true
+                    }
+                },
+
+                PRttblContent: true,
+                PRHcd: true,
+                PRTenuffus: true,
+                PRELP: true,
+                PRswot: true,
+                PRactivity: {
+                    include: {
+                        PRactivityCell: true
+                    }
+                }
+
+            }
+            
+        })
+
+        return await db.principalReport.findUnique({
             where: {
                 id: id,
                 campusId: campusId
@@ -712,7 +806,7 @@ export const getReport = async (id: number, campusId?: number) => {
                 PRswot: true
             }
         });
-    }, ['report'], { revalidate: 3600, tags: ['reports'] });
+    }, ['report'], { revalidate: 50, tags: ['reports'] });
 
     // Use the user’s campus ID if campusId is not provided
     const effectiveCampusId = campusId || session.user?.fkid;
