@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import useTTBLModule from '@/stores/principalReport/ttbl';
 import ContentModule from './content/ContentModule';
+import { Separator } from '@/components/ui/separator';
 
 
 const TTBLModule = () => {
@@ -155,7 +156,7 @@ min= {0}
 
       <Card>
       <CardHeader>
-          <CardTitle>Any Remarks</CardTitle>
+          <CardTitle>TTBL Remarks</CardTitle>
           <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
       </CardHeader>
       <CardContent>
@@ -167,6 +168,22 @@ min= {0}
       </Card>
 
       <ContentModule/>
+      
+      <Separator className='my-4'/>
+
+      <Card>
+      <CardHeader>
+          <CardTitle>TTBI Remarks</CardTitle>
+          <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
+      </CardHeader>
+      <CardContent>
+          <Textarea
+          value={store.TTBIremarks}
+          onChange={(e)=> store.setTTBIremarks(e.target.value)}
+          />
+      </CardContent>
+      </Card>
+
     </div>
   )
 }

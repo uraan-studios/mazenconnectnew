@@ -22,11 +22,13 @@ interface TTBLModuleLaptops {
 
 interface TTBLModule {
     remarks: string;
+    TTBIremarks: string;
     smartBoard: TTBLModuleSmartBoard;
     projectors: TTBLModuleProjectors;
     laptops: TTBLModuleLaptops;
 
     setRemarks: (remarks: string) => void;
+    setTTBIremarks: (TTBIremarks: string) => void;
     setSmartBoard: (smartBoard: TTBLModuleSmartBoard) => void;
     setProjectors: (projectors: TTBLModuleProjectors) => void;
     setLaptops: (laptops: TTBLModuleLaptops) => void;
@@ -36,6 +38,7 @@ const useTTBLModule = create<TTBLModule>()(
     persist(
         (set) => ({
             remarks: "",
+            TTBIremarks: "",
             smartBoard: {
                 campusRequirement: 0,
                 available: 0,
@@ -56,6 +59,7 @@ const useTTBLModule = create<TTBLModule>()(
             },
 
             setRemarks: (remarks: string) => set({ remarks }),
+            setTTBIremarks: (TTBIremarks: string) => set({ TTBIremarks }),
             setSmartBoard: (smartBoard: TTBLModuleSmartBoard) => set({ smartBoard }),
             setProjectors: (projectors: TTBLModuleProjectors) => set({ projectors }),
             setLaptops: (laptops: TTBLModuleLaptops) => set({ laptops }),

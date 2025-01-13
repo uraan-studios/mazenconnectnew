@@ -231,7 +231,7 @@ model PRELP {
 // ? ACADEMIC MODULE
 model PRacademic {
 
-   reportId Int             @id @unique
+  reportId Int             @id @unique
   report   PrincipalReport @relation(fields: [reportId], references: [id])
   remarks  String
   PRacademicCell PRacademicCell[]

@@ -7,121 +7,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { useHCDModule } from '@/stores/principalReport/hcd';
 import { Separator } from '@/components/ui/separator';
+import { useELPModule } from '@/stores/principalReport/elp';
 
 
-const HCDModule = () => {
-  const store = useHCDModule()
+const ELPModule = () => {
+  const store = useELPModule()
   return (
     <div className="space-y-6">
 
       <Card>
       <CardHeader>
-          <CardTitle>HCD Module</CardTitle>
+          <CardTitle>ELP Module</CardTitle>
           <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
       </CardHeader>
       <CardContent>
-          <Table className='bg-secondary/25 p-6 rounded-md my-4 overflow-clip'>
-            <TableHeader className='bg-secondary '>
-              <TableRow>
-                <TableHead  className='text-secondary-foreground'>-</TableHead>
-                <TableHead  className='text-secondary-foreground'>Pre-Nursery</TableHead>
-                <TableHead  className='text-secondary-foreground'>Nursery</TableHead>
-                <TableHead  className='text-secondary-foreground'>Kindergarten</TableHead>
-              </TableRow>
-            </TableHeader>
-            
-            <TableBody>
-              <TableRow>
-                <TableCell className='text-semibold'>Planner</TableCell>
-                <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.preNurseryPlanner}
-                    onChange={(e) => store.setPreNurseryPlanner(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.nurseryPlanner}
-                    onChange={(e) => store.setNurseryPlanner(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.kindergartenPlanner}
-                    onChange={(e) => store.setKindergartenPlanner(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-
-
-              </TableRow>
-
-              <TableRow>
-                <TableCell className="text-semibold">Worksheets</TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.preNurseryWorksheets}
-                    onChange={(e) => store.setPreNurseryWorksheets(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.nurseryWorksheets}
-                    onChange={(e) => store.setNurseryWorksheets(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.kindergartenWorksheets}
-                    onChange={(e) => store.setKindergartenWorksheets(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell className="text-semibold">TTBL</TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.preNurseryTTBL}
-                    onChange={(e) => store.setPreNurseryTTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.nurseryTTBL}
-                    onChange={(e) => store.setNurseryTTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.kindergartenTTBL}
-                    onChange={(e) => store.setKindergartenTTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-              </TableRow>
-
-
-            </TableBody>
-          </Table>
-
-          <Separator className='my-6'/>
 
           {/* Primary And Middle Years */}
           <Table className="bg-secondary/25 p-6 rounded-md my-4 overflow-clip">
@@ -276,56 +175,6 @@ const HCDModule = () => {
                 </TableCell>
               </TableRow>
 
-              <TableRow>
-                <TableCell className="text-semibold">TTBL</TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1TTBL}
-                    onChange={(e) => store.setGrade1TTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2TTBL}
-                    onChange={(e) => store.setGrade2TTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3TTBL}
-                    onChange={(e) => store.setGrade3TTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4TTBL}
-                    onChange={(e) => store.setGrade4TTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5TTBL}
-                    onChange={(e) => store.setGrade5TTBL(parseInt(e.target.value, 10) || 0)}
-                  />
-                </TableCell>
-                <TableCell>
-                </TableCell>
-                <TableCell>
-
-                </TableCell>
-                <TableCell>
-                </TableCell>
-              </TableRow>
             </TableBody>
           </Table>
 
@@ -348,4 +197,4 @@ const HCDModule = () => {
   )
 }
 
-export default HCDModule
+export default ELPModule
