@@ -13,7 +13,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   }, []);
 
   return (
-    <main className="min-h-screen h-full flex">
+    <main className="min-h-screen h-full flex tex-fore">
       {/* Left Section */}
       {
         !isMobile &&

@@ -1,10 +1,8 @@
 // "use client"
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import useClassStore from '@/stores/principalReport/classes';
 import { getGrades } from '@/actions/grade';
 import CheckingTable from './CheckingTable';
-import { Textarea } from '@/components/ui/textarea';
 
 const CopyCheckingModule = async () => {
     // const classes = useClassStore()

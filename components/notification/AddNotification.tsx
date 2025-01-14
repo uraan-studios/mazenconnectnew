@@ -83,7 +83,6 @@ const AddNotification = () => {
                                 <Button variant="outline" className="w-full justify-start text-left font-normal">
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {notificationStore.expireAt ? (
-                                        //@ts-expect-error IDK WHY THIS IS WORKING
                                         format(new Date(notificationStore.expireAt), "PPP")
                                     ) : (
                                         <span>Pick a date</span>

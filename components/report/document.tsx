@@ -14,6 +14,7 @@ import ObservationRecord from './ObservationRecord';
 import RecheckingModule from './Rechecking';
 import TeneffusModule from './Teneffus';
 import ELPTable from './ELPTable';
+import { Report } from '@/constants/types';
 
 const styles = StyleSheet.create({
   page: {
@@ -23,10 +24,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export const PrincipalReport = ({ report }: { report: any }) => (
+export const PrincipalReport = ({ report }: { report: Report }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <ReportHeader date={report.createdAt.toLocaleString()} campus={report.campus.name} id={report.id} />
+      <ReportHeader date={report.createdAt.toLocaleString()} campus={report.campus.name} id={report.id.toString()} />
       <StudentTable report={report} />
       <StaffTable report={report} />
       <WorkloadTable report={report} />

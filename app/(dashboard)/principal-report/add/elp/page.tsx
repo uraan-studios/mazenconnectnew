@@ -1,6 +1,5 @@
 import AnimatedHeading from '@/components/general/animatedHeading'
 import ELPModule from '@/components/principalReport/elp/ELPModule'
-import HCDModule from '@/components/principalReport/hcd/HCDModule'
 import PrincipalReportNav from '@/components/principalReport/PrincipalReportNav'
 import { Skeleton } from '@/components/ui/skeleton'
 import React, { Suspense } from 'react'

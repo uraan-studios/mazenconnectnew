@@ -78,7 +78,7 @@ const ClassTable = ({data}:{data:data[]}) => {
               }))
             )
         }
-    }, [data])
+    }, [data, classStore, store])
 
     const [openSections, setOpenSections] = useState<Record<number, boolean>>({})
 
@@ -91,7 +91,7 @@ const ClassTable = ({data}:{data:data[]}) => {
 
     const loadPrevRecord = () => {
       store.classes.forEach((classItem) => {
-        classItem.sections.forEach((section) => {
+        classItem.sections.forEach(() => {
 
         })
       })
@@ -120,7 +120,9 @@ const ClassTable = ({data}:{data:data[]}) => {
             </TableRow>
         </TableHeader>
         <TableBody>
-          {store.classes.map((classItem: any) => (
+          
+          {
+          store.classes.map((classItem) => (
             <React.Fragment key={classItem.id}>
               <ClassRow
                 classItem={classItem}
@@ -129,7 +131,7 @@ const ClassTable = ({data}:{data:data[]}) => {
                 updateClass={store.updateClass}
               />
               {openSections[classItem.id] &&
-                classItem.sections.map((section: any) => (
+                classItem.sections.map((section) => (
                   <SectionRow
                     key={section.id}
                     section={section}

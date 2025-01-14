@@ -1,8 +1,6 @@
 import AnimatedHeading from '@/components/general/animatedHeading'
-import CopyCheckingModule from '@/components/principalReport/copyChecking/CopyCheckingModule'
 import PrincipalReportNav from '@/components/principalReport/PrincipalReportNav'
 import TeneffusModule from '@/components/principalReport/teneffus/TeneffusModule'
-import TTBLModule from '@/components/principalReport/ttbl/TTBLModule'
 import { Skeleton } from '@/components/ui/skeleton'
 import React, { Suspense } from 'react'
 

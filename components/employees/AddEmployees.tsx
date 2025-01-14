@@ -2,17 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, CalendarIcon } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
 import { useEmployeeStore } from '@/stores/employee'
 import { createEmployee } from '@/actions/employees'
-import { format } from 'date-fns';
 
 
 
@@ -33,7 +29,6 @@ type StatusOption = {
 
 const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions: StatusOption[] }) => {
   const employeeStore = useEmployeeStore()
-  const router = useRouter()
   const [error, setError] = useState<string>("")
   const [filteredDesignations, setFilteredDesignations] = useState<Roles['Designation']>([])
   const [selectedDepartment, setSelectedDepartment] = useState<number>(0)

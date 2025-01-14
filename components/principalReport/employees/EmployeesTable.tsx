@@ -44,7 +44,7 @@ const EmployeesTable = ({data}:{data:data[]}) => {
             }))
            )
         }
-    }, [data])
+    }, [data, store])
 
 
   return (

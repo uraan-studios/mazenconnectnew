@@ -1,25 +1,26 @@
-import { Input } from '@/components/ui/input'
-import { TableRow, TableCell } from '@/components/ui/table'
-import { StudentModuleSection } from '@/stores/principalReport/students'
-import React, { useEffect } from 'react'
+import { Input } from '@/components/ui/input';
+import { TableRow, TableCell } from '@/components/ui/table';
+import { StudentModuleSection } from '@/stores/principalReport/students';
+import React, { useEffect } from 'react';
 
 interface SectionRowProps {
-  section: StudentModuleSection
-  classId: number
-  updateSection: (classId: number, sectionId: number, data: Record<string, any>) => void
+  section: StudentModuleSection;
+  classId: number;
+  updateSection: (classId: number, sectionId: number, data: Partial<StudentModuleSection>) => void;
 }
 
 const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection }) => {
+  // Calculate the total whenever the relevant fields change
+  useEffect(() => {
+    const total = section.previous - section.left + section.new;
+    updateSection(classId, section.id, { total });
+  }, [section.previous, section.left, section.new, classId, section.id, updateSection]);
 
-    useEffect(() => {
-      
-    updateSection(classId, section.id, {
-        total: section.previous - section.left + section.new,
-    })
-    
-    }, [section.previous, section.left, section.new, section.transfered, section.promoted])
-    
-    
+  const handleInputChange = (field: keyof StudentModuleSection) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10) || 0; // Ensure we have a valid number
+    updateSection(classId, section.id, { [field]: value });
+  };
+
   return (
     <TableRow className='bg-primary/15'>
       <TableCell>{section.id}</TableCell>
@@ -31,7 +32,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.previous}
-          onChange={(e) => updateSection(classId, section.id, { previous: parseInt(e.target.value) })}
+          onChange={handleInputChange('previous')}
         />
       </TableCell>
 
@@ -41,7 +42,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.left}
-          onChange={(e) => updateSection(classId, section.id, { left: parseInt(e.target.value) })}
+          onChange={handleInputChange('left')}
         />
       </TableCell>
 
@@ -51,7 +52,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.new}
-          onChange={(e) => updateSection(classId, section.id, { new: parseInt(e.target.value) })}
+          onChange={handleInputChange('new')}
         />
       </TableCell>
 
@@ -61,7 +62,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.transfered}
-          onChange={(e) => updateSection(classId, section.id, { transfered: parseInt(e.target.value) })}
+          onChange={handleInputChange('transfered')}
         />
       </TableCell>
 
@@ -71,7 +72,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.promoted}
-          onChange={(e) => updateSection(classId, section.id, { promoted: parseInt(e.target.value) })}
+          onChange={handleInputChange('promoted')}
         />
       </TableCell>
 
@@ -82,7 +83,6 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           min={0}
           disabled
           value={section.total}
-          onChange={(e) => updateSection(classId, section.id, { total: parseInt(e.target.value) })}
         />
       </TableCell>
 
@@ -92,7 +92,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.boys}
-          onChange={(e) => updateSection(classId, section.id, { boys: parseInt(e.target.value) })}
+          onChange={handleInputChange('boys')}
         />
         /
         <Input
@@ -100,11 +100,11 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
           type='number'
           min={0}
           value={section.girls}
-          onChange={(e) => updateSection(classId, section.id, { girls: parseInt(e.target.value) })}
+          onChange={handleInputChange('girls')}
         />
       </TableCell>
     </TableRow>
-  )
-}
+  );
+};
 
-export default SectionRow
+export default SectionRow;

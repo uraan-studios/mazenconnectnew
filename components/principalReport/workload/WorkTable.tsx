@@ -74,7 +74,7 @@ const WorkTable = ({staff, subjects}: {staff: staff[], subjects: Subject[]}) => 
                 }))
             );
         }
-    }, [staff, subjects]);
+    }, [staff, subjects,teacherStore, subjectStore, store]);
 
   return (
     <div className='space-y-2'>

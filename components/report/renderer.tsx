@@ -1,9 +1,8 @@
 "use client";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { PrincipalReport } from "./document"; // Ensure the path is correct
-import { FC } from "react";
 
-import { MasterReport, Report } from "@/constants/types";
+import { Report } from "@/constants/types";
 
 const ReportPageRenderer = ({ report }: { report: Report }) => {
   const formattedDate = new Date(new Date(report.createdAt).setMonth(new Date(report.createdAt).getMonth() - 1)).toLocaleString(

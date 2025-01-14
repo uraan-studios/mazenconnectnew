@@ -1,5 +1,4 @@
 import { validateRequest } from '@/lib/validateSessions'
-import Image from 'next/image'
 import React from 'react'
 import Logout from './Logout'
 import { Button } from '../ui/button'

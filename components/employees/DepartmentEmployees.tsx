@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { getEmployeesByDepartment } from '@/actions/employees'; // Your action
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import DeleteEmployee from './DeleteEmployee';
 
 interface DepartmentEmployeesProps {
@@ -12,13 +11,14 @@ interface DepartmentEmployeesProps {
 }
 
 const DepartmentEmployees: React.FC<DepartmentEmployeesProps> = ({ departmentId, departmentName }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [staff, setStaff] = useState<any[]>([]); // Adjust the type if needed
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchEmployees = async () => {
-      const { employees, total, totalPages } = await getEmployeesByDepartment(departmentId, page);
+      const { employees, totalPages } = await getEmployeesByDepartment(departmentId, page);
       setStaff(employees);
       setTotalPages(totalPages);
     };

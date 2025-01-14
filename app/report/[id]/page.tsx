@@ -1,13 +1,14 @@
 "use client";
 import { getReport } from '@/actions/prinicpalReport';
 import React, { useEffect, useState } from 'react';
-import { MasterReport, Report } from '@/constants/types';
-import { useSearchParams } from 'next/navigation';
+import { Report } from '@/constants/types';
+import { useParams, useSearchParams } from 'next/navigation';
 
 // Dynamic import for ReportPageRenderer
 const DynamicReportPageRenderer = React.lazy(() => import('@/components/report/renderer'));
 
-const ReportPage = ({ params }: { params: { id: string } }) => {
+const ReportPage = () => {
+  const params = useParams<{id: string}>()
   const searchParams = useSearchParams();
   
   // Declare hooks first
@@ -37,7 +38,7 @@ const ReportPage = ({ params }: { params: { id: string } }) => {
     };
   
     fetchReport();
-  }, [params.id]);
+  }, [params.id, searchParams]); // Add searchParams as a dependency here
 
   if (!isValidKey) {
     return <div>Invalid key</div>;

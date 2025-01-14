@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import AnimatedHeading from '@/components/general/animatedHeading';
 import Link from 'next/link';
 import { ArrowLeftToLineIcon } from 'lucide-react';
-import { MasterReport, Report } from '@/constants/types';
+import {  Report } from '@/constants/types';
 import { useSearchParams, useParams } from 'next/navigation';
 import { getReport } from '@/actions/newPrincipalReport';
 

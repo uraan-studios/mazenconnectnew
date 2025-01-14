@@ -39,9 +39,9 @@ const PrincipalReportModule = ({isAdmin}: {isAdmin: boolean}) => {
   const [reports, setReports] = useState<PrincipalReport[]>([]);
   const [campuses, setCampuses] = useState<Campus[]>([]);
   const [selectedCampus, setSelectedCampus] = useState<number | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<Date | null>(null); // Changed to Date type
+  const [selectedMonth] = useState<Date | null>(null); // Changed to Date type
 
-  const currentYear = 2024; // Default year to 2024
+  // const currentYear = 2024; // Default year to 2024
 
   // Fetch reports whenever selectedCampus or selectedMonth changes
   useEffect(() => {

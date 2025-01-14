@@ -1,5 +1,4 @@
 "use client"
-import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
 import {
     AlertDialog,
@@ -13,7 +12,6 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { useRouter } from 'next/navigation'
-import { deleteClass } from '@/actions/class'
 import { deletePrincipalReport } from '@/actions/prinicpalReport'
 
 const DeleteReport = ({id}: {id: number}) => {

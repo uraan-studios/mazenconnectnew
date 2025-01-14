@@ -11,7 +11,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import useRecheckingStore from '@/stores/principalReport/rechecking';
 import { Label } from '@/components/ui/label';
@@ -48,7 +47,7 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
         if (!session) {
             classStore.setDivisions(divisions);
         }
-    }, [divisions]);
+    }, [divisions, classStore]);
 
     const handleAddRechecking = (classId: number, teacherId: number, subjectId: number, count: number) => {
         recheckingStore.addRechecking(classId, teacherId, subjectId, count);

@@ -1,6 +1,6 @@
 "use client"
 "use no memo"
-import { createActivity, createELPModule, createHCDModule, createObservation, createRechecking, createReport, createStaff, createStudent, createSWOT, createTenuus, createTTBL, createTTBLContent, createWorkload, updateReportStatus, validateModuleData } from '@/actions/newPrincipalReport'
+import { createActivity, createELPModule, createHCDModule, createObservation, createRechecking, createReport, createStaff, createStudent, createSWOT, createTenuus, createTTBL, createTTBLContent, createWorkload, updateReportStatus } from '@/actions/newPrincipalReport'
 import {activitySchema, elpSchema, hcdSchema, observationSchema, RecheckingSchema, staffSchema, studentSchema, swotSchema, tenuusSchema, TTBLContentSchema, ttblSchema, workloadSchema } from '@/constants/zods'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -22,10 +22,10 @@ import { AlertCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import usePrincipalReport from '@/stores/principalReport/report'
-import { set } from 'date-fns'
 import { useELPModule } from '@/stores/principalReport/elp'
 import { Separator } from '@radix-ui/react-separator'
 import { toast } from "sonner"
+import { ZodError, ZodIssue } from 'zod'
 
 const ConclusionModule = () => {
     const router = useRouter()
@@ -47,7 +47,6 @@ const ConclusionModule = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string>("")
     const [status, setStatus] = useState("")
-    const [clicks, setClicks] = useState(0)
 
     useEffect(() => {
         if(status){
@@ -63,16 +62,15 @@ const ConclusionModule = () => {
         "use client";
     
         let isValid = true;
-        let errorMessages: string[] = [];
+        const errorMessages: string[] = [];
     
         // Helper function to handle Zod validation errors
-        const handleValidationErrors = (validationResult: any) => {
-            console.log(validationResult.error)
-            if (!validationResult.success) {
-                validationResult.error.issues.forEach((issue: any) => {
-                    errorMessages.push(issue.message);
+        const handleValidationErrors = (validationResult: { success: boolean; error?: ZodError }) => {
+            if (!validationResult.success && validationResult.error) {
+                validationResult.error.issues.forEach((issue: ZodIssue) => {
+                    errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
                 });
-                isValid = false;
+                isValid = false; // Ensure `isValid` is declared in your scope
             }
         };
     
@@ -418,7 +416,7 @@ const ConclusionModule = () => {
             if (!report.employee){
                 setStatus("Looks like we are uploading staff👨‍💻...")
 
-                const staffModule = await createStaff({
+                await createStaff({
                     reportId: report.id as number,
                     remarks: employeeStore.remarks,
                     PRStaffDeps: employeeStore.departments.map((dep) => ({
@@ -440,7 +438,7 @@ const ConclusionModule = () => {
 
             if (!report.workload){
                 setStatus("Uploading Teacher's Workload...")
-                const workloadModule = await createWorkload({
+                await createWorkload({
                     reportId: report.id as number,
                     remarks: workloadStore.remarks,
                     PRworkloadCell: workloadStore.staff.map((staff) => ({
@@ -455,7 +453,7 @@ const ConclusionModule = () => {
 
             if(!report.observation){
                 setStatus("Made some progess, uploading Observations👀...")
-                const observationModule = await createObservation({
+                await createObservation({
                     reportId: report.id as number,
                     PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
                         id: observationRecord.id,
@@ -472,7 +470,7 @@ const ConclusionModule = () => {
 
             if(!report.rechecking){
                 setStatus("Looking nice, proceeding to uploading Rechecking module📕...")
-                const recheckingModule = await createRechecking({
+                await createRechecking({
                     reportId: report.id as number,
                     remarks: recheckingStore.remarks,
                     PRrecheckingCell: recheckingStore.rechecking.map((rechecking) => ({
@@ -488,7 +486,7 @@ const ConclusionModule = () => {
 
             if(!report.ttbl){
                 setStatus("Halway There👋...TTBL next.")
-                const ttblModule = await createTTBL({
+                await createTTBL({
                     reportId: report.id as number,
                     remarks: ttblStore.remarks,
                     PRttblCell: [
@@ -517,7 +515,7 @@ const ConclusionModule = () => {
 
             if(!report.ttblContent){
                 setStatus("TTBL Content on its way👀...")
-                const ttblContentModule = await createTTBLContent({
+                await createTTBLContent({
                     reportId: report.id as number,
                     tbisRemarks: ttblStore.TTBIremarks,
 
@@ -576,7 +574,7 @@ const ConclusionModule = () => {
             
             if(!report.hcd){
                 setStatus("Let's get to the HCD module...")
-                const hcdModule = await createHCDModule({
+                await createHCDModule({
                     reportId: report.id as number,
                     remarks: hcdStore.remarks,
                     preNurseryPlanner: hcdStore.preNurseryPlanner,
@@ -616,7 +614,7 @@ const ConclusionModule = () => {
 
             if(!report.tenuus){
                 setStatus("We're alomost there...Tenuus module.")
-                const tenuusModule = await createTenuus({
+                await createTenuus({
                     reportId: report.id as number,
                     remarks: tenuusStore.remarks,
                     // number: tenuusStore.number
@@ -629,7 +627,7 @@ const ConclusionModule = () => {
 
             if(!report.elp){
                 setStatus("Hmmm...ELP module.🙌")
-                const elpModule = await createELPModule({
+                await createELPModule({
                     reportId: report.id as number,
                     remarks: elpStore.remarks,
                     grade1Planner: elpStore.grade1Planner,
@@ -654,7 +652,7 @@ const ConclusionModule = () => {
 
             if(!report.activity){
                 setStatus("Let's get to the Activity module...")
-                const activityModule = await createActivity({
+                await createActivity({
                     reportId: report.id as number,
                     remarks: activityStore.remarks,
                     activities: activityStore.activities
@@ -664,7 +662,7 @@ const ConclusionModule = () => {
 
             if(!report.swot){
                 setStatus("Finally, the SWOT module...")
-                const swotModule = await createSWOT({
+                createSWOT({
                     reportId: report.id as number,
                     strength: sWotStore.strength,
                     weakness: sWotStore.weakness,

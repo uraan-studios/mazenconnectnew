@@ -65,7 +65,6 @@ const ActivityModule = () => {
                   <p className="text-sm mt-2">
                     
                     {activity.date ? `Selected date: ${ 
-                    //@ts-expect-error IDK WHY THIS IS WORKING
 
                     format(new Date(activity.date), "PPP")}` : "No date selected"}
                   </p>
@@ -99,7 +98,6 @@ const ActivityModule = () => {
               />
               <p className="text-sm mt-2">
                 {newActivityDate ? `Selected date: ${
-                //@ts-expect-error IDK WHY THIS IS WORKING
                 format(new Date(newActivityDate), "PPP")}` : "No date selected"}
               </p>
             </div>

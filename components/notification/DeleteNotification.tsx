@@ -1,5 +1,4 @@
 "use client"
-import { Button } from '@/components/ui/button'
 import React from 'react'
 import {
     AlertDialog,
@@ -12,7 +11,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { deleteEmployee } from '@/actions/employees'
 import { useRouter } from 'next/navigation'
 import { deleteNotification } from '@/actions/notification'
   
