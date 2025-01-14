@@ -107,7 +107,7 @@ const ELPTable: React.FC<ELPTableProps> = ({ prelpData }) => {
   return (
     <View style={styles.container}>
       {/* Section Header */}
-      <Text style={styles.sectionHeader}>E. Early Learning Program (ELP)</Text>
+      <Text style={styles.sectionHeader}>I. Early Learning Program (ELP)</Text>
 
       {/* Table */}
       <View style={styles.table}>
@@ -138,9 +138,7 @@ const ELPTable: React.FC<ELPTableProps> = ({ prelpData }) => {
       </View>
 
       {/* Remarks Section */}
-      <View style={styles.remarksContainer}>
-        <Text style={styles.remarks}>Remarks: {prelpData.remarks}</Text>
-      </View>
+      <Text style={styles.remarks}>Remarks: {prelpData.remarks}</Text>
     </View>
   );
 };

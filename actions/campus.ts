@@ -27,3 +27,19 @@ export const getCampuses = async () => {
         }
     })
 }
+
+export const getCampusEmails = async () => {
+    const session = await validateRequest();
+    if (!session.user) {
+        return []
+    }
+
+    return await db.user.findMany({
+        where: {
+            isSuperUser: false
+        },
+        select: {
+            email: true
+        }
+    })
+}

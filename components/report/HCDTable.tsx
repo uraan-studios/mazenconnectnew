@@ -121,7 +121,8 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
   return (
     <View style={styles.container}>
       {/* Early Years Table */}
-      <Text style={styles.sectionHeader}>Early Years</Text>
+      <Text style={styles.sectionHeader}>H. HCD</Text>
+      <Text style={styles.remarks}>Early Years</Text>
       <View style={styles.table}>
         {/* Table Header */}
         <View style={styles.headerRow}>
@@ -157,7 +158,7 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
       </View>
 
       {/* Primary and Middle Years Table */}
-      <Text style={styles.sectionHeader}>Primary and Middle Years</Text>
+      <Text style={styles.remarks}>Primary and Middle Years</Text>
       <View style={styles.table}>
         {/* Table Header */}
         <View style={styles.headerRow}>
@@ -188,9 +189,8 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
       </View>
 
       {/* Remarks Section */}
-      <View style={styles.remarksContainer}>
-        <Text style={styles.remarks}>Remarks: {hcdData.remarks}</Text>
-      </View>
+      <Text style={styles.remarks}>Remarks: {hcdData.remarks}</Text>
+
     </View>
   );
 };

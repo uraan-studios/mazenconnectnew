@@ -3,6 +3,8 @@
 import { db } from "@/lib/db"
 import { validateRequest } from "@/lib/validateSessions";
 import { z } from "zod";
+import { getCampusEmails } from "./campus";
+import { sendEmail } from "./email";
 
 export const getNotifications = async (date: Date) => {
     const session = await validateRequest();
@@ -55,6 +57,15 @@ export const createNotification = async (data: z.infer<typeof notificationSchema
                 expireAt: data.expireAt
             }
         })
+
+        const emails = await getCampusEmails()
+        for (const email of emails) {
+            await sendEmail({
+                email: email.email,
+                subject: 'Notification',
+                message: data.message
+            })
+        }
 
         return { success: true }; 
 

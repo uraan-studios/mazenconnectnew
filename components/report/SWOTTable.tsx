@@ -67,7 +67,7 @@ const SWOTTable: React.FC<SWOTTableProps> = ({ report }) => {
 
   return (
     <View style={{ padding: '20px 0' }}>
-      <Text style={{ fontSize: 14, fontWeight: 'bold', marginBottom: 5 }}>G. SWOT</Text>
+      <Text style={{ fontSize: 14, fontWeight: 'bold', marginBottom: 5 }}>L. SWOT</Text>
       <View style={styles.table}>
         {/* Header Row */}
         <View style={styles.headerRow}>

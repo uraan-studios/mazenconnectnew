@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 const ActivitiesTable: React.FC<{report: Report}> = ({ report }) => {
   return (
     <View style={{ padding: "20px 0" }}>
-      <Text style={{ fontSize: 14, fontWeight: "bold", marginBottom: 5 }}>F. Activities</Text>
+      <Text style={{ fontSize: 14, fontWeight: "bold", marginBottom: 5 }}>K. OSA / Activities</Text>
       <View style={styles.table}>
         {/* Header Row */}
         <View style={styles.headerRow}>
@@ -86,6 +86,9 @@ const ActivitiesTable: React.FC<{report: Report}> = ({ report }) => {
             {report.PRactivity?.PRactivityCell.length} Activities
           </Text>
         </View>
+
+        {/* Remarks */}
+        <Text style={styles.remarks}>Remarks: {report.PRactivity?.remarks}</Text>
       </View>
     </View>
   );

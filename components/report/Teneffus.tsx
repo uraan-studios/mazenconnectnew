@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 const TeneffusModule = ({ report }: { report: Report }) => {
   return (
     <View style={{ padding: '20px 0' }}>
-      <Text style={{ fontSize: 14, fontWeight: 'bold', marginBottom: 5 }}>E. Teneffus</Text>
+      <Text style={{ fontSize: 14, fontWeight: 'bold', marginBottom: 5 }}>J. Teneffus</Text>
       <View style={styles.table}>
         <View style={styles.headerRow}>
             <Text style={styles.cell}>Total Number of sessions:</Text>

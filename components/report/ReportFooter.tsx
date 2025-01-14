@@ -20,6 +20,15 @@ const styles = StyleSheet.create({
       color: 'grey',
 
     },
+    textxs: {
+      fontSize: 8,
+      marginBottom: 2,
+      marginTop: 10,
+      textAlign: 'center',
+      color: 'grey',
+      opacity: 0.5,
+
+    },
     image: {
       width: '40%',
       marginBottom: 10,
@@ -44,6 +53,9 @@ const ReportFooter = () => {
       <View style={styles.spacer} />
         <Text style={styles.text}>
             This report was taken from Mazen Connect at {new Date().toLocaleString()}
+        </Text>
+        <Text style={styles.textxs}>
+            Powered by URAAN STUDIOS © 2025
         </Text>
     </View>
   )
