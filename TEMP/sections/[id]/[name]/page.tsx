@@ -71,3 +71,17 @@
 // };
 
 // export default SectionPage;
+
+// # Environment variables declared in this file are automatically made available to Prisma.
+// # See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+// # Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+// # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+// DATABASE_URL="mysql://hawkener_foodify:merapa55word1234@h35.eu.core.hostnext.net:3306/hawkener_mazenconnectnew"
+
+// # DATABASE_URL="mysql://mazensch_connect:merapa55word1234@h35.eu.core.hostnext.net:3306/mazensch_mazenconnect"
+
+// # Mazen@Schools1234 = $2b$10$bCMRhV3MzNCkYC0/tR82xeAFCDcMaqF/oy.Vpkx9iV6stO42S5WhG
+// # $2b$10$XJ3fU2KYTMn.xAIVCsrEZu.fJNgVBRUX06oDSQSTq7wJpx3GAOmw2
+// # yfozuwlwaladm5to

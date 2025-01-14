@@ -360,56 +360,60 @@ export const deletePrincipalReport = async (id: number) => {
     try {
         // Delete associated data first before deleting the main report
         await db.$transaction([
-            // Delete PRHcd
+            // Delete PRswot
             db.pRswot.deleteMany({ where: { reportId: id } }),
-            
-            db.pRactivityCell.deleteMany({ where: { PRactivity: { reportId: id } } }),
-            
-            db.pRactivity.deleteMany({ where: { reportId: id } }),
-            
-            db.pRTenuffus.deleteMany({ where: { reportId: id } }),
-            
-            db.pRHcd.deleteMany({ where: { reportId: id } }),
 
-            db.pRTTBLContent.deleteMany({ where: { reportId: id } }),
-            db.pRttblCell.deleteMany({ where: { PRttbl: { reportId: id } } }),
-            db.pRttbl.deleteMany({ where: { reportId: id } }),
-            
-            db.pRrecheckingCell.deleteMany({ where: { PRrechecking: { reportId: id } } }),
-            db.pRrechecking.deleteMany({ where: { reportId: id } }),
-            
-            db.pRObservationRecordCell.deleteMany({ where: { PRObservationRecord: { reportId: id } } }),
-            db.pRObservationRecord.deleteMany({ where: { reportId: id } }),
-            
+            // Delete PRactivity and PRactivityCell
+            db.pRactivityCell.deleteMany({ where: { PRactivity: { reportId: id } } }),
+            db.pRactivity.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRworkload and PRworkloadCell
             db.pRworkloadCell.deleteMany({ where: { PRworkload: { reportId: id } } }),
             db.pRworkload.deleteMany({ where: { reportId: id } }),
-            
+
+            // Delete PRttbl and PRttblCell
+            db.pRttblCell.deleteMany({ where: { PRttbl: { reportId: id } } }),
+            db.pRttbl.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRstudent, PRstudentClassCell, and PRstudentSectionCell
+            db.pRstudentSectionCell.deleteMany({ where: { PRstudent: { PRstudent: { reportId: id } } } }),
+            db.pRstudentClassCell.deleteMany({ where: { PRstudent: { reportId: id } } }),
+            db.pRstudent.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRStaff, PRStaffDeps, and PRStaffDesig
             db.pRStaffDesig.deleteMany({ where: { PRStaffDeps: { PRStaff: { reportId: id } } } }),
             db.pRStaffDeps.deleteMany({ where: { PRStaff: { reportId: id } } }),
             db.pRStaff.deleteMany({ where: { reportId: id } }),
 
-            db.pRstudentSectionCell.deleteMany({ where: { PRstudent: { PRstudent: { reportId: id } } } }),
-            db.pRstudentClassCell.deleteMany({ where: { PRstudent: { reportId: id } } }),
-            db.pRstudent.deleteMany({ where: { reportId: id } }),
-            
-            db.principalReport.delete({ where: { id } })
-            // Delete PRactivity and PRactivityCell
-            // Delete PRworkload and PRworkloadCell
-            // Delete PRswot
-            // Delete PRttbl and PRttblCell
-            // Delete PRstudent, PRstudentClassCell, and PRstudentSectionCell
-            // Delete PRStaff, PRStaffDeps, and PRStaffDesig
-            // Finally, delete the PrincipalReport itself
-        ]);
+            // Delete PRObservationRecord and PRObservationRecordCell
+            db.pRObservationRecordCell.deleteMany({ where: { PRObservationRecord: { reportId: id } } }),
+            db.pRObservationRecord.deleteMany({ where: { reportId: id } }),
 
-        return { success: true };
+            // Delete PRrechecking and PRrecheckingCell
+            db.pRrecheckingCell.deleteMany({ where: { PRrechecking: { reportId: id } } }),
+            db.pRrechecking.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRTenuffus
+            db.pRTenuffus.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRELP
+            db.pRELP.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRacademic and PRacademicCell
+            db.pRacademicCell.deleteMany({ where: { PRacademic: { reportId: id } } }),
+            db.pRacademic.deleteMany({ where: { reportId: id } }),
+
+            // Delete PRHcd
+            db.pRHcd.deleteMany({ where: { reportId: id } }),
+
+            // Delete the PrincipalReport itself
+            db.principalReport.delete({ where: { id } })
+        ]);
     } catch (error) {
-        console.log(error);
-        return {
-            errors: "Failed to delete report. Please try again later.",
-        };
+        return { errors: `Failed to delete report: ` };
     }
 };
+
 
 
 

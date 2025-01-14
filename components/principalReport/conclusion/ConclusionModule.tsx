@@ -1,5 +1,4 @@
 "use client"
-"use no memo"
 import { createActivity, createELPModule, createHCDModule, createObservation, createRechecking, createReport, createStaff, createStudent, createSWOT, createTenuus, createTTBL, createTTBLContent, createWorkload, updateReportStatus } from '@/actions/newPrincipalReport'
 import {activitySchema, elpSchema, hcdSchema, observationSchema, RecheckingSchema, staffSchema, studentSchema, swotSchema, tenuusSchema, TTBLContentSchema, ttblSchema, workloadSchema } from '@/constants/zods'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -64,15 +63,15 @@ const ConclusionModule = () => {
         let isValid = true;
         const errorMessages: string[] = [];
     
-        // Helper function to handle Zod validation errors
-        const handleValidationErrors = (validationResult: { success: boolean; error?: ZodError }) => {
-            if (!validationResult.success && validationResult.error) {
-                validationResult.error.issues.forEach((issue: ZodIssue) => {
-                    errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
-                });
-                isValid = false; // Ensure `isValid` is declared in your scope
-            }
-        };
+ // Helper function to handle Zod validation errors
+ const handleValidationErrors = (validationResult: { success: boolean; error?: ZodError }) => {
+    if (!validationResult.success && validationResult.error) {
+        validationResult.error.issues.forEach((issue: ZodIssue) => {
+            errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
+        });
+        isValid = false; // Ensure `isValid` is declared in your scope
+    }
+};
     
         // Validate student data
         const studentErrors = studentSchema.safeParse({
@@ -357,26 +356,27 @@ const ConclusionModule = () => {
             setLoading(false)
             return
         }
-        
+        else {
                
 
             console.log("validation passed")
             setStatus("Inputs are Getting disabled to Prevent Changings...")
             report.setDisabled(true)
 
-            if (!report.id){
-                setStatus("Generating New Report🎉...")
+            // if (!report.id){
+            //     setStatus("Generating New Report🎉...")
 
-                const reportId = await createReport()
-                report.setId(reportId as number)
-            }
+            //     report.setId(reportId as number)
+            //     console.log("report id", reportId)
+            // }
+            const reportId = await createReport()
 
         
 
             if (!report.student){
                 setStatus("Starting Great with uploading Students🎓...")
-                 await createStudent({
-                    reportId: report.id as number,
+                await createStudent({
+                    reportId: reportId as number,
                     remarks: studentStore.remarks,
                     PRstudentClassCell: studentStore.classes.map((cls) => ({
                         id: cls.id,
@@ -405,11 +405,10 @@ const ConclusionModule = () => {
                         }))
                     }))
                 })
-                
                 report.setStudent(true)
             }
 
-           
+            // setLoading(false)
 
             
 
@@ -417,7 +416,7 @@ const ConclusionModule = () => {
                 setStatus("Looks like we are uploading staff👨‍💻...")
 
                 await createStaff({
-                    reportId: report.id as number,
+                    reportId: reportId as number,
                     remarks: employeeStore.remarks,
                     PRStaffDeps: employeeStore.departments.map((dep) => ({
                         id: dep.id,
@@ -439,7 +438,7 @@ const ConclusionModule = () => {
             if (!report.workload){
                 setStatus("Uploading Teacher's Workload...")
                 await createWorkload({
-                    reportId: report.id as number,
+                    reportId: reportId as number,
                     remarks: workloadStore.remarks,
                     PRworkloadCell: workloadStore.staff.map((staff) => ({
                         id: staff.id,
@@ -453,8 +452,8 @@ const ConclusionModule = () => {
 
             if(!report.observation){
                 setStatus("Made some progess, uploading Observations👀...")
-                await createObservation({
-                    reportId: report.id as number,
+               await createObservation({
+                    reportId: reportId as number,
                     PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
                         id: observationRecord.id,
                         teacherId: observationRecord.teacherId,
@@ -471,7 +470,7 @@ const ConclusionModule = () => {
             if(!report.rechecking){
                 setStatus("Looking nice, proceeding to uploading Rechecking module📕...")
                 await createRechecking({
-                    reportId: report.id as number,
+                    reportId: reportId as number,
                     remarks: recheckingStore.remarks,
                     PRrecheckingCell: recheckingStore.rechecking.map((rechecking) => ({
                         classId: rechecking.classId,
@@ -486,8 +485,8 @@ const ConclusionModule = () => {
 
             if(!report.ttbl){
                 setStatus("Halway There👋...TTBL next.")
-                await createTTBL({
-                    reportId: report.id as number,
+                 await createTTBL({
+                    reportId: reportId as number,
                     remarks: ttblStore.remarks,
                     PRttblCell: [
                         {
@@ -515,8 +514,8 @@ const ConclusionModule = () => {
 
             if(!report.ttblContent){
                 setStatus("TTBL Content on its way👀...")
-                await createTTBLContent({
-                    reportId: report.id as number,
+                 await createTTBLContent({
+                    reportId: reportId as number,
                     tbisRemarks: ttblStore.TTBIremarks,
 
                     preNurseryCLLE: ttblConetStore.preNurseryCLLE,
@@ -574,8 +573,8 @@ const ConclusionModule = () => {
             
             if(!report.hcd){
                 setStatus("Let's get to the HCD module...")
-                await createHCDModule({
-                    reportId: report.id as number,
+              await createHCDModule({
+                    reportId: reportId as number,
                     remarks: hcdStore.remarks,
                     preNurseryPlanner: hcdStore.preNurseryPlanner,
                     preNurseryWorksheets: hcdStore.preNurseryWorksheets,
@@ -614,8 +613,8 @@ const ConclusionModule = () => {
 
             if(!report.tenuus){
                 setStatus("We're alomost there...Tenuus module.")
-                await createTenuus({
-                    reportId: report.id as number,
+                 await createTenuus({
+                    reportId: reportId as number,
                     remarks: tenuusStore.remarks,
                     // number: tenuusStore.number
                     ealyYears: tenuusStore.ealyYears,
@@ -627,8 +626,8 @@ const ConclusionModule = () => {
 
             if(!report.elp){
                 setStatus("Hmmm...ELP module.🙌")
-                await createELPModule({
-                    reportId: report.id as number,
+               await createELPModule({
+                    reportId: reportId as number,
                     remarks: elpStore.remarks,
                     grade1Planner: elpStore.grade1Planner,
                     grade1Worksheets: elpStore.grade1Worksheets,
@@ -653,7 +652,7 @@ const ConclusionModule = () => {
             if(!report.activity){
                 setStatus("Let's get to the Activity module...")
                 await createActivity({
-                    reportId: report.id as number,
+                    reportId: reportId as number,
                     remarks: activityStore.remarks,
                     activities: activityStore.activities
                 })
@@ -662,8 +661,8 @@ const ConclusionModule = () => {
 
             if(!report.swot){
                 setStatus("Finally, the SWOT module...")
-                createSWOT({
-                    reportId: report.id as number,
+                 await createSWOT({
+                    reportId: reportId as number,
                     strength: sWotStore.strength,
                     weakness: sWotStore.weakness,
                     opportunity: sWotStore.opportunity,
@@ -671,16 +670,49 @@ const ConclusionModule = () => {
                 })
                 report.setSwot(true)
             }
-            await updateReportStatus(report.id as number, true)
+            await updateReportStatus(reportId as number, true)
         
             report.setDisabled(false)
             report.clearReport()
             setStatus("Report Published - Redirecting to Dashboard...")
             router.push("/principal-report/")
             setLoading(false)
-        
+        }
     }   
 
+    // const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault()
+    //     const studentModule = await createStudent({
+    //         reportId: report.id as number,
+    //         remarks: studentStore.remarks,
+    //         PRstudentClassCell: studentStore.classes.map((cls) => ({
+    //             id: cls.id,
+    //             name: cls.name,
+    //             previous: cls.previous,
+    //             left: cls.left,
+    //             new: cls.new,
+    //             transfered: cls.transfered,
+    //             promoted: cls.promoted,
+    //             total: cls.total,
+    //             boys: cls.boys,
+    //             girls: cls.girls,
+    //             sectionCount: cls.sectionCount,
+    //             studentPerSection: cls.studentPerSection,
+    //             sections: cls.sections.map((section) => ({
+    //                 id: section.id,
+    //                 name: section.name,
+    //                 previous: section.previous,
+    //                 left: section.left,
+    //                 new: section.new,
+    //                 transfered: section.transfered,
+    //                 promoted: section.promoted,
+    //                 total: section.total,
+    //                 boys: section.boys,
+    //                 girls: section.girls,
+    //             }))
+    //         }))
+    //     })
+    // }
   return (
     <div>
         <Card>

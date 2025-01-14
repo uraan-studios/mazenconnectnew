@@ -40,6 +40,7 @@ export const createStudent = async (data: z.infer<typeof studentSchema>) => {
     const validationResult = studentSchema.safeParse(data);
 
     if (!validationResult.success) {
+        console.log(validationResult.error.message)
         return {
             errors: validationResult.error.flatten().fieldErrors.remarks?.[0] || "Validation failed.",
         };
@@ -97,6 +98,9 @@ export const createStudent = async (data: z.infer<typeof studentSchema>) => {
                 errors: "Failed to create report. Please try again later.",
             };
         }}
+
+
+
 
 
 
@@ -320,12 +324,15 @@ export const createTTBL = async (data: z.infer<typeof ttblSchema>) => {
 
 
 export const createTTBLContent = async (data: z.infer<typeof TTBLContentSchema>) => {
+        console.log("TT SS")
         const session = await validateRequest()
         if(!session.user) return {errors: "You must be logged in to create a report."}
 
         const validationResult = TTBLContentSchema.safeParse(data);
 
         if (!validationResult.success) {
+            console.log("TT FAILED")
+
             return {
                 errors: validationResult.error.flatten().fieldErrors.reportId?.[0] || "Validation failed.",
             };
@@ -611,9 +618,10 @@ export const updateReportStatus = async (id: number, status: boolean) => {
         await db.principalReport.update({
             where: {
                 id: id,
+                campusId: session.user.fkid,
             },
             data: {
-                completed: status,
+                completed: true,
             },
         })
         return { report: status }

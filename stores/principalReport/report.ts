@@ -88,7 +88,24 @@ const usePrincipalReport = create<PrincipalReport>()(
             setElp: (elp: boolean) => set({ elp }),
             setActivity: (activity: boolean) => set({ activity }),            
             setSwot: (swot: boolean) => set({ swot }),
-            clearReport: () => set({id:null, student: false, employee: false, workload: false, observation: false, rechecking: false, ttbl: false, hcd: false, tenuus: false, elp: false, activity: false, swot: false }),
+            clearReport: () => set({
+                id: null,
+            campusId: null,
+            disabled: false,
+
+            student: false,
+            employee: false,
+            workload: false,
+            observation: false,
+            rechecking: false,
+            ttbl: false,
+            ttblContent: false,
+            hcd: false,
+            tenuus: false,
+            elp: false,
+            activity: false,
+            swot: false,
+            }),
 
 
         }),
