@@ -1,5 +1,5 @@
 "use client";
-import { Building, User2, Projector, Weight, Brain, SquareActivity, AlbumIcon, NotebookText, BedSingle, ArrowRight, ArrowLeft, GraduationCap, Mountain } from 'lucide-react'; // Import your icons
+import { Building, User2, Projector, Weight, Brain, SquareActivity, AlbumIcon, NotebookText, BedSingle, ArrowRight, ArrowLeft, Mountain } from 'lucide-react'; // Import your icons
 import { FC } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
