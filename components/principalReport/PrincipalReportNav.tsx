@@ -21,7 +21,7 @@ const PrincipalReportNav: FC = () => {
   const items: NavItemData[] = [
     { href: '/principal-report/add', icon: Building, label: 'Students' },
     { href: '/principal-report/add/employees', icon: User2, label: 'Employees' },
-    { href: '/principal-report/add/academics', icon: GraduationCap, label: 'Academics' },
+    // { href: '/principal-report/add/academics', icon: GraduationCap, label: 'Academics' },
     { href: '/principal-report/add/workload', icon: Weight, label: 'Workload' },
     { href: '/principal-report/add/rechecking', icon: NotebookText, label: 'Recheking' },
     { href: '/principal-report/add/ttbl', icon: Projector, label: 'TTBL' },

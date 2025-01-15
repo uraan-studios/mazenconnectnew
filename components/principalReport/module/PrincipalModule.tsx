@@ -78,7 +78,7 @@ const PrincipalReportModule = ({isAdmin}: {isAdmin: boolean}) => {
           </SelectContent>
         </Select>
         
-        <p className="">{JSON.stringify(reports)}</p>
+        {/* <p className="">{JSON.stringify(reports)}</p> */}
         
         {/* Month Select with default year 2024 */}
         {/* <Select onValueChange={(value) => setSelectedMonth(value ? new Date(value) : null)}>
