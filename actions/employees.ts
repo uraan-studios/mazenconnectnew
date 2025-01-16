@@ -32,13 +32,14 @@ export const getEmployees = async () => {
 }
 
 export const getEmployeesByDepartment = async (departmentId: number, page: number = 1) => {
+    // NEED TO ADD CAMPUS ID
     if (!departmentId) {
       return { employees: [], total: 0, totalPages: 0 };
     }
   
     const employees = await db.staff.findMany({
       where: {
-        designationId: departmentId,
+        designationId: departmentId, // CHANGE 
       },
       include:{
         designation: true,
@@ -62,7 +63,7 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
 
 const employeeSchema = z.object({
     name: z.string().min(1, 'Employee name is required').max(100, 'Employee name is too long'),
-    designation: z.number().min(1, 'Employee designation is required').max(10, 'Choose a valid Employee designation'),
+    designation: z.number().min(1, 'Employee designation is required').max(1000, 'Choose a valid Employee designation'),
     salary: z.number().min(1, 'Employee salary is required').max(5000000, 'Choose a valid Employee salary'),
     status: z.number().min(1, 'Employee status is required').max(10, 'Choose a valid Employee status'),
     dateJoined: z.date(),

@@ -33,7 +33,7 @@ export const getEmployeesCount = async () => {
                   select: {
                     Staff: {
                       where: {
-                        statusId: 1, // Active
+                        statusId: 1, // Active CHOOSE
                         campusId: session.user?.fkid,
                       }
                     }

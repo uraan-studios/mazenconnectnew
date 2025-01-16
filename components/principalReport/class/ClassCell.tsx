@@ -25,6 +25,7 @@ interface ClassRowProps {
 
 const ClassRow: React.FC<ClassRowProps> = ({ classItem, toggleOpen, updateClass }) => {
   // Update class data when sections change
+  // CHANGE THE TRANSFER to -
   useEffect(() => {
     updateClass(classItem.id, {
       previous: classItem.sections.reduce((acc, section) => acc + section.previous, 0),

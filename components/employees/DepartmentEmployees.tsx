@@ -56,7 +56,8 @@ const DepartmentEmployees: React.FC<DepartmentEmployeesProps> = ({ departmentId,
           </TableHeader>
           <TableBody>
             {staff.map((staffMember) => (
-              <TableRow key={staffMember.id}>
+              <TableRow key={staffMember.id}> 
+              {/* // ADD INDEX OR COUNT INSTEAD OF IDS */}
                 <TableCell>{staffMember.id}</TableCell>
                 <TableCell className='font-semibold'>{staffMember.name}</TableCell>
                 <TableCell >{staffMember.designation.name}</TableCell>
