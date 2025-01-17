@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage  } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface StudentModuleSection {
     id: number;
@@ -62,64 +62,70 @@ const useStudentModule = create<StudentModule>()(
             getClassStrength: (classId: number) =>
                 get().classes.find((cls) => cls.id === classId)?.total || 0,
             addClass: (newClass: StudentModuleClass) =>
-                set((state) => ({
-                    classes: [...state.classes, newClass],
-                })),
+                set((state) => {
+                    const updatedClasses = [...state.classes, newClass];
+                    return { classes: updatedClasses };
+                }),
 
             updateClass: (classId: number, updatedClass: Partial<StudentModuleClass>) =>
-                set((state) => ({
-                    classes: state.classes.map((cls) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
                         cls.id === classId ? { ...cls, ...updatedClass } : cls
-                    ),
-                })),
+                    );
+                    return { classes: updatedClasses };
+                }),
 
             removeClass: (classId: number) =>
-                set((state) => ({
-                    classes: state.classes.filter((cls) => cls.id !== classId),
-                })),
+                set((state) => {
+                    const updatedClasses = state.classes.filter((cls) => cls.id !== classId);
+                    return { classes: updatedClasses };
+                }),
 
             addSection: (classId: number, newSection: StudentModuleSection) =>
-                set((state) => ({
-                    classes: state.classes.map((cls) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
                         cls.id === classId
                             ? {
-                                ...cls,
-                                sections: [...cls.sections, newSection],
-                                sectionCount: cls.sectionCount + 1,
-                            }
+                                  ...cls,
+                                  sections: [...cls.sections, newSection],
+                                  sectionCount: cls.sectionCount + 1,
+                              }
                             : cls
-                    ),
-                })),
+                    );
+                    return { classes: updatedClasses };
+                }),
 
             updateSection: (classId: number, sectionId: number, updatedSection: Partial<StudentModuleSection>) =>
-                set((state) => ({
-                    classes: state.classes.map((cls) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
                         cls.id === classId
                             ? {
-                                ...cls,
-                                sections: cls.sections.map((sec) =>
-                                    sec.id === sectionId ? { ...sec, ...updatedSection } : sec
-                                ),
-                            }
+                                  ...cls,
+                                  sections: cls.sections.map((sec) =>
+                                      sec.id === sectionId ? { ...sec, ...updatedSection } : sec
+                                  ),
+                              }
                             : cls
-                    ),
-                })),
+                    );
+                    return { classes: updatedClasses };
+                }),
 
             removeSection: (classId: number, sectionId: number) =>
-                set((state) => ({
-                    classes: state.classes.map((cls) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
                         cls.id === classId
                             ? {
-                                ...cls,
-                                sections: cls.sections.filter((sec) => sec.id !== sectionId),
-                                sectionCount: cls.sectionCount - 1,
-                            }
+                                  ...cls,
+                                  sections: cls.sections.filter((sec) => sec.id !== sectionId),
+                                  sectionCount: cls.sectionCount - 1,
+                              }
                             : cls
-                    ),
-                })),
+                    );
+                    return { classes: updatedClasses };
+                }),
         }),
         {
-            name: "student-module-storage", // name of the item in storage
+            name: "student-module-storage", // Name of the item in storage
             storage: createJSONStorage(() => sessionStorage),
         }
     )

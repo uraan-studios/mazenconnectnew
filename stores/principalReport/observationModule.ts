@@ -5,9 +5,6 @@ import { createJSONStorage, persist } from "zustand/middleware";
 interface obRecord {
     id: number;
     teacherId: number;
-    grade: number;
-    subjectId: number;
-    subjectName: string;
     walkThrough: string;
     informed: string;
     uninformed: string;

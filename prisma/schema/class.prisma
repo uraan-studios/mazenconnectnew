@@ -24,7 +24,6 @@ model Class {
   grade                   Grade                     @relation(fields: [gradeId], references: [id])
   ClassSection            ClassSection[]
   PRstudentClassCell      PRstudentClassCell[]
-  PRObservationRecordCell PRObservationRecordCell[]
   PRrecheckingCell        PRrecheckingCell[]
   PRacademicCell          PRacademicCell[]
 
@@ -39,7 +38,6 @@ model ClassSection {
   classId                 Int
   class                   Class                     @relation(fields: [classId], references: [id])
   PRstudentSectionCell    PRstudentSectionCell[]
-  PRObservationRecordCell PRObservationRecordCell[]
 
   @@index([classId], map: "classsection_classId_idx") // Index for classId
   @@index([name], map: "classsection_name_idx") // Index for class section name
@@ -50,6 +48,5 @@ model Subjects {
   name                    String
   gradeId                 Int
   grade                   Grade                     @relation(fields: [gradeId], references: [id])
-  PRObservationRecordCell PRObservationRecordCell[]
-  PRrecheckingCell        PRrecheckingCell[]
+  PRrecheckingSubjectCell PRrecheckingSubjectCell[]
 }

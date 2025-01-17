@@ -36,10 +36,18 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
     if (!departmentId) {
       return { employees: [], total: 0, totalPages: 0 };
     }
+
+    const designations = await db.designation.findMany({
+        where: {
+            departmentId: departmentId
+        }
+    })
   
     const employees = await db.staff.findMany({
       where: {
-        designationId: departmentId, // CHANGE 
+        OR: designations.map(designation => ({
+            designationId: designation.id
+        })),
       },
       include:{
         designation: true,
@@ -51,8 +59,10 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
   
     const total = await db.staff.count({
       where: {
-        designationId: departmentId,
-      },
+        OR: designations.map(designation => ({
+          designationId: designation.id
+        })),
+      }
     });
   
     const totalPages = Math.ceil(total / 10); // Calculate total pages

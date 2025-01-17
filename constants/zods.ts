@@ -57,6 +57,7 @@ export const workloadSchema = z.object({
         id: z.number().min(0, 'Workload name is required').max(100, 'Workload name is too long'),
         name: z.string().min(1, 'Workload name is required').max(100, 'Workload name is too long'),
         workload: z.number().min(0, 'Workload workload is required').max(1000, 'Workload workload is too long'),
+        isHomeLand: z.boolean(),
         students: z.number()
     }).array(),
 })
@@ -65,8 +66,6 @@ export const observationSchema = z.object({
     reportId: z.number().min(0, 'Observation reportId is required').max(1000, 'Observation reportId is too long'),
     PRObservationRecordCell: z.object({
         teacherId: z.number().min(0, 'Observation teacherId is required').max(1000, 'Observation teacherId is too long'),
-        classId: z.number().min(0, 'Observation classId is required').max(1000, 'Observation classId is too long'),
-        subjectId: z.number().min(0, 'Observation subjectId is required').max(1000, 'Observation subjectId is too long'),
         walkthrough: z.string().min(1, 'Observation walkthrough is required').max(100, 'Observation walkthrough is too long'),
         informed: z.string().min(1, 'Observation informed is required').max(100, 'Observation informed is too long'),
         uninformed: z.string().min(1, 'Observation uninformed is required').max(100, 'Observation uninformed is too long'),
@@ -160,46 +159,50 @@ export const hcdSchema = z.object({
   reportId: z.number().min(0, "HCD reportId is required").max(1000, "HCD reportId is too long"),
   remarks: z.string().min(1, "Remarks are required").max(100, "Remarks must be less than 100 characters"),
 
-  preNurseryPlanner: z.number().min(0, "Pre-Nursery Planner must be 0 or greater"),
-  preNurseryWorksheets: z.number().min(0, "Pre-Nursery Worksheets must be 0 or greater"),
-  preNurseryTTBL: z.number().min(0, "Pre-Nursery TTBL must be 0 or greater"),
+  meetings: z.number().min(0, "HCD meetings is required").max(1000, "HCD meetings is too long"),
+  workload: z.number().min(0, "HCD workload is required").max(1000, "HCD workload is too long"),
 
-  nurseryPlanner: z.number().min(0, "Nursery Planner must be 0 or greater"),
-  nurseryWorksheets: z.number().min(0, "Nursery Worksheets must be 0 or greater"),
-  nurseryTTBL: z.number().min(0, "Nursery TTBL must be 0 or greater"),
+  preNurseryPlanner: z.boolean(),
+  preNurseryWorksheets: z.boolean(),
+  preNurseryTTBL: z.boolean(),
 
-  kindergartenPlanner: z.number().min(0, "Kindergarten Planner must be 0 or greater"),
-  kindergartenWorksheets: z.number().min(0, "Kindergarten Worksheets must be 0 or greater"),
-  kindergartenTTBL: z.number().min(0, "Kindergarten TTBL must be 0 or greater"),
+  nurseryPlanner: z.boolean(),
+  nurseryWorksheets: z.boolean(),
+  nurseryTTBL: z.boolean(),
 
-  grade1Planner: z.number().min(0, "Grade 1 Planner must be 0 or greater"),
-  grade1Worksheets: z.number().min(0, "Grade 1 Worksheets must be 0 or greater"),
-  grade1TTBL: z.number().min(0, "Grade 1 TTBL must be 0 or greater"),
+  kindergartenPlanner: z.boolean(),
+  kindergartenWorksheets: z.boolean(),
+  kindergartenTTBL: z.boolean(),
 
-  grade2Planner: z.number().min(0, "Grade 2 Planner must be 0 or greater"),
-  grade2Worksheets: z.number().min(0, "Grade 2 Worksheets must be 0 or greater"),
-  grade2TTBL: z.number().min(0, "Grade 2 TTBL must be 0 or greater"),
+  grade1Planner: z.boolean(),
+  grade1Worksheets: z.boolean(),
+  grade1TTBL: z.boolean(),
 
-  grade3Planner: z.number().min(0, "Grade 3 Planner must be 0 or greater"),
-  grade3Worksheets: z.number().min(0, "Grade 3 Worksheets must be 0 or greater"),
-  grade3TTBL: z.number().min(0, "Grade 3 TTBL must be 0 or greater"),
+  grade2Planner: z.boolean(),
+  grade2Worksheets: z.boolean(),
+  grade2TTBL: z.boolean(),
 
-  grade4Planner: z.number().min(0, "Grade 4 Planner must be 0 or greater"),
-  grade4Worksheets: z.number().min(0, "Grade 4 Worksheets must be 0 or greater"),
-  grade4TTBL: z.number().min(0, "Grade 4 TTBL must be 0 or greater"),
+  grade3Planner: z.boolean(),
+  grade3Worksheets: z.boolean(),
+  grade3TTBL: z.boolean(),
 
-  grade5Planner: z.number().min(0, "Grade 5 Planner must be 0 or greater"),
-  grade5Worksheets: z.number().min(0, "Grade 5 Worksheets must be 0 or greater"),
-  grade5TTBL: z.number().min(0, "Grade 5 TTBL must be 0 or greater"),
+  grade4Planner: z.boolean(),
+  grade4Worksheets: z.boolean(),
+  grade4TTBL: z.boolean(),
 
-  grade6Planner: z.number().min(0, "Grade 6 Planner must be 0 or greater"),
-  grade6Worksheets: z.number().min(0, "Grade 6 Worksheets must be 0 or greater"),
+  grade5Planner: z.boolean(),
+  grade5Worksheets: z.boolean(),
+  grade5TTBL: z.boolean(),
 
-  grade7Planner: z.number().min(0, "Grade 7 Planner must be 0 or greater"),
-  grade7Worksheets: z.number().min(0, "Grade 7 Worksheets must be 0 or greater"),
+  grade6Planner: z.boolean(),
+  grade6Worksheets: z.boolean(),
 
-  grade8Planner: z.number().min(0, "Grade 8 Planner must be 0 or greater"),
-  grade8Worksheets: z.number().min(0, "Grade 8 Worksheets must be 0 or greater"),
+  grade7Planner: z.boolean(),
+  grade7Worksheets: z.boolean(),
+
+  grade8Planner: z.boolean(),
+  grade8Worksheets: z.boolean(),
+
 });
 
 export const elpSchema = z.object({
@@ -207,29 +210,30 @@ export const elpSchema = z.object({
   
     remarks: z.string().min(1, "Remarks are required").max(100, "Remarks must be less than 100 characters"),
   
-    grade1Planner: z.number().min(0, "Grade 1 Planner must be 0 or greater"),
-    grade1Worksheets: z.number().min(0, "Grade 1 Worksheets must be 0 or greater"),
-  
-    grade2Planner: z.number().min(0, "Grade 2 Planner must be 0 or greater"),
-    grade2Worksheets: z.number().min(0, "Grade 2 Worksheets must be 0 or greater"),
-  
-    grade3Planner: z.number().min(0, "Grade 3 Planner must be 0 or greater"),
-    grade3Worksheets: z.number().min(0, "Grade 3 Worksheets must be 0 or greater"),
-  
-    grade4Planner: z.number().min(0, "Grade 4 Planner must be 0 or greater"),
-    grade4Worksheets: z.number().min(0, "Grade 4 Worksheets must be 0 or greater"),
-  
-    grade5Planner: z.number().min(0, "Grade 5 Planner must be 0 or greater"),
-    grade5Worksheets: z.number().min(0, "Grade 5 Worksheets must be 0 or greater"),
-  
-    grade6Planner: z.number().min(0, "Grade 6 Planner must be 0 or greater"),
-    grade6Worksheets: z.number().min(0, "Grade 6 Worksheets must be 0 or greater"),
-  
-    grade7Planner: z.number().min(0, "Grade 7 Planner must be 0 or greater"),
-    grade7Worksheets: z.number().min(0, "Grade 7 Worksheets must be 0 or greater"),
-  
-    grade8Planner: z.number().min(0, "Grade 8 Planner must be 0 or greater"),
-    grade8Worksheets: z.number().min(0, "Grade 8 Worksheets must be 0 or greater"),
+    grade1Planner: z.boolean(),
+    grade1Worksheets: z.boolean(),
+    
+    grade2Planner: z.boolean(),
+    grade2Worksheets: z.boolean(),
+    
+    grade3Planner: z.boolean(),
+    grade3Worksheets: z.boolean(),
+    
+    grade4Planner: z.boolean(),
+    grade4Worksheets: z.boolean(),
+    
+    grade5Planner: z.boolean(),
+    grade5Worksheets: z.boolean(),
+    
+    grade6Planner: z.boolean(),
+    grade6Worksheets: z.boolean(),
+    
+    grade7Planner: z.boolean(),
+    grade7Worksheets: z.boolean(),
+    
+    grade8Planner: z.boolean(),
+    grade8Worksheets: z.boolean(),
+    
   });
 
 export const activitySchema = z.object({ 

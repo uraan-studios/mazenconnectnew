@@ -33,8 +33,9 @@ export const getEmployeesCount = async () => {
                   select: {
                     Staff: {
                       where: {
-                        statusId: 1, // Active CHOOSE
+                        isActive: true,
                         campusId: session.user?.fkid,
+                        // designationId: ,
                       }
                     }
                   }
@@ -44,60 +45,7 @@ export const getEmployeesCount = async () => {
           }
         })
 
-        // const 
 
-    // const newEmployees = await db.department.findMany({
-    //     include: {
-    //         Designation: {
-    //           include: {
-    //             _count: {
-    //               select: {
-    //                 Staff: {
-    //                   where: {
-    //                     statusId: 1, // Active
-    //                     campusId: session.user?.fkid,
-    //                     dateJoined: {
-
-    //                     }
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     })
-
-    // const previous = await db.principalReport.findFirst({
-    //     where: {
-    //       campusId: session.user?.fkid
-    //     },
-    //     include: {
-    //       PRStaff: {
-    //         include: {
-    //           PRStaffDeps: {
-    //             include: {
-    //               department: {
-    //                 include: {
-    //                   Designation: {
-    //                     include: {
-    //                       Staff: {
-                            
-    //                       }
-    //                     }
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     },
-    //     orderBy: {
-    //         createdAt: "desc"
-    //     }
-    // })
-    
     return result
 }
 

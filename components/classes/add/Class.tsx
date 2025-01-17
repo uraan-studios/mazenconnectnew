@@ -56,21 +56,25 @@ const AddClass = ({divs}: {divs: Division[]}) => {
         <form className='space-y-6'
             onSubmit={onSubmit}
         >
-            <div className="">
+            {/* <div className="">
                 <Label>Class Name</Label>
                 <Input 
                     value={store.name}
+                    disabled={true}
                     onChange={(e) => store.setName(e.target.value)}
                     placeholder='Class Name'
                     />
-            </div>
+            </div> */}
 
             <div>
                 <Label className=''>Grade</Label>
                 <Select 
 
                     value={store.gradeId.toString()}
-                    onValueChange={(value) => store.setGradeId(parseInt(value))}
+                    onValueChange={(value) => {
+                        store.setGradeId(parseInt(value))
+                        store.setName(divs.map((item)=> (item.grades.find((grade) => grade.id === parseInt(value))?.name || "")).join(""))
+                    }}
                     
                 >
                 <SelectTrigger className="">

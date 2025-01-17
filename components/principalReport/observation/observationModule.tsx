@@ -19,7 +19,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import useObservationModule from "@/stores/principalReport/observationModule";
 import useTeacherStore from "@/stores/principalReport/teachers";
-import useSubjectStore from "@/stores/principalReport/subjects";
 import {
   Select,
   SelectContent,
@@ -27,29 +26,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useClassStore from "@/stores/principalReport/classes";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Check, ChevronsUpDown, Trash2 } from "lucide-react";
+
+import { cn } from "@/lib/utils"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 const ObservationModule = () => {
   const store = useObservationModule();
   const teacherStore = useTeacherStore();
-  const subjectStore = useSubjectStore();
-  const classStore = useClassStore();
+
 
   const [newActivity, setNewActivity] = useState({
     id: 0,
     teacherId: 0,
-    grade: 0,
-    subjectId: 0,
-    subjectName: "",
     walkThrough: "",
     informed: "",
     uninformed: "",
   });
 
   const [selectedGrade, setSelectedGrade] = useState(0);
+  const [open, setOpen] = React.useState(false)
 
   return (
     <div>
@@ -67,8 +71,6 @@ const ObservationModule = () => {
               <TableRow>
                 <TableHead className="text-secondary-foreground">No.</TableHead>
                 <TableHead className="text-secondary-foreground"> Name</TableHead>
-                <TableHead className="text-secondary-foreground w-44">Grade</TableHead>
-                <TableHead className="text-secondary-foreground w-44">Subject</TableHead>
                 <TableHead className="text-secondary-foreground ">Walk Through</TableHead>
                 <TableHead className="text-secondary-foreground ">Informed</TableHead>
                 <TableHead className="text-secondary-foreground ">UnInformed</TableHead>
@@ -82,10 +84,6 @@ const ObservationModule = () => {
                   <TableCell>{observationRecord.teacherId}</TableCell>
                   <TableCell>
                     {teacherStore.getName(observationRecord.teacherId)}
-                  </TableCell>
-                  <TableCell>{observationRecord.grade}</TableCell>
-                  <TableCell>
-                    {subjectStore.getName(observationRecord.subjectId)}
                   </TableCell>
                   <TableCell>{observationRecord.walkThrough}</TableCell>
                   <TableCell>{observationRecord.informed}</TableCell>
@@ -113,7 +111,7 @@ const ObservationModule = () => {
                 <TableCell>-</TableCell>
                 {/* Select Teacher */}
                 <TableCell>
-                  <Select
+                  {/* <Select
                     onValueChange={(value) =>
                       setNewActivity({
                         ...newActivity,
@@ -131,67 +129,60 @@ const ObservationModule = () => {
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={open}
+                              className="w-[200px] justify-between"
+                            >
+                              {newActivity.teacherId
+                                ? teacherStore.teachers.find((teach) => teach.id === newActivity.teacherId)?.name
+                                : "Select Teacher..."}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-[200px] p-0">
+                            <Command>
+                              <CommandInput placeholder="Search Teacher..." />
+                              <CommandList>
+                                <CommandEmpty>No Teacher found.</CommandEmpty>
+                                <CommandGroup>
+                                  {teacherStore.teachers.map((teach) => (
+                                    <CommandItem
+                                      key={teach.id}
+                                      value={teach.name + teach.id}
+                                      onSelect={(currentValue: string) => {
+                                        setNewActivity({
+                                          ...newActivity,
+                                          teacherId: teacherStore.teachers.find((teach) => teach.name + teach.id === currentValue)?.id || 0,
+                                        })
+                                        setOpen(false)
+                                      }}
+                                    >
+                                      <Check
+                                        className={cn(
+                                          "mr-2 h-4 w-4",
+                                         ( teach.name + teach.id) === (teach.name + newActivity.teacherId) ? "opacity-100" : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                    </PopoverContent>
+                </Popover> 
+
+                {
+                  newActivity.teacherId
+                }
                 </TableCell>
 
-                {/* Select Grade */}
-
-                 {/* {classStore.classes.map((classItem) => (
-                        <p>{classItem.name} - {classItem.gradeId}</p>
-                      ))} */}
-                <TableCell>
-                  <Select
-                    onValueChange={(value) => {
-                      const gradeId = parseInt(value, 10);
-                      setNewActivity({ ...newActivity, grade: gradeId });
-                      setSelectedGrade(gradeId);
-                    }}
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select Grade" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {classStore.classes.map((classItem) => {
-                        // Add a check for gradeId
-                        const gradeId = classItem.gradeId;
-                        if (gradeId !== undefined) {
-                          return (
-                            <SelectItem key={classItem.id} value={gradeId.toString()}>
-                              {classItem.name} - {gradeId}
-                            </SelectItem>
-                          );
-                        }
-                        return null; // Or you can handle missing gradeId differently
-                      })}
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-
-
-                {/* Select Subject */}
-                <TableCell>
-                  <Select
-                    onValueChange={(value) =>
-                      setNewActivity({
-                        ...newActivity,
-                        subjectId: parseInt(value, 10),
-                      })
-                    }
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select Subject" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {subjectStore.subjects
-                        .filter((subject) => subject.gradeId === selectedGrade)
-                        .map((subject) => (
-                          <SelectItem key={subject.id} value={subject.id.toString()}>
-                            {subject.name}
-                          </SelectItem>
-                        ))}
-                    </SelectContent>
-                  </Select>
-                </TableCell>
+                
 
                 {/* Walk Through */}
                 <TableCell>

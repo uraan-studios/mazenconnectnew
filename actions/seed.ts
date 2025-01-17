@@ -20,8 +20,13 @@ const SeedClassData = async () => {
             {id: 4, name: "Grade 1", divisionId: 2},
             {id: 5, name: "Grade 2", divisionId: 2},
             {id: 6, name: "Grade 3", divisionId: 2},
-            {id: 7, name: "Grade 4", divisionId: 2},
-            {id: 8, name: "Grade 5", divisionId: 2},
+            {id: 7, name: "Grade 4", divisionId: 3},
+            {id: 8, name: "Grade 5", divisionId: 3},
+            
+            {id:  9, name: "Grade 6", divisionId: 4},
+            {id: 10, name: "Grade 7", divisionId: 4},
+            {id: 11, name: "Grade 8", divisionId: 4},
+
         ]
     })
 
@@ -67,6 +72,44 @@ const SeedClassData = async () => {
             {id: 32, name: "ICT", gradeId: 7},
             {id: 33, name: "Islamiyat", gradeId: 7},
             {id: 34, name: "Science", gradeId: 7},
+            
+            {id: 35, name: "English", gradeId:8},
+            {id: 36, name: "Urdu", gradeId:8},
+            {id: 37, name: "Mathematics", gradeId:8},
+            {id: 38, name: "Social Studies", gradeId:8},
+            {id: 39, name: "ICT", gradeId:8},
+            {id: 40, name: "Islamiyat", gradeId:8},
+            {id: 41, name: "Science", gradeId:8},
+
+            {id: 42, name: "English", gradeId: 9},
+            {id: 43, name: "Urdu", gradeId: 9},
+            {id: 44, name: "Math", gradeId: 9},
+            {id: 45, name: "Science", gradeId: 9},
+            {id: 46, name: "History", gradeId: 9},
+            {id: 47, name: "Geography", gradeId: 9},
+            {id: 48, name: "Islamiat", gradeId: 9},
+            {id: 49, name: "Computer Science", gradeId: 9},
+            {id: 50, name: "Quran Translation", gradeId: 9},
+
+            {id: 51, name: "English", gradeId: 10},
+            {id: 52, name: "Urdu", gradeId: 10},
+            {id: 53, name: "Math", gradeId: 10},
+            {id: 54, name: "Science", gradeId: 10},
+            {id: 55, name: "History", gradeId: 10},
+            {id: 56, name: "Geography", gradeId: 10},
+            {id: 57, name: "Islamiat", gradeId: 10},
+            {id: 58, name: "Computer Science", gradeId: 10},
+            {id: 59, name: "Quran Translation", gradeId: 10},
+
+            {id: 60, name: "English", gradeId: 11},
+            {id: 61, name: "Urdu", gradeId: 11},
+            {id: 62, name: "Math", gradeId: 11},
+            {id: 63, name: "Science", gradeId: 11},
+            {id: 64, name: "History", gradeId: 11},
+            {id: 65, name: "Geography", gradeId: 11},
+            {id: 66, name: "Islamiat", gradeId: 11},
+            {id: 67, name: "Computer Science", gradeId: 11},
+            {id: 68, name: "Quran Translation", gradeId: 11},
 
         ]
     })
@@ -118,6 +161,7 @@ const SeedCampusData = async () => {
         data: [
             {id: 1, name: "permanent"},
             {id: 2, name: "visiting"},
+            {id: 3, name: "probation"},
         ]
     })
     

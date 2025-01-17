@@ -42,12 +42,23 @@ model PRrecheckingCell {
   PRrechecking PRrechecking @relation(fields: [rowId], references: [reportId])
   classId      Int
   class        Class        @relation(fields: [classId], references: [id])
-  teacherId    Int
-  teacher      Staff        @relation(fields: [teacherId], references: [id])
+  count  Int
+  percentage Int
+  studentCount Int
+  PRrecheckingSubjectCell PRrecheckingSubjectCell[]
+
+  @@index([rowId]) // Unique constraint added here
+}
+
+model PRrecheckingSubjectCell {
+  id           Int          @id @default(autoincrement())
+  rowId        Int
+  PRrechecking PRrecheckingCell @relation(fields: [rowId], references: [id])
   subjectId    Int
   subject      Subjects     @relation(fields: [subjectId], references: [id])
-  count  Int
-  total Int
+  count        Int
+
+  @@index([rowId]) // Unique constraint added here
 }
 
 model PRTenuffus {
@@ -134,63 +145,66 @@ g5Sci Boolean
 
 //? HCD MODULE 
 model PRHcd {
-  reportId Int             @id @unique
-  report   PrincipalReport @relation(fields: [reportId], references: [id])
-  remarks  String
+    reportId Int             @id @unique
+    report   PrincipalReport @relation(fields: [reportId], references: [id])
+    remarks  String
+
+    meetings Int
+    workload Int
  
     //! Early Years
     // Pre Nursery
-    preNurseryPlanner Int
-    preNurseryWorksheets Int
-    preNuseryTTBL Int
+    preNurseryPlanner Boolean
+    preNurseryWorksheets Boolean
+    preNuseryTTBL Boolean
 
     // Nursery
-    nurseryPlanner Int
-    nurseryWorksheets Int
-    nurseryTTBL Int
+    nurseryPlanner Boolean
+    nurseryWorksheets Boolean
+    nurseryTTBL Boolean
 
     // Kindergarten
-    kindergartenPlanner Int
-    kindergartenWorksheets Int    
-    kindergartenTTBL Int
+    kindergartenPlanner Boolean
+    kindergartenWorksheets Boolean    
+    kindergartenTTBL Boolean
 
     //! Primary & Middle Years
     // Grade 1
-    grade1Planner Int
-    grade1Worksheets Int
-    grade1TTBL Int
+    grade1Planner Boolean
+    grade1Worksheets Boolean
+    grade1TTBL Boolean
 
     // Grade 2
-    grade2Planner Int
-    grade2Worksheets Int
-    grade2TTBL Int
+    grade2Planner Boolean
+    grade2Worksheets Boolean
+    grade2TTBL Boolean
 
     // Grade 3
-    grade3Planner Int
-    grade3Worksheets Int
-    grade3TTBL Int
+    grade3Planner Boolean
+    grade3Worksheets Boolean
+    grade3TTBL Boolean
 
     // Grade 4
-    grade4Planner Int
-    grade4Worksheets Int    
-    grade4TTBL Int
+    grade4Planner Boolean
+    grade4Worksheets Boolean    
+    grade4TTBL Boolean
 
     // Grade 5
-    grade5Planner Int
-    grade5Worksheets Int
-    grade5TTBL Int
+    grade5Planner Boolean
+    grade5Worksheets Boolean
+    grade5TTBL Boolean
 
     // Grade 6
-    grade6Planner Int
-    grade6Worksheets Int
+    grade6Planner Boolean
+    grade6Worksheets Boolean
 
     // Grade 7
-    grade7Planner Int
-    grade7Worksheets Int
+    grade7Planner Boolean
+    grade7Worksheets Boolean
 
     // Grade 8
-    grade8Planner Int
-    grade8Worksheets Int
+    grade8Planner Boolean
+    grade8Worksheets Boolean
 }
 
 // ? ELP MODULE
@@ -200,36 +214,36 @@ model PRELP {
   remarks  String
     
     // Grade 1
-    grade1Planner Int
-    grade1Worksheets Int
+    grade1Planner Boolean
+    grade1Worksheets Boolean
 
     // Grade 2
-    grade2Planner Int
-    grade2Worksheets Int
+    grade2Planner Boolean
+    grade2Worksheets Boolean
 
     // Grade 3
-    grade3Planner Int
-    grade3Worksheets Int
+    grade3Planner Boolean
+    grade3Worksheets Boolean
 
     // Grade 4
-    grade4Planner Int
-    grade4Worksheets Int    
+    grade4Planner Boolean
+    grade4Worksheets Boolean    
 
     // Grade 5
-    grade5Planner Int
-    grade5Worksheets Int
+    grade5Planner Boolean
+    grade5Worksheets Boolean
 
     // Grade 6
-    grade6Planner Int
-    grade6Worksheets Int
+    grade6Planner Boolean
+    grade6Worksheets Boolean
 
     // Grade 7
-    grade7Planner Int
-    grade7Worksheets Int
+    grade7Planner Boolean
+    grade7Worksheets Boolean
 
     // Grade 8
-    grade8Planner Int    
-    grade8Worksheets Int
+    grade8Planner Boolean    
+    grade8Worksheets Boolean
 }
 
 // ? ACADEMIC MODULE
@@ -287,6 +301,7 @@ model PRworkloadCell {
   teacherId  Int
   teacher    Staff      @relation(fields: [teacherId], references: [id])
   workload   Int
+  isHomeland Boolean @default(false)
   students   Int
 
   @@index([rowId]) // Unique constraint added here
@@ -304,13 +319,6 @@ model PRObservationRecordCell {
   PRObservationRecord PRObservationRecord @relation(fields: [rowId], references: [reportId])
   teacherId           Int
   teacher             Staff               @relation(fields: [teacherId], references: [id])
-  classId             Int
-  class               Class               @relation(fields: [classId], references: [id])
-  sectionId           Int?
-  section             ClassSection?       @relation(fields: [sectionId], references: [id])
-
-  subjectId Int
-  subject   Subjects @relation(fields: [subjectId], references: [id])
 
   walkthrough String
   informed    String

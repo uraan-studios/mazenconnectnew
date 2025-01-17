@@ -7,10 +7,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 import React, { Suspense } from 'react'
 
 const AddPrincipalReportPage = async () => {
-  const  report = await thisMonthPrincipalReport()
-  if (report !== null) {
-    return <div>Report already submitted</div>
-  }
+//   const  report = await thisMonthPrincipalReport()
+//   if (report !== null) {
+//     return <div>Report already submitted</div>
+//   }
 
   return (
     <div className='bg-secondary/30 p-6  rounded-xl'>

@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { useHCDModule } from '@/stores/principalReport/hcd';
 import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
 
 
 const HCDModule = () => {
@@ -15,18 +16,51 @@ const HCDModule = () => {
     <div className="space-y-6">
 
       <Card>
-      <CardHeader>
+        <CardHeader>
           <CardTitle>HCD Module</CardTitle>
           <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
-      </CardHeader>
-      <CardContent>
+        </CardHeader>
+        <CardContent>
+          
+          <Table className='bg-secondary/25 p-6 rounded-md my-4 overflow-clip w-full'>
+            <TableHeader className='bg-secondary '>
+              <TableRow>
+                <TableHead className='text-secondary-foreground'>-</TableHead>
+                <TableHead className='text-secondary-foreground'>Workload</TableHead>
+                <TableHead className='text-secondary-foreground'>Meetings</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              <TableRow>
+                <TableCell className='text-semibold'>-</TableCell>
+                <TableCell>
+                  <Input
+                    className='max-w-20'
+                    type='number'
+                    value={store.workload}
+                    onChange={(e) => store.setWorkload(parseInt(e.target.value, 10) || 0)}
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    className='max-w-20'
+                    type='number'
+                    value={store.meetings}
+                    onChange={(e) => store.setMeeints(parseInt(e.target.value, 10) || 0)}
+                  />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+
           <Table className='bg-secondary/25 p-6 rounded-md my-4 overflow-clip'>
             <TableHeader className='bg-secondary '>
               <TableRow>
-                <TableHead  className='text-secondary-foreground'>-</TableHead>
-                <TableHead  className='text-secondary-foreground'>Pre-Nursery</TableHead>
-                <TableHead  className='text-secondary-foreground'>Nursery</TableHead>
-                <TableHead  className='text-secondary-foreground'>Kindergarten</TableHead>
+                <TableHead className='text-secondary-foreground'>-</TableHead>
+                <TableHead className='text-secondary-foreground'>Pre-Nursery</TableHead>
+                <TableHead className='text-secondary-foreground'>Nursery</TableHead>
+                <TableHead className='text-secondary-foreground'>Kindergarten</TableHead>
               </TableRow>
             </TableHeader>
             
@@ -34,57 +68,43 @@ const HCDModule = () => {
               <TableRow>
                 <TableCell className='text-semibold'>Planner</TableCell>
                 <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.preNurseryPlanner}
-                    onChange={(e) => store.setPreNurseryPlanner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.preNurseryPlanner}
+                    onCheckedChange={(value) => store.setPreNurseryPlanner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.nurseryPlanner}
-                    onChange={(e) => store.setNurseryPlanner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.nurseryPlanner}
+                    onCheckedChange={(value) => store.setNurseryPlanner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                  className='max-w-20'
-                    type='number'
-                    value={store.kindergartenPlanner}
-                    onChange={(e) => store.setKindergartenPlanner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.kindergartenPlanner}
+                    onCheckedChange={(value) => store.setKindergartenPlanner(value)}
                   />
                 </TableCell>
-
-
               </TableRow>
 
               <TableRow>
                 <TableCell className="text-semibold">Worksheets</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.preNurseryWorksheets}
-                    onChange={(e) => store.setPreNurseryWorksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.preNurseryWorksheets}
+                    onCheckedChange={(value) => store.setPreNurseryWorksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.nurseryWorksheets}
-                    onChange={(e) => store.setNurseryWorksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.nurseryWorksheets}
+                    onCheckedChange={(value) => store.setNurseryWorksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.kindergartenWorksheets}
-                    onChange={(e) => store.setKindergartenWorksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.kindergartenWorksheets}
+                    onCheckedChange={(value) => store.setKindergartenWorksheets(value)}
                   />
                 </TableCell>
               </TableRow>
@@ -92,36 +112,28 @@ const HCDModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">TTBL</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.preNurseryTTBL}
-                    onChange={(e) => store.setPreNurseryTTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.preNurseryTTBL}
+                    onCheckedChange={(value) => store.setPreNurseryTTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.nurseryTTBL}
-                    onChange={(e) => store.setNurseryTTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.nurseryTTBL}
+                    onCheckedChange={(value) => store.setNurseryTTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.kindergartenTTBL}
-                    onChange={(e) => store.setKindergartenTTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.kindergartenTTBL}
+                    onCheckedChange={(value) => store.setKindergartenTTBL(value)}
                   />
                 </TableCell>
               </TableRow>
-
-
             </TableBody>
           </Table>
 
-          <Separator className='my-6'/>
+          <Separator className='my-6' />
 
           {/* Primary And Middle Years */}
           <Table className="bg-secondary/25 p-6 rounded-md my-4 overflow-clip">
@@ -143,67 +155,51 @@ const HCDModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">Planner</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1Planner}
-                    onChange={(e) => store.setGrade1Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade1Planner}
+                    onCheckedChange={(value) => store.setGrade1Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2Planner}
-                    onChange={(e) => store.setGrade2Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade2Planner}
+                    onCheckedChange={(value) => store.setGrade2Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3Planner}
-                    onChange={(e) => store.setGrade3Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade3Planner}
+                    onCheckedChange={(value) => store.setGrade3Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4Planner}
-                    onChange={(e) => store.setGrade4Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade4Planner}
+                    onCheckedChange={(value) => store.setGrade4Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5Planner}
-                    onChange={(e) => store.setGrade5Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade5Planner}
+                    onCheckedChange={(value) => store.setGrade5Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade6Planner}
-                    onChange={(e) => store.setGrade6Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade6Planner}
+                    onCheckedChange={(value) => store.setGrade6Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade7Planner}
-                    onChange={(e) => store.setGrade7Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade7Planner}
+                    onCheckedChange={(value) => store.setGrade7Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade8Planner}
-                    onChange={(e) => store.setGrade8Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade8Planner}
+                    onCheckedChange={(value) => store.setGrade8Planner(value)}
                   />
                 </TableCell>
               </TableRow>
@@ -211,67 +207,51 @@ const HCDModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">Worksheets</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1Worksheets}
-                    onChange={(e) => store.setGrade1Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade1Worksheets}
+                    onCheckedChange={(value) => store.setGrade1Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2Worksheets}
-                    onChange={(e) => store.setGrade2Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade2Worksheets}
+                    onCheckedChange={(value) => store.setGrade2Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3Worksheets}
-                    onChange={(e) => store.setGrade3Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade3Worksheets}
+                    onCheckedChange={(value) => store.setGrade3Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4Worksheets}
-                    onChange={(e) => store.setGrade4Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade4Worksheets}
+                    onCheckedChange={(value) => store.setGrade4Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5Worksheets}
-                    onChange={(e) => store.setGrade5Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade5Worksheets}
+                    onCheckedChange={(value) => store.setGrade5Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade6Worksheets}
-                    onChange={(e) => store.setGrade6Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade6Worksheets}
+                    onCheckedChange={(value) => store.setGrade6Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade7Worksheets}
-                    onChange={(e) => store.setGrade7Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade7Worksheets}
+                    onCheckedChange={(value) => store.setGrade7Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade8Worksheets}
-                    onChange={(e) => store.setGrade8Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade8Worksheets}
+                    onCheckedChange={(value) => store.setGrade8Worksheets(value)}
                   />
                 </TableCell>
               </TableRow>
@@ -279,58 +259,47 @@ const HCDModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">TTBL</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1TTBL}
-                    onChange={(e) => store.setGrade1TTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade1TTBL}
+                    onCheckedChange={(value) => store.setGrade1TTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2TTBL}
-                    onChange={(e) => store.setGrade2TTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade2TTBL}
+                    onCheckedChange={(value) => store.setGrade2TTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3TTBL}
-                    onChange={(e) => store.setGrade3TTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade3TTBL}
+                    onCheckedChange={(value) => store.setGrade3TTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4TTBL}
-                    onChange={(e) => store.setGrade4TTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade4TTBL}
+                    onCheckedChange={(value) => store.setGrade4TTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5TTBL}
-                    onChange={(e) => store.setGrade5TTBL(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade5TTBL}
+                    onCheckedChange={(value) => store.setGrade5TTBL(value)}
                   />
                 </TableCell>
                 <TableCell>
                 </TableCell>
                 <TableCell>
-
                 </TableCell>
                 <TableCell>
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
-
-      </CardContent>
+        </CardContent>
       </Card>
+
 
       <Card>
       <CardHeader>
@@ -340,7 +309,7 @@ const HCDModule = () => {
       <CardContent>
           <Textarea
           value={store.remarks}
-          onChange={(e)=> store.setRemarks(e.target.value)}
+          onChange={(value)=> store.setRemarks(value.target.value)}
           />
       </CardContent>
       </Card>

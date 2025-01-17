@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { useELPModule } from '@/stores/principalReport/elp';
+import { Switch } from '@/components/ui/switch';
 
 
 const ELPModule = () => {
@@ -40,67 +41,51 @@ const ELPModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">Planner</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1Planner}
-                    onChange={(e) => store.setGrade1Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade1Planner}
+                    onCheckedChange={(value) => store.setGrade1Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2Planner}
-                    onChange={(e) => store.setGrade2Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade2Planner}
+                    onCheckedChange={(value) => store.setGrade2Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3Planner}
-                    onChange={(e) => store.setGrade3Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade3Planner}
+                    onCheckedChange={(value) => store.setGrade3Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4Planner}
-                    onChange={(e) => store.setGrade4Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade4Planner}
+                    onCheckedChange={(value) => store.setGrade4Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5Planner}
-                    onChange={(e) => store.setGrade5Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade5Planner}
+                    onCheckedChange={(value) => store.setGrade5Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade6Planner}
-                    onChange={(e) => store.setGrade6Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade6Planner}
+                    onCheckedChange={(value) => store.setGrade6Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade7Planner}
-                    onChange={(e) => store.setGrade7Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade7Planner}
+                    onCheckedChange={(value) => store.setGrade7Planner(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade8Planner}
-                    onChange={(e) => store.setGrade8Planner(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade8Planner}
+                    onCheckedChange={(value) => store.setGrade8Planner(value)}
                   />
                 </TableCell>
               </TableRow>
@@ -108,72 +93,56 @@ const ELPModule = () => {
               <TableRow>
                 <TableCell className="text-semibold">Worksheets</TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade1Worksheets}
-                    onChange={(e) => store.setGrade1Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade1Worksheets}
+                    onCheckedChange={(value) => store.setGrade1Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade2Worksheets}
-                    onChange={(e) => store.setGrade2Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade2Worksheets}
+                    onCheckedChange={(value) => store.setGrade2Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade3Worksheets}
-                    onChange={(e) => store.setGrade3Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade3Worksheets}
+                    onCheckedChange={(value) => store.setGrade3Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade4Worksheets}
-                    onChange={(e) => store.setGrade4Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade4Worksheets}
+                    onCheckedChange={(value) => store.setGrade4Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade5Worksheets}
-                    onChange={(e) => store.setGrade5Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade5Worksheets}
+                    onCheckedChange={(value) => store.setGrade5Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade6Worksheets}
-                    onChange={(e) => store.setGrade6Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade6Worksheets}
+                    onCheckedChange={(value) => store.setGrade6Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade7Worksheets}
-                    onChange={(e) => store.setGrade7Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade7Worksheets}
+                    onCheckedChange={(value) => store.setGrade7Worksheets(value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    className="max-w-20"
-                    type="number"
-                    value={store.grade8Worksheets}
-                    onChange={(e) => store.setGrade8Worksheets(parseInt(e.target.value, 10) || 0)}
+                  <Switch
+                    checked={store.grade8Worksheets}
+                    onCheckedChange={(value) => store.setGrade8Worksheets(value)}
                   />
                 </TableCell>
               </TableRow>
-
             </TableBody>
+
           </Table>
 
       </CardContent>

@@ -26,18 +26,35 @@ interface ClassRowProps {
 const ClassRow: React.FC<ClassRowProps> = ({ classItem, toggleOpen, updateClass }) => {
   // Update class data when sections change
   // CHANGE THE TRANSFER to -
+  
   useEffect(() => {
-    updateClass(classItem.id, {
-      previous: classItem.sections.reduce((acc, section) => acc + section.previous, 0),
-      total: classItem.sections.reduce((acc, section) => acc + section.total, 0),
-      studentPerSection: classItem.sections.reduce((acc, section) => acc + section.total / classItem.sections.length, 0),
-      transfered: classItem.sections.reduce((acc, section) => acc + section.transfered, 0),
-      promoted: classItem.sections.reduce((acc, section) => acc + section.promoted, 0),
-      left: classItem.sections.reduce((acc, section) => acc + section.left, 0),
-      new: classItem.sections.reduce((acc, section) => acc + section.new, 0),
-      boys: classItem.sections.reduce((acc, section) => acc + section.boys, 0),
-      girls: classItem.sections.reduce((acc, section) => acc + section.girls, 0),
-    });
+
+    if (classItem.sections.length === 0) {
+      updateClass(classItem.id, {
+        previous: classItem.previous,
+        total: classItem.total,
+        studentPerSection: classItem.studentPerSection,
+        transfered: classItem.transfered,
+        promoted: classItem.promoted,
+        left: classItem.left,
+        new: classItem.new,
+        boys: classItem.boys,
+        girls: classItem.girls,
+      });
+    } else {
+      updateClass(classItem.id, {
+        previous: classItem.sections.reduce((acc, section) => acc + section.previous, 0),
+        total: classItem.sections.reduce((acc, section) => acc + section.total, 0),
+        studentPerSection: classItem.sections.reduce((acc, section) => acc + section.total / classItem.sections.length, 0),
+        transfered: classItem.sections.reduce((acc, section) => acc + section.transfered, 0),
+        promoted: classItem.sections.reduce((acc, section) => acc + section.promoted, 0),
+        left: classItem.sections.reduce((acc, section) => acc + section.left, 0),
+        new: classItem.sections.reduce((acc, section) => acc + section.new, 0),
+        boys: classItem.sections.reduce((acc, section) => acc + section.boys, 0),
+        girls: classItem.sections.reduce((acc, section) => acc + section.girls, 0),
+      });
+    }
+
   }, [classItem.sections, classItem.id, updateClass]); // Added missing dependencies
 
   // Update total when previous, left, or new changes

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useTeacherStore from '@/stores/principalReport/teachers';
 import useSubjectStore from '@/stores/principalReport/subjects';
+import { Switch } from '@/components/ui/switch';
 
 
 type  staff = {
@@ -50,6 +51,7 @@ const WorkTable = ({staff, subjects}: {staff: staff[], subjects: Subject[]}) => 
                     name: staffMember.name,
                     workload: 0,
                     students: 0,
+                    isHomeRoom: false
                 }))
             );
         }
@@ -89,6 +91,7 @@ const WorkTable = ({staff, subjects}: {staff: staff[], subjects: Subject[]}) => 
             <TableHeader className='bg-secondary '>
               <TableRow>
                 <TableHead  className='text-secondary-foreground'>Name</TableHead>
+                <TableHead  className='text-secondary-foreground w-44'>is Home Room</TableHead>
                 <TableHead  className='text-secondary-foreground w-44'>Work Load</TableHead>
                 {/* <TableHead  className='text-secondary-foreground w-44'>Students</TableHead> */}
               </TableRow>
@@ -99,6 +102,12 @@ const WorkTable = ({staff, subjects}: {staff: staff[], subjects: Subject[]}) => 
                     store.staff.map((staff, index) => (
                         <TableRow key={index}>
                             <TableCell>{staff.name}</TableCell>
+                            <TableCell>
+                                <Switch 
+                                    checked={staff.isHomeRoom}
+                                    onChange={(e) => store.updateStaff(staff.id, {isHomeRoom: staff.isHomeRoom ? false : true})}
+                                />
+                            </TableCell>
                             <TableCell>
                                 <Input
                                     type='number'

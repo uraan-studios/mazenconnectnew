@@ -42,7 +42,6 @@ model Staff {
   status                  StaffStatus               @relation(fields: [statusId], references: [id])
   PRworkloadCell          PRworkloadCell[]
   PRObservationRecordCell PRObservationRecordCell[]
-  PRrecheckingCell        PRrecheckingCell[]
 
   @@index([campusId], map: "staff_campusId_idx") // Index for campusId
   @@index([designationId], map: "staff_designationId_idx") // Index for designationId

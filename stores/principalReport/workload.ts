@@ -5,6 +5,7 @@ interface Staff {
     id: number;
     name: string;
     workload: number;
+    isHomeRoom: boolean;
     students: number;
 }
 

@@ -144,8 +144,6 @@ const ConclusionModule = () => {
             PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
                 id: observationRecord.id,
                 teacherId: observationRecord.teacherId,
-                classId: observationRecord.id,
-                subjectId: observationRecord.subjectId,
                 walkthrough: observationRecord.walkThrough,
                 informed: observationRecord.informed,
                 uninformed: observationRecord.uninformed,
@@ -444,6 +442,7 @@ const ConclusionModule = () => {
                         id: staff.id,
                         name: staff.name,
                         workload: staff.workload,
+                        isHomeLand: staff.isHomeRoom,
                         students: staff.students,
                     }))
                 })
@@ -457,8 +456,6 @@ const ConclusionModule = () => {
                     PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
                         id: observationRecord.id,
                         teacherId: observationRecord.teacherId,
-                        classId: observationRecord.id,
-                        subjectId: observationRecord.subjectId,
                         walkthrough: observationRecord.walkThrough,
                         informed: observationRecord.informed,
                         uninformed: observationRecord.uninformed,

@@ -29,56 +29,57 @@ const ClassTable = ({data}:{data:data[]}) => {
     const classStore = useClassStore()
 
     useEffect(() => {
-        const session = sessionStorage.getItem("student-module-storage")
-        if(!session) {
-            store.setClasses(
-                data.map((item)=> ({
-                    id: item.id,
-                    name: item.name,
-                    previous: 0,
-                    left: 0,
-                    new: 0,
-                    transfered: 0,
-                    promoted: 0,
-                    total: 0,
-                    boys: 0,
-                    girls: 0,
-                    sectionCount: item.ClassSection.length,
-                    studentPerSection: 0,
-
-                    sections: item.ClassSection.map((section)=>({
-                        id: section.id,
-                        name: section.name,
-                        previous: 0,
-                        left: 0,
-                        new: 0,
-                        transfered: 0,
-                        promoted: 0,
-                        total: 0,
-                        boys: 0,
-                        girls: 0,
-                    }))
-                }))
-            )
-
-
-        }
-
-        const classStoreStorage = sessionStorage.getItem("class-module-storage");
-        if (!classStoreStorage) {
-            classStore.setClasses(
+      const session = sessionStorage.getItem("student-module-storage");
+  
+      if (!session) {
+          // Initialize `classes` only if no data exists in session storage
+          store.setClasses(
               data.map((item) => ({
-                id: item.id,
-                name: item.name,
-                gradeId: item.gradeId,
-                sections: item.ClassSection.map((section) => ({
-                  id: section.id,
-                  name: section.name,
-                })),
+                  id: item.id,
+                  name: item.name,
+                  previous: 0,
+                  left: 0,
+                  new: 0,
+                  transfered: 0,
+                  promoted: 0,
+                  total: 0,
+                  boys: 0,
+                  girls: 0,
+                  sectionCount: item.ClassSection.length,
+                  studentPerSection: 0,
+                  sections: item.ClassSection.map((section) => ({
+                      id: section.id,
+                      name: section.name,
+                      previous: 0,
+                      left: 0,
+                      new: 0,
+                      transfered: 0,
+                      promoted: 0,
+                      total: 0,
+                      boys: 0,
+                      girls: 0,
+                  })),
               }))
-            )
-        }
-    }, [data, classStore, store])
+          );
+      }
+  
+      const classStoreStorage = sessionStorage.getItem("class-module-storage");
+      if (!classStoreStorage) {
+          classStore.setClasses(
+              data.map((item) => ({
+                  id: item.id,
+                  name: item.name,
+                  gradeId: item.gradeId,
+                  sections: item.ClassSection.map((section) => ({
+                      id: section.id,
+                      name: section.name,
+                  })),
+              }))
+          );
+      }
+  }, [data, classStore, store]);
+  
+
 
     const [openSections, setOpenSections] = useState<Record<number, boolean>>({})
 

@@ -178,6 +178,7 @@ export const createWorkload = async (data: z.infer<typeof workloadSchema>) => {
                         teacherId: cell.id,
                         workload: cell.workload,
                         students: cell.students,
+                        isHomeland: cell.isHomeLand,
                     }))
                 }
 
@@ -214,9 +215,7 @@ export const createObservation = async (data: z.infer<typeof observationSchema>)
                 PRObservationRecordCell: {
                     createMany: { 
                         data: validationResult.data.PRObservationRecordCell.map((cell) => ({
-                            classId: cell.classId,
                             teacherId: cell.teacherId,
-                            subjectId: cell.subjectId,
                             walkthrough: cell.walkthrough,
                             informed: cell.informed,
                             uninformed: cell.uninformed,
@@ -690,8 +689,6 @@ export const getReport = async (id: number, campusId?: number) => {
                         PRObservationRecordCell: {
                             include: {
                                 teacher: true,
-                                class: true,
-                                subject: true,
                             }
                         }
                     }
@@ -780,8 +777,6 @@ export const getReport = async (id: number, campusId?: number) => {
                         PRObservationRecordCell: {
                             include: {
                                 teacher: true,
-                                class: true,
-                                subject: true,
                             }
                         }
                     }

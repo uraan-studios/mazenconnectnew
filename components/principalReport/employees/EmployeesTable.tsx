@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import useStudentModule from '@/stores/principalReport/students';
 
 
 type data= {
@@ -24,8 +25,10 @@ type data= {
 
 const EmployeesTable = ({data}:{data:data[]}) => {
     const store = useEmployeeModule()
+    const studentModule = useStudentModule()
 
     useEffect(() => {
+      console.log(studentModule.classes)
         const session = sessionStorage.getItem("employee-module-storage")
         if(!session) {
            store.setDepartments(
