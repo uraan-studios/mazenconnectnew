@@ -80,36 +80,38 @@ const styles = StyleSheet.create({
 interface HCDData {
   reportId: number;
   remarks: string;
-  preNurseryPlanner: number;
-  preNurseryWorksheets: number;
-  preNuseryTTBL: number;
-  nurseryPlanner: number;
-  nurseryWorksheets: number;
-  nurseryTTBL: number;
-  kindergartenPlanner: number;
-  kindergartenWorksheets: number;
-  kindergartenTTBL: number;
-  grade1Planner: number;
-  grade1Worksheets: number;
-  grade1TTBL: number;
-  grade2Planner: number;
-  grade2Worksheets: number;
-  grade2TTBL: number;
-  grade3Planner: number;
-  grade3Worksheets: number;
-  grade3TTBL: number;
-  grade4Planner: number;
-  grade4Worksheets: number;
-  grade4TTBL: number;
-  grade5Planner: number;
-  grade5Worksheets: number;
-  grade5TTBL: number;
-  grade6Planner: number;
-  grade6Worksheets: number;
-  grade7Planner: number;
-  grade7Worksheets: number;
-  grade8Planner: number;
-  grade8Worksheets: number;
+  meetings: number;
+  workload: number;
+  preNurseryPlanner: boolean;
+  preNurseryWorksheets: boolean;
+  preNuseryTTBL: boolean;
+  nurseryPlanner: boolean;
+  nurseryWorksheets: boolean;
+  nurseryTTBL: boolean;
+  kindergartenPlanner: boolean;
+  kindergartenWorksheets: boolean;
+  kindergartenTTBL: boolean;
+  grade1Planner: boolean;
+  grade1Worksheets: boolean;
+  grade1TTBL: boolean;
+  grade2Planner: boolean;
+  grade2Worksheets: boolean;
+  grade2TTBL: boolean;
+  grade3Planner: boolean;
+  grade3Worksheets: boolean;
+  grade3TTBL: boolean;
+  grade4Planner: boolean;
+  grade4Worksheets: boolean;
+  grade4TTBL: boolean;
+  grade5Planner: boolean;
+  grade5Worksheets: boolean;
+  grade5TTBL: boolean;
+  grade6Planner: boolean;
+  grade6Worksheets: boolean;
+  grade7Planner: boolean;
+  grade7Worksheets: boolean;
+  grade8Planner: boolean;
+  grade8Worksheets: boolean;
 }
 
 // Props for the HCDTable component
@@ -122,6 +124,21 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
     <View style={styles.container}>
       {/* Early Years Table */}
       <Text style={styles.sectionHeader}>H. HCD</Text>
+      <View style={styles.table}>
+        {/* Table Header */}
+        <View style={styles.headerRow}>
+          <Text style={styles.cell}>Meetings</Text>
+          <Text style={styles.cell}>Workload</Text>
+
+        </View>
+
+        {/* Pre-Nursery Row */}
+        <View style={styles.row}>
+          <Text style={styles.cell}>{hcdData.meetings}</Text>
+          <Text style={styles.cell}>{hcdData.workload}</Text>
+        </View>
+
+      </View>
       <Text style={styles.remarks}>Early Years</Text>
       <View style={styles.table}>
         {/* Table Header */}
@@ -135,25 +152,25 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
         {/* Pre-Nursery Row */}
         <View style={styles.row}>
           <Text style={styles.cell}>Pre-Nursery</Text>
-          <Text style={styles.cell}>{hcdData.preNurseryPlanner}</Text>
-          <Text style={styles.cell}>{hcdData.preNurseryWorksheets}</Text>
-          <Text style={styles.cell}>{hcdData.preNuseryTTBL}</Text>
+          <Text style={styles.cell}>{hcdData.preNurseryPlanner ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.preNurseryWorksheets ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.preNuseryTTBL ? "Yes" : "No"}</Text>
         </View>
 
         {/* Nursery Row */}
         <View style={styles.row}>
           <Text style={styles.cell}>Nursery</Text>
-          <Text style={styles.cell}>{hcdData.nurseryPlanner}</Text>
-          <Text style={styles.cell}>{hcdData.nurseryWorksheets}</Text>
-          <Text style={styles.cell}>{hcdData.nurseryTTBL}</Text>
+          <Text style={styles.cell}>{hcdData.nurseryPlanner ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.nurseryWorksheets ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.nurseryTTBL ? "Yes" : "No"}</Text>
         </View>
 
         {/* Kindergarten Row */}
         <View style={styles.row}>
           <Text style={styles.cell}>Kindergarten</Text>
-          <Text style={styles.cell}>{hcdData.kindergartenPlanner}</Text>
-          <Text style={styles.cell}>{hcdData.kindergartenWorksheets}</Text>
-          <Text style={styles.cell}>{hcdData.kindergartenTTBL}</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenPlanner ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenWorksheets ? "Yes" : "No"}</Text>
+          <Text style={styles.cell}>{hcdData.kindergartenTTBL ? "Yes" : "No"}</Text>
         </View>
       </View>
 
@@ -180,10 +197,10 @@ const HCDTable: React.FC<HCDTableProps> = ({ hcdData }) => {
           { grade: 'Grade 8', planner: hcdData.grade8Planner, worksheets: hcdData.grade8Worksheets, ttbl: '-' },
         ].map((row, index) => (
           <View key={index} style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}>
-            <Text style={styles.cell}>{row.grade}</Text>
-            <Text style={styles.cell}>{row.planner}</Text>
-            <Text style={styles.cell}>{row.worksheets}</Text>
-            <Text style={styles.cell}>{row.ttbl}</Text>
+            <Text style={styles.cell}>{row.grade ? "Yes" :"No"}</Text>
+            <Text style={styles.cell}>{row.planner ? "Yes" :"No"}</Text>
+            <Text style={styles.cell}>{row.worksheets ? "Yes" :"No"}</Text>
+            <Text style={styles.cell}>{row.ttbl ? "Yes" :"No"}</Text>
           </View>
         ))}
       </View>

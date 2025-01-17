@@ -80,22 +80,22 @@ const styles = StyleSheet.create({
 interface PRELPData {
   reportId: number;
   remarks: string;
-  grade1Planner: number;
-  grade1Worksheets: number;
-  grade2Planner: number;
-  grade2Worksheets: number;
-  grade3Planner: number;
-  grade3Worksheets: number;
-  grade4Planner: number;
-  grade4Worksheets: number;
-  grade5Planner: number;
-  grade5Worksheets: number;
-  grade6Planner: number;
-  grade6Worksheets: number;
-  grade7Planner: number;
-  grade7Worksheets: number;
-  grade8Planner: number;
-  grade8Worksheets: number;
+  grade1Planner: boolean;
+  grade1Worksheets: boolean;
+  grade2Planner: boolean;
+  grade2Worksheets: boolean;
+  grade3Planner: boolean;
+  grade3Worksheets: boolean;
+  grade4Planner: boolean;
+  grade4Worksheets: boolean;
+  grade5Planner: boolean;
+  grade5Worksheets: boolean;
+  grade6Planner: boolean;
+  grade6Worksheets: boolean;
+  grade7Planner: boolean;
+  grade7Worksheets: boolean;
+  grade8Planner: boolean;
+  grade8Worksheets: boolean;
 }
 
 // Props for the ELPTable component
@@ -130,9 +130,9 @@ const ELPTable: React.FC<ELPTableProps> = ({ prelpData }) => {
           { grade: 'Grade 8', planner: prelpData.grade8Planner, worksheets: prelpData.grade8Worksheets },
         ].map((row, index) => (
           <View key={index} style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}>
-            <Text style={styles.cell}>{row.grade}</Text>
-            <Text style={styles.cell}>{row.planner}</Text>
-            <Text style={styles.cell}>{row.worksheets}</Text>
+            <Text style={styles.cell}>{row.grade ? "Yes" : "No"}</Text>
+            <Text style={styles.cell}>{row.planner ? "Yes" : "No"}</Text>
+            <Text style={styles.cell}>{row.worksheets ? "Yes" : "No"}</Text>
           </View>
         ))}
       </View>

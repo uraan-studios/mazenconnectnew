@@ -203,6 +203,7 @@ export const createObservation = async (data: z.infer<typeof observationSchema>)
     const validationResult = observationSchema.safeParse(data);
 
     if (!validationResult.success) {
+        console.log("FAILED")
         return {
             errors: validationResult.error.flatten().fieldErrors.reportId?.[0] || "Validation failed.",
         };
@@ -238,15 +239,68 @@ export const createObservation = async (data: z.infer<typeof observationSchema>)
 
 
 
+// export const createRechecking = async (data: z.infer<typeof RecheckingSchema>) => {
+//     const session = await validateRequest()
+//     if(!session.user) return {errors: "You must be logged in to create a report."}
+
+//     const validationResult = RecheckingSchema.safeParse(data);
+
+//     if (!validationResult.success) {
+//         console.log("FAILED")
+//         return {
+//             errors: validationResult.error.flatten().fieldErrors.reportId?.[0] || "Validation failed.",
+//         };
+//     }
+
+//     try {
+//         const recheckingModule = await db.pRrechecking.create({
+//             data: {
+//                 reportId: validationResult.data.reportId,
+//                 remarks: validationResult.data.remarks,
+//                 PRrecheckingCell: {
+//                     createMany: { 
+//                         data: validationResult.data.PRrecheckingCell.map((cell) => ({
+//                         classId: cell.classId,
+//                         count: cell.count,
+//                         percentage: cell.percentage,
+//                         studentCount: cell.studentCount,
+//                         PRrecheckingSubjectCell: {
+//                             createMany: {
+//                                 data: cell.PRrecheckingSubjectCell.map((subject) => ({
+//                                     subjectId: subject.subjectId,
+//                                     count: subject.count,
+//                                 }))
+//                             }
+//                         }
+//                     }))
+//                 }
+
+//             }}
+
+            
+//     })
+
+//         return recheckingModule
+
+//     } catch (error) {            
+//         console.log(error)
+//         return {
+//             errors: "Failed to create report. Please try again later.",
+//         };
+//     }}
+
+
 export const createRechecking = async (data: z.infer<typeof RecheckingSchema>) => {
-    const session = await validateRequest()
-    if(!session.user) return {errors: "You must be logged in to create a report."}
+    const session = await validateRequest();
+    if (!session.user) {
+        return { errors: "You must be logged in to create a report." };
+    }
 
     const validationResult = RecheckingSchema.safeParse(data);
 
     if (!validationResult.success) {
         return {
-            errors: validationResult.error.flatten().fieldErrors.reportId?.[0] || "Validation failed.",
+            errors: validationResult.error.flatten(),
         };
     }
 
@@ -255,36 +309,35 @@ export const createRechecking = async (data: z.infer<typeof RecheckingSchema>) =
             data: {
                 reportId: validationResult.data.reportId,
                 remarks: validationResult.data.remarks,
-                PRrecheckingCell: {
-                    createMany: { 
-                        data: validationResult.data.PRrecheckingCell.map((cell) => ({
-                        classId: cell.classId,
-                        count: cell.count,
-                        percentage: cell.percentage,
-                        studentCount: cell.studentCount,
-                        PRrecheckingSubjectCell: {
-                            createMany: {
-                                data: cell.PRrecheckingSubjectCell.map((subject) => ({
-                                    subjectId: subject.subjectId,
-                                    count: subject.count,
-                                }))
-                            }
-                        }
-                    }))
-                }
+            },
+        });
 
-            }}
-    })
+        for (const cell of validationResult.data.PRrecheckingCell) {
+            await db.pRrecheckingCell.create({
+                data: {
+                    rowId: recheckingModule.reportId,
+                    classId: cell.classId,
+                    count: cell.count,
+                    percentage: cell.percentage,
+                    studentCount: cell.studentCount,
+                    PRrecheckingSubjectCell: {
+                        create: cell.PRrecheckingSubjectCell.map((subject) => ({
+                            subjectId: subject.subjectId,
+                            count: subject.count,
+                        })),
+                    },
+                },
+            });
+        }
 
-        return recheckingModule
-
-    } catch (error) {            
-        console.log(error)
+        return recheckingModule;
+    } catch (error) {
+        console.log(error);
         return {
             errors: "Failed to create report. Please try again later.",
         };
-    }}
-
+    }
+};
 
 
 export const createTTBL = async (data: z.infer<typeof ttblSchema>) => {
@@ -814,7 +867,7 @@ export const getReport = async (id: number, campusId?: number) => {
                 PRswot: true
             }
         });
-    }, ['report'], { revalidate: 50, tags: ['reports'] });
+    }, ['report'], { revalidate: 5000, tags: ['reports'] });
 
     // Use the user’s campus ID if campusId is not provided
     const effectiveCampusId = campusId || session.user?.fkid;

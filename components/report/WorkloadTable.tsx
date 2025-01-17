@@ -69,6 +69,7 @@ const WorkloadTable = ({ report }: { report: Report }) => {
         {/* Header Row */}
         <View style={styles.headerRow}>
           <Text style={styles.cell2}>Name</Text>
+          <Text style={styles.cell}>Home Room</Text>
           <Text style={styles.cell}>Workload</Text>
           {/* <Text style={styles.cell}>Students</Text> */}
         </View>
@@ -77,6 +78,7 @@ const WorkloadTable = ({ report }: { report: Report }) => {
         {report.PRworkload?.PRworkloadCell.map((item, index) => (
           <View key={index} style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}>
             <Text style={styles.cell2}>{item.teacher.name}</Text>
+            <Text style={styles.cell}>{item.isHomeland ? "Yes" : ""}</Text>
             <Text style={styles.cell}>{item.workload}</Text>
             {/* <Text style={styles.cell}>{item.students}</Text> */}
           </View>

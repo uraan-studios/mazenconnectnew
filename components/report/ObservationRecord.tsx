@@ -79,8 +79,6 @@ const ObservationRecord : React.FC<{report: Report}> = ({ report })  => {
         <View style={styles.headerRow}>
           <Text style={styles.cell}>ID</Text>
           <Text style={styles.cell}>Name</Text>
-          <Text style={styles.cell}>Grade</Text>
-          <Text style={styles.cell}>Subject</Text>
           <Text style={styles.cell}>Walk Through</Text>
           <Text style={styles.cell}>Informed</Text>
           <Text style={[styles.cell, { borderRightWidth: 0 }]}>UnInformed</Text>
@@ -94,8 +92,6 @@ const ObservationRecord : React.FC<{report: Report}> = ({ report })  => {
           >
             <Text style={styles.cell}>{index + 1}</Text>
             <Text style={styles.cell}>{item.teacher.name}</Text>
-            <Text style={styles.cell}>{item.class.name}</Text>
-            <Text style={styles.cell}>{item.subject.name}</Text>
             <Text style={styles.cell}>{item.walkthrough}</Text>
             <Text style={styles.cell}>{item.informed}</Text>
             <Text style={[styles.cell, styles.lastCell]}>{item.uninformed}</Text>

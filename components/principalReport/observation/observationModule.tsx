@@ -111,7 +111,7 @@ const ObservationModule = () => {
                 <TableCell>-</TableCell>
                 {/* Select Teacher */}
                 <TableCell>
-                  {/* <Select
+                  <Select
                     onValueChange={(value) =>
                       setNewActivity({
                         ...newActivity,
@@ -129,9 +129,9 @@ const ObservationModule = () => {
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select> */}
+                  </Select>
 
-                <Popover open={open} onOpenChange={setOpen}>
+                {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                             <Button
                               variant="outline"
@@ -175,11 +175,9 @@ const ObservationModule = () => {
                               </CommandList>
                             </Command>
                     </PopoverContent>
-                </Popover> 
+                </Popover>  */}
 
-                {
-                  newActivity.teacherId
-                }
+          
                 </TableCell>
 
                 

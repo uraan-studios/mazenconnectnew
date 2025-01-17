@@ -105,7 +105,7 @@ const WorkTable = ({staff, subjects}: {staff: staff[], subjects: Subject[]}) => 
                             <TableCell>
                                 <Switch 
                                     checked={staff.isHomeRoom}
-                                    onChange={(e) => store.updateStaff(staff.id, {isHomeRoom: staff.isHomeRoom ? false : true})}
+                                    onCheckedChange={(value) => store.updateStaff(staff.id, {isHomeRoom: value})}
                                 />
                             </TableCell>
                             <TableCell>

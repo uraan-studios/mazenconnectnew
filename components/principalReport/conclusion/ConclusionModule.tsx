@@ -353,6 +353,23 @@ const ConclusionModule = () => {
 
         setStatus("Validating report...");
 
+        if(!report.observation){
+            setStatus("Made some progess, uploading Observations👀...")
+           await createObservation({
+                reportId: 6,
+                PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
+                    id: observationRecord.id,
+                    teacherId: observationRecord.teacherId,
+                    walkthrough: observationRecord.walkThrough,
+                    informed: observationRecord.informed,
+                    uninformed: observationRecord.uninformed,
+                }))
+            })
+            report.setObservation(true)
+        }
+
+        return
+
 
         console.log("validating")
         const isValid = await validatePRdata()
@@ -377,6 +394,8 @@ const ConclusionModule = () => {
             //     console.log("report id", reportId)
             // }
             const reportId = await createReport()
+
+           
 
         
 
@@ -476,7 +495,8 @@ const ConclusionModule = () => {
             if(!report.rechecking){
                 setStatus("Looking nice, proceeding to uploading Rechecking module📕...")
                 await createRechecking({
-                    reportId: reportId as number,
+                    // reportId: reportId as number,
+                    reportId: 3,
                     remarks: recheckingStore.remarks,
                     PRrecheckingCell: recheckingStore.rechecking.map((recheckingMI) => ({
                         classId: recheckingMI.classId,
@@ -795,7 +815,7 @@ const ConclusionModule = () => {
                 )} */}
                 </div>
                 <form onSubmit={onSubmit}>
-                    <Button disabled={loading}>{loading ? "Loading..." : "Upload/Resume Report"}</Button>
+                    <Button disabled={loading}>{loading ? "Loading..." : "Submit Report"}</Button>
                 </form>
             </CardFooter>
         </Card>
