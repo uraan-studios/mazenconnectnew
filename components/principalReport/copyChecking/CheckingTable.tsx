@@ -30,18 +30,27 @@ type Division = {
     name: string;
 }
 
-const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
+type data = {
+    ClassSection: {
+        id: number;
+        name: string;
+        classId: number;
+    }[];
+  } & {
+    id: number;
+    name: string;
+    gradeId: number;
+    description: string;
+    campusId: number;
+  }
+
+const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[] }) => {
     const studentStore = useStudentModule();
     const classStore = useClassStore();
     const subjectStore = useSubjectStore();
     const teacherStore = useTeacherStore();
     // const recheckingStore = useRecheckingStore();
     const recheckingStore= useRecheckingStore()
-
-    // State for selected teacher, subject, and status
-    const [selectedTeacherId, setSelectedTeacherId] = useState<string | null>(null);
-    const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
-    const [newCount, setNewCount] = useState<number>(0);
 
     useEffect(() => {
         const session = sessionStorage.getItem("student-module-storage");
@@ -53,13 +62,24 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
         const recheckSession = sessionStorage.getItem("rechecking-storage");
         if (!recheckSession) {
             console.log("Adding Rechecking")
-            studentStore.classes.forEach((classItem) => {
-                recheckingStore.addRechecking(classItem.id, subjectStore.subjects.filter((subject) => subject.gradeId === classItem.id).map((subject) => ({
+            data.map((classItem) => {
+                recheckingStore.addRechecking(classItem.id, subjectStore.subjects.filter((subject) => subject.gradeId === classItem.gradeId).map((subject) => ({
                     id: subject.id,
                     name: subject.name,
                     count: 0,
                 })))
             })
+            
+            // studentStore.classes.forEach((classItem) => {
+            //     // recheckingStore.addRechecking(classItem., subjectStore.subjects.filter((subject) => subject.gradeId === classItem.id).map((subject) => ({
+            //     //     id: subject.id,
+            //     //     name: subject.name,
+            //     //     count: 0,
+            //     // })))
+            //     filteredDivisions.forEach((division) => {
+            //         // division.grades.filter((grade))
+            //     })
+            // })
         }
         // filteredDivisions.forEach((division) => {
         //     division.grades.forEach((grade) => {
@@ -101,7 +121,7 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                         <Table  className='bg-accent p-6 rounded-md my-4 overflow-clip'>
                             <TableHeader className='bg-secondary'>
                                 <TableRow>
-                                    <TableHead className='text-secondary-foreground'>Grade</TableHead>
+                                    <TableHead colSpan={2} className='text-secondary-foreground'>Grade</TableHead>
                                     {
                                         subjectStore.subjects.filter((subject) => subject.gradeId === division.grades[0].id).map((subject) => (
                                             <TableHead className='text-secondary-foreground'>{subject.name}</TableHead>
@@ -115,10 +135,11 @@ const CheckingTable = ({ divisions }: { divisions: Division[] }) => {
                             </TableHeader>
 
                             <TableBody>
-                                {recheckingStore.rechecking.filter((item)=> division.grades.some((grade) => grade.id === item.classId)).map((gradeItem, index) => (
+                                {recheckingStore.rechecking.filter((item)=> division.grades.some((grade) => grade.id === data.find((classItem) => classItem.id === item.classId)?.gradeId)).map((gradeItem, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>{division.grades.find((grade) => grade.id === gradeItem.classId)?.name}</TableCell>
+                                        <TableCell colSpan={2}>{division.grades.find((grade) => grade.id === data.find((classItem) => classItem.id === gradeItem.classId)?.gradeId)?.name}</TableCell>
                                         {
+                                            
                                             gradeItem.subjects.map((subject) => (
                                                 <TableCell>
                                                     <Input 

@@ -56,12 +56,21 @@ const ActivityModule = () => {
                   placeholder="Activity Description"
                 />
                 <div className="mt-4">
-                  <input
-                    type="date"
-                    value={activity.date ? new Date(activity.date).toISOString().split("T")[0] : ""}
-                    onChange={(e) => store.updateActivity(activity.id, { date: new Date(e.target.value).toISOString() })}
-                    className="border rounded px-2 py-1 w-full"
-                  />
+                <input
+                  type="date"
+                  value={activity.date ? new Date(activity.date).toISOString().split("T")[0] : ""}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    if (isNaN(Date.parse(inputValue))) {
+                      // Handle invalid date input, e.g., clear the value or set a default
+                      store.updateActivity(activity.id, { date: new Date().toISOString() }); // Assuming null is acceptable
+                    } else {
+                      store.updateActivity(activity.id, { date: new Date(inputValue).toISOString() });
+                    }
+                  }}
+                  className="border rounded px-2 py-1 w-full"
+                />
+
                   <p className="text-sm mt-2">
                     
                     {activity.date ? `Selected date: ${ 
@@ -93,9 +102,18 @@ const ActivityModule = () => {
               <input
                 type="date"
                 value={newActivityDate || ""}
-                onChange={(e) => setNewActivityDate(e.target.value || null)}
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+                  if (!inputValue || isNaN(Date.parse(inputValue))) {
+                    // Handle invalid date or empty input by setting it to null
+                    setNewActivityDate(null);
+                  } else {
+                    setNewActivityDate(inputValue);
+                  }
+                }}
                 className="border rounded px-2 py-1 w-full"
               />
+
               <p className="text-sm mt-2">
                 {newActivityDate ? `Selected date: ${
                 format(new Date(newActivityDate), "PPP")}` : "No date selected"}

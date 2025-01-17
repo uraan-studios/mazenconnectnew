@@ -9,7 +9,7 @@ import useActivityStore from '@/stores/principalReport/activity'
 import useEmployeeModule from '@/stores/principalReport/employees'
 import { useHCDModule } from '@/stores/principalReport/hcd'
 import useObservationModule from '@/stores/principalReport/observationModule'
-import useRecheckingStore from '@/stores/principalReport/rechecking'
+import useRecheckingStore from '@/stores/principalReport/newRechecking'
 import useStudentModule from '@/stores/principalReport/students'
 import useSWOTModule from '@/stores/principalReport/swot'
 import useTennufusStore from '@/stores/principalReport/teneffus'
@@ -25,6 +25,8 @@ import { useELPModule } from '@/stores/principalReport/elp'
 import { Separator } from '@radix-ui/react-separator'
 import { toast } from "sonner"
 import { ZodError, ZodIssue } from 'zod'
+import { m } from 'framer-motion'
+import { sub } from 'date-fns'
 
 const ConclusionModule = () => {
     const router = useRouter()
@@ -69,6 +71,7 @@ const ConclusionModule = () => {
         validationResult.error.issues.forEach((issue: ZodIssue) => {
             errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
         });
+        console.log(validationResult.error.cause)
         isValid = false; // Ensure `isValid` is declared in your scope
     }
 };
@@ -133,6 +136,7 @@ const ConclusionModule = () => {
                 id: staff.id,
                 name: staff.name,
                 workload: staff.workload,
+                isHomeLand: staff.isHomeRoom,
                 students: staff.students,
             })),
         });
@@ -157,10 +161,13 @@ const ConclusionModule = () => {
             remarks: recheckingStore.remarks,
             PRrecheckingCell: recheckingStore.rechecking.map((rechecking) => ({
                 classId: rechecking.classId,
-                teacherId: rechecking.teacherId,
-                subjectId: rechecking.subjectId,
-                count: rechecking.count,
-                total: studentStore.getClassStrength(rechecking.classId),
+                count: 0,
+                percentage: 0,
+                studentCount: studentStore.getClassStrength(rechecking.classId),
+                PRrecheckingSubjectCell: rechecking.subjects.map((subject) => ({
+                    subjectId: subject.id,
+                    count: subject.count,
+                }))
             })),
         });
         handleValidationErrors(recheckingErrors);
@@ -244,6 +251,8 @@ const ConclusionModule = () => {
         const hcdErrors = hcdSchema.safeParse({
             reportId: 1,
             remarks: hcdStore.remarks,
+            meetings: hcdStore.meetings,
+            workload: hcdStore.workload,
             preNurseryPlanner: hcdStore.preNurseryPlanner,
             preNurseryWorksheets: hcdStore.preNurseryWorksheets,
             preNurseryTTBL: hcdStore.preNurseryTTBL,
@@ -469,12 +478,15 @@ const ConclusionModule = () => {
                 await createRechecking({
                     reportId: reportId as number,
                     remarks: recheckingStore.remarks,
-                    PRrecheckingCell: recheckingStore.rechecking.map((rechecking) => ({
-                        classId: rechecking.classId,
-                        teacherId: rechecking.teacherId,
-                        subjectId: rechecking.subjectId,
-                        count: rechecking.count,
-                        total: studentStore.getClassStrength(rechecking.classId),
+                    PRrecheckingCell: recheckingStore.rechecking.map((recheckingMI) => ({
+                        classId: recheckingMI.classId,
+                        count: 0,
+                        percentage: 0,
+                        studentCount: studentStore.getClassStrength(recheckingMI.classId),
+                        PRrecheckingSubjectCell: recheckingMI.subjects.map((subject) => ({
+                            subjectId: subject.id,
+                            count: subject.count,
+                        }))
                     }))
                 })
                 report.setRechecking(true)
@@ -572,6 +584,8 @@ const ConclusionModule = () => {
                 setStatus("Let's get to the HCD module...")
               await createHCDModule({
                     reportId: reportId as number,
+                    meetings: hcdStore.meetings,
+                    workload: hcdStore.workload,
                     remarks: hcdStore.remarks,
                     preNurseryPlanner: hcdStore.preNurseryPlanner,
                     preNurseryWorksheets: hcdStore.preNurseryWorksheets,

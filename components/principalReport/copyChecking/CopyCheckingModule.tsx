@@ -3,10 +3,14 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getGrades } from '@/actions/grade';
 import CheckingTable from './CheckingTable';
+import { getClassesWSections } from '@/actions/prinicpalReport';
 
 const CopyCheckingModule = async () => {
     // const classes = useClassStore()
     const grades = await getGrades()
+        const classes = await getClassesWSections()
+    
+    
   return (
     <div className="space-y-6">
 
@@ -16,7 +20,7 @@ const CopyCheckingModule = async () => {
           <CardDescription>Enter any remarks you have regarding this Module</CardDescription>
       </CardHeader>
       <CardContent>
-        <CheckingTable divisions={grades} />
+        <CheckingTable divisions={grades}  data={classes} />
       </CardContent>
       </Card>
 

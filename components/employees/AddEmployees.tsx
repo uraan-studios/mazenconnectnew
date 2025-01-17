@@ -147,7 +147,15 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
             <Input
               type="date"
               value={employeeStore.datejoined ? employeeStore.datejoined.toISOString().split('T')[0] : ""}
-              onChange={(e) => employeeStore.setDateJoined(new Date(e.target.value))}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                if (isNaN(Date.parse(inputValue))) {
+                  // If the input value is invalid, you can set a default date or clear the value
+                  employeeStore.setDateJoined(new Date()); // Assuming your store can handle null values
+                } else {
+                  employeeStore.setDateJoined(new Date(inputValue));
+                }
+              }}
             />
           </div>
 

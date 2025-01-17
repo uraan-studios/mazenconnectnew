@@ -259,10 +259,17 @@ export const createRechecking = async (data: z.infer<typeof RecheckingSchema>) =
                     createMany: { 
                         data: validationResult.data.PRrecheckingCell.map((cell) => ({
                         classId: cell.classId,
-                        teacherId: cell.teacherId,
-                        subjectId: cell.subjectId,
                         count: cell.count,
-                        total: cell.total,
+                        percentage: cell.percentage,
+                        studentCount: cell.studentCount,
+                        PRrecheckingSubjectCell: {
+                            createMany: {
+                                data: cell.PRrecheckingSubjectCell.map((subject) => ({
+                                    subjectId: subject.subjectId,
+                                    count: subject.count,
+                                }))
+                            }
+                        }
                     }))
                 }
 
@@ -457,6 +464,8 @@ export const createTenuus = async (data: z.infer<typeof tenuusSchema>) => {
                     data: {
                         reportId: data.reportId,
                         remarks: data.remarks,
+                        meetings: data.meetings,
+                        workload: data.workload,
                         preNurseryPlanner: data.preNurseryPlanner,
                         preNurseryWorksheets: data.preNurseryWorksheets,
                         preNuseryTTBL: data.preNurseryTTBL,
@@ -699,8 +708,6 @@ export const getReport = async (id: number, campusId?: number) => {
                         PRrecheckingCell: {
                             include: {
                                 class: true,
-                                teacher: true,
-                                subject: true,
                             }
                         }
                     },
@@ -786,8 +793,6 @@ export const getReport = async (id: number, campusId?: number) => {
                         PRrecheckingCell: {
                             include: {
                                 class: true,
-                                teacher: true,
-                                subject: true,
                             }
                         }
                     },

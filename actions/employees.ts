@@ -32,6 +32,8 @@ export const getEmployees = async () => {
 }
 
 export const getEmployeesByDepartment = async (departmentId: number, page: number = 1) => {
+    const session = await validateRequest()
+    if(!session.user) return {employees: [], total: 0, totalPages: 0}
     // NEED TO ADD CAMPUS ID
     if (!departmentId) {
       return { employees: [], total: 0, totalPages: 0 };
@@ -48,6 +50,9 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
         OR: designations.map(designation => ({
             designationId: designation.id
         })),
+        AND: {
+            campusId: session.user.fkid
+        }
       },
       include:{
         designation: true,
@@ -62,6 +67,9 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
         OR: designations.map(designation => ({
           designationId: designation.id
         })),
+        AND: {
+          campusId: session.user.fkid
+        }
       }
     });
   
@@ -75,7 +83,7 @@ const employeeSchema = z.object({
     name: z.string().min(1, 'Employee name is required').max(100, 'Employee name is too long'),
     designation: z.number().min(1, 'Employee designation is required').max(1000, 'Choose a valid Employee designation'),
     salary: z.number().min(1, 'Employee salary is required').max(5000000, 'Choose a valid Employee salary'),
-    status: z.number().min(1, 'Employee status is required').max(10, 'Choose a valid Employee status'),
+    status: z.number().min(1, 'Employee status is required').max(100, 'Choose a valid Employee status'),
     dateJoined: z.date(),
 });
 
