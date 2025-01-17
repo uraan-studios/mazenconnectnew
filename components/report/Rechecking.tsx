@@ -92,7 +92,7 @@ const RecheckingModule: React.FC<{ report: Report }> = ({ report }) => {
           </View>
 
           {/* Data Rows */}
-          {group.items.map((item, index) => (
+          {/* {group.items.map((item, index) => (
             <View key={item.id} style={[styles.row, index % 2 === 1 ? styles.alternateRow : {}]}>
               <Text style={styles.cell}>{item.teacher.name}</Text>
               <Text style={styles.cell}>{item.subject.name}</Text>
@@ -100,7 +100,7 @@ const RecheckingModule: React.FC<{ report: Report }> = ({ report }) => {
               <Text style={styles.cell}>{item.total}</Text>
               <Text style={[styles.cell, styles.lastCell]}>{(item.count/item.total*100).toFixed(2)}%</Text>
             </View>
-          ))}
+          ))} */}
         </View>
       ))}
     </View>

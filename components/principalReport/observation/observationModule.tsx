@@ -28,16 +28,16 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+// import { cn } from "@/lib/utils"
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from "@/components/ui/popover"
+// import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 const ObservationModule = () => {
   const store = useObservationModule();
@@ -52,8 +52,6 @@ const ObservationModule = () => {
     uninformed: "",
   });
 
-  const [selectedGrade, setSelectedGrade] = useState(0);
-  const [open, setOpen] = React.useState(false)
 
   return (
     <div>

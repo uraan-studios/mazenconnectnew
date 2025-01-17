@@ -1,5 +1,5 @@
 
-import { thisMonthPrincipalReport } from '@/actions/prinicpalReport'
+// import { thisMonthPrincipalReport } from '@/actions/prinicpalReport'
 import AnimatedHeading from '@/components/general/animatedHeading'
 import ClassModule from '@/components/principalReport/class/ClassModule'
 import PrincipalReportNav from '@/components/principalReport/PrincipalReportNav'

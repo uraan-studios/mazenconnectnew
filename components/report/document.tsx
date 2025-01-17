@@ -11,10 +11,10 @@ import SWOTTable from './SWOTTable';
 import ReportFooter from './ReportFooter';
 import ReportHeader from './ReportHeader';
 import ObservationRecord from './ObservationRecord';
-import RecheckingModule from './Rechecking';
+// import RecheckingModule from './Rechecking';
 import TeneffusModule from './Teneffus';
 import ELPTable from './ELPTable';
-import { MasterReport, Report } from '@/constants/types';
+import { Report } from '@/constants/types';
 
 const styles = StyleSheet.create({
   page: {

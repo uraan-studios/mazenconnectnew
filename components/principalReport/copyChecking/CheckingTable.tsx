@@ -1,24 +1,15 @@
 "use client";
 import useClassStore from '@/stores/principalReport/classes';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import useSubjectStore from '@/stores/principalReport/subjects';
-import useTeacherStore from '@/stores/principalReport/teachers';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Button } from '@/components/ui/button';
+// import useTeacherStore from '@/stores/principalReport/teachers';
+
 import useRecheckingStore from '@/stores/principalReport/newRechecking';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import useStudentModule from '@/stores/principalReport/students';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 
 type Division = {
@@ -48,7 +39,7 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
     const studentStore = useStudentModule();
     const classStore = useClassStore();
     const subjectStore = useSubjectStore();
-    const teacherStore = useTeacherStore();
+    // const teacherStore = useTeacherStore();
     // const recheckingStore = useRecheckingStore();
     const recheckingStore= useRecheckingStore()
 
@@ -93,11 +84,11 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
         // })
     }, [divisions, classStore]);
 
-    interface RecheckingSubject {
-        id: number;
-        name: string;
-        count: number;
-    }
+    // interface RecheckingSubject {
+    //     id: number;
+    //     name: string;
+    //     count: number;
+    // }
 
 //    const addClassRow = (classId: number, subjects: RecheckingSubject[]) => {
 //        recheckingStore.addRechecking(classId, subjects)
@@ -123,8 +114,8 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
                                 <TableRow>
                                     <TableHead colSpan={2} className='text-secondary-foreground'>Grade</TableHead>
                                     {
-                                        subjectStore.subjects.filter((subject) => subject.gradeId === division.grades[0].id).map((subject) => (
-                                            <TableHead className='text-secondary-foreground'>{subject.name}</TableHead>
+                                        subjectStore.subjects.filter((subject) => subject.gradeId === division.grades[0].id).map((subject, index) => (
+                                            <TableHead key={subject.id + index} className='text-secondary-foreground'>{subject.name}</TableHead>
                                         ))
                                     }
                                     <TableHead className='text-secondary-foreground'>Students</TableHead>
@@ -141,7 +132,7 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
                                         {
                                             
                                             gradeItem.subjects.map((subject) => (
-                                                <TableCell>
+                                                <TableCell key={subject.id}>
                                                     <Input 
                                                         type='number'
                                                         min={0}
