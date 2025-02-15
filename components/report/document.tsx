@@ -15,6 +15,7 @@ import ObservationRecord from './ObservationRecord';
 import TeneffusModule from './Teneffus';
 import ELPTable from './ELPTable';
 import { Report } from '@/constants/types';
+import RecheckingModule from './Rechecking';
 
 const styles = StyleSheet.create({
   page: {
@@ -32,7 +33,7 @@ export const PrincipalReport = ({ report }: { report: Report }) => (
       <StaffTable report={report} />
       <WorkloadTable report={report} />
       <ObservationRecord report={report} />
-      {/* <RecheckingModule  report={report} /> */}
+      <RecheckingModule  report={report} />
       <TTBL report={report} />
       <HCDTable hcdData={report.PRHcd} />
       <ELPTable prelpData={report.PRELP} />

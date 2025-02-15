@@ -23,7 +23,7 @@ const SectionRow: React.FC<SectionRowProps> = ({ section, classId, updateSection
 
   return (
     <TableRow className='bg-primary/15'>
-      <TableCell>{section.id}</TableCell>
+      <TableCell>-</TableCell>
       <TableCell colSpan={2}>{section.name}</TableCell>
 
       <TableCell>

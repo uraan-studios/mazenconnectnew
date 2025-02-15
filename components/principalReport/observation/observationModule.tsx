@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -30,19 +30,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
-// import { cn } from "@/lib/utils"
-
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover"
-// import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-
 const ObservationModule = () => {
   const store = useObservationModule();
   const teacherStore = useTeacherStore();
-
 
   const [newActivity, setNewActivity] = useState({
     id: 0,
@@ -52,6 +42,35 @@ const ObservationModule = () => {
     uninformed: "",
   });
 
+  const [availableTeachers, setAvailableTeachers] = useState(teacherStore.teachers);
+
+  useEffect(() => {
+    // Update available teachers whenever the observation records change
+    const usedTeacherIds = store.observationRecords.map(record => record.teacherId);
+    setAvailableTeachers(teacherStore.teachers.filter(teacher => !usedTeacherIds.includes(teacher.id)));
+  }, [store.observationRecords, teacherStore.teachers]);
+
+  const handleAddObservationRecord = () => {
+    if (newActivity.teacherId === 0) return; // Ensure a teacher is selected
+
+    store.addObservationRecord({
+      ...newActivity,
+      id: store.observationRecords.length + 1,
+    });
+
+    // Reset the form
+    setNewActivity({
+      id: 0,
+      teacherId: 0,
+      walkThrough: "",
+      informed: "",
+      uninformed: "",
+    });
+  };
+
+  const handleRemoveObservationRecord = (id: number) => {
+    store.removeObservationRecord(id);
+  };
 
   return (
     <div>
@@ -88,9 +107,7 @@ const ObservationModule = () => {
                   <TableCell>{observationRecord.uninformed}</TableCell>
                   <TableCell className="text-right space-x-2">
                     <Button
-                      onClick={() =>
-                        store.removeObservationRecord(observationRecord.id)
-                      }
+                      onClick={() => handleRemoveObservationRecord(observationRecord.id)}
                       variant={"destructive"}
                     >
                       <Trash2 className="h-6 w-6 text-white" />
@@ -121,64 +138,14 @@ const ObservationModule = () => {
                       <SelectValue placeholder="Select Teacher" />
                     </SelectTrigger>
                     <SelectContent>
-                      {teacherStore.teachers.map((teacher) => (
+                      {availableTeachers.map((teacher) => (
                         <SelectItem key={teacher.id} value={teacher.id.toString()}>
                           {teacher.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-
-                {/* <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={open}
-                              className="w-[200px] justify-between"
-                            >
-                              {newActivity.teacherId
-                                ? teacherStore.teachers.find((teach) => teach.id === newActivity.teacherId)?.name
-                                : "Select Teacher..."}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-[200px] p-0">
-                            <Command>
-                              <CommandInput placeholder="Search Teacher..." />
-                              <CommandList>
-                                <CommandEmpty>No Teacher found.</CommandEmpty>
-                                <CommandGroup>
-                                  {teacherStore.teachers.map((teach) => (
-                                    <CommandItem
-                                      key={teach.id}
-                                      value={teach.name + teach.id}
-                                      onSelect={(currentValue: string) => {
-                                        setNewActivity({
-                                          ...newActivity,
-                                          teacherId: teacherStore.teachers.find((teach) => teach.name + teach.id === currentValue)?.id || 0,
-                                        })
-                                        setOpen(false)
-                                      }}
-                                    >
-                                      <Check
-                                        className={cn(
-                                          "mr-2 h-4 w-4",
-                                         ( teach.name + teach.id) === (teach.name + newActivity.teacherId) ? "opacity-100" : "opacity-0"
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </CommandList>
-                            </Command>
-                    </PopoverContent>
-                </Popover>  */}
-
-          
                 </TableCell>
-
-                
 
                 {/* Walk Through */}
                 <TableCell>
@@ -227,12 +194,7 @@ const ObservationModule = () => {
 
                 <TableCell className="text-right space-x-2">
                   <Button
-                    onClick={() =>
-                      store.addObservationRecord({
-                        ...newActivity,
-                        id: store.observationRecords.length + 1,
-                      })
-                    }
+                    onClick={handleAddObservationRecord}
                     variant={"default"}
                   >
                     Add

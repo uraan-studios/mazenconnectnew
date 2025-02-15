@@ -72,7 +72,7 @@ const ReportPage = () => {
         <AnimatedHeading className='font-misologist font-normal' title='Principal Report' varient='heading' />
       </div>
 
-      {/* <div>{JSON.stringify(report)}</div> */}
+      <div>{JSON.stringify(report.PRrechecking)}</div>
 
       <React.Suspense fallback={<div>Loading report renderer...</div>}>
         <DynamicReportPageRenderer report={report} />

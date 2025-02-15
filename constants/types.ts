@@ -250,6 +250,7 @@ export type Report = {
       }[];
   };
   PRObservationRecord: {
+      remarks: string
       reportId: number;
       PRObservationRecordCell: {
           id: number;
@@ -270,34 +271,42 @@ export type Report = {
       }[];
   };
   PRrechecking: {
-      reportId: number;
-      remarks: string;
-      PRrecheckingCell: {
+    reportId: number;
+    remarks: string;
+    PRrecheckingCell: {
+      id: number;
+      rowId: number;
+      classId: number;
+      count: number;
+      percentage: number;
+      studentCount: number;
+      PRrecheckingSubjectCell: {
+        id: number;
+        rowId: number;
+        subjectId: number;
+        count: number;
+        subject: {
           id: number;
-          rowId: number;
-          classId: number;
-          count: number;
-          percentage: number;
-          studentCount: number;
-          PRrecheckingSubjectCell:{
-            id: number;
-            rowId: number;
-            subjectId: number;
-            count: number;
-            subject: {
-              id: number;
-              name: string;
-              gradeId: number;
-          }}
-          class: {
-              id: number;
-              name: string;
-              description: string;
-              campusId: number;
-              gradeId: number;
-          };
-          
+          name: string;
+          gradeId: number;
+        };
       }[];
+      class: {
+        id: number;
+        name: string;
+        description: string;
+        campusId: number;
+        gradeId: number;
+        grade: {
+          id: number;
+          name: string;
+          division: {
+            id: number;
+            name: string;
+          };
+        };
+      };
+    }[];
   };
   PRttbl: {
       reportId: number;

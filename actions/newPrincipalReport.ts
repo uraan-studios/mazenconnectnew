@@ -760,7 +760,22 @@ export const getReport = async (id: number, campusId?: number) => {
                     include: {
                         PRrecheckingCell: {
                             include: {
-                                class: true,
+                                class: {
+                                    include: {
+                                        grade: {
+                                            include: {
+                                                division: true
+
+                                            }
+                                        }
+                                    }
+                                },
+                                PRrecheckingSubjectCell: {
+                                    include: {
+                                        subject: true
+                                    }
+                                
+                                }
                             }
                         }
                     },

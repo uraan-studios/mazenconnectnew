@@ -63,16 +63,16 @@ const ConclusionModule = () => {
         let isValid = true;
         const errorMessages: string[] = [];
     
- // Helper function to handle Zod validation errors
- const handleValidationErrors = (validationResult: { success: boolean; error?: ZodError }) => {
-    if (!validationResult.success && validationResult.error) {
-        validationResult.error.issues.forEach((issue: ZodIssue) => {
-            errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
-        });
-        console.log(validationResult.error.cause)
-        isValid = false; // Ensure `isValid` is declared in your scope
-    }
-};
+    // Helper function to handle Zod validation errors
+    const handleValidationErrors = (validationResult: { success: boolean; error?: ZodError }) => {
+        if (!validationResult.success && validationResult.error) {
+            validationResult.error.issues.forEach((issue: ZodIssue) => {
+                errorMessages.push(issue.message); // Ensure `errorMessages` is properly declared in your scope
+            });
+            console.log(validationResult.error.cause)
+            isValid = false; // Ensure `isValid` is declared in your scope
+        }
+    };
     
         // Validate student data
         const studentErrors = studentSchema.safeParse({
@@ -351,22 +351,28 @@ const ConclusionModule = () => {
 
         setStatus("Validating report...");
 
-        if(!report.observation){
-            setStatus("Made some progess, uploading Observations👀...")
-           await createObservation({
-                reportId: 6,
-                PRObservationRecordCell: observationStore.observationRecords.map((observationRecord) => ({
-                    id: observationRecord.id,
-                    teacherId: observationRecord.teacherId,
-                    walkthrough: observationRecord.walkThrough,
-                    informed: observationRecord.informed,
-                    uninformed: observationRecord.uninformed,
-                }))
-            })
-            report.setObservation(true)
-        }
+        // if(!!report.rechecking){
+        //     setStatus("Looking nice, proceeding to uploading Rechecking module📕...")
+        //     await createRechecking({
+        //         // reportId: reportId as number,
+        //         reportId: 6,
+        //         remarks: recheckingStore.remarks,
+        //         PRrecheckingCell: recheckingStore.rechecking.map((recheckingMI) => ({
+        //             classId: recheckingMI.classId,
+        //             count: 0,
+        //             percentage: 0,
+        //             studentCount: studentStore.getClassStrength(recheckingMI.classId),
+        //             PRrecheckingSubjectCell: recheckingMI.subjects.map((subject) => ({
+        //                 subjectId: subject.id,
+        //                 count: subject.cou
+        // nt,
+        //             }))
+        //         }))
+        //     })
+        //     report.setRechecking(true)
+        // }
 
-        return
+        // return
 
 
         console.log("validating")
@@ -494,11 +500,11 @@ const ConclusionModule = () => {
                 setStatus("Looking nice, proceeding to uploading Rechecking module📕...")
                 await createRechecking({
                     // reportId: reportId as number,
-                    reportId: 3,
+                    reportId: reportId as number,
                     remarks: recheckingStore.remarks,
                     PRrecheckingCell: recheckingStore.rechecking.map((recheckingMI) => ({
                         classId: recheckingMI.classId,
-                        count: 0,
+                        count: studentStore.getClassStrength(recheckingMI.classId),
                         percentage: 0,
                         studentCount: studentStore.getClassStrength(recheckingMI.classId),
                         PRrecheckingSubjectCell: recheckingMI.subjects.map((subject) => ({

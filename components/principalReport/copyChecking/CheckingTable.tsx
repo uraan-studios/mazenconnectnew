@@ -50,8 +50,9 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
             
         }
 
-        const recheckSession = sessionStorage.getItem("rechecking-storage");
-        if (!recheckSession) {
+        const recheckAdded = sessionStorage.getItem("rechecking-added");
+        if (!recheckAdded) {
+            sessionStorage.setItem("rechecking-added", "true");
             console.log("Adding Rechecking")
             data.map((classItem) => {
                 recheckingStore.addRechecking(classItem.id, subjectStore.subjects.filter((subject) => subject.gradeId === classItem.gradeId).map((subject) => ({
@@ -60,17 +61,6 @@ const CheckingTable = ({ divisions, data }: { divisions: Division[], data: data[
                     count: 0,
                 })))
             })
-            
-            // studentStore.classes.forEach((classItem) => {
-            //     // recheckingStore.addRechecking(classItem., subjectStore.subjects.filter((subject) => subject.gradeId === classItem.id).map((subject) => ({
-            //     //     id: subject.id,
-            //     //     name: subject.name,
-            //     //     count: 0,
-            //     // })))
-            //     filteredDivisions.forEach((division) => {
-            //         // division.grades.filter((grade))
-            //     })
-            // })
         }
         // filteredDivisions.forEach((division) => {
         //     division.grades.forEach((grade) => {

@@ -13,6 +13,18 @@ const ActivityModule = () => {
   const [newActivityDescription, setNewActivityDescription] = useState("");
   const [newActivityDate, setNewActivityDate] = useState<string | null>(null);
 
+  const getFirstDayOfCurrentMonth = () => {
+    const today = new Date();
+    const firstDayOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    return firstDayOfCurrentMonth.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+  };
+  
+  const getFirstDayOfLastMonth = () => {
+    const today = new Date();
+    const firstDayOfLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    return firstDayOfLastMonth.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+  };
+
   const handleAddActivity = () => {
     if (newActivityName.trim() && newActivityDate) {
       store.addActivity({
@@ -61,13 +73,16 @@ const ActivityModule = () => {
                   value={activity.date ? new Date(activity.date).toISOString().split("T")[0] : ""}
                   onChange={(e) => {
                     const inputValue = e.target.value;
-                    if (isNaN(Date.parse(inputValue))) {
-                      // Handle invalid date input, e.g., clear the value or set a default
-                      store.updateActivity(activity.id, { date: new Date().toISOString() }); // Assuming null is acceptable
+                    if (!inputValue || isNaN(Date.parse(inputValue))) {
+                      // Handle invalid date or empty input by setting it to null
+                      setNewActivityDate(null);
                     } else {
-                      store.updateActivity(activity.id, { date: new Date(inputValue).toISOString() });
+                      setNewActivityDate(inputValue);
                     }
                   }}
+                  min={getFirstDayOfLastMonth()} // Set minimum date to 1st of last month
+                  max={getFirstDayOfCurrentMonth()} // Set maximum date to 1st of current month
+                  
                   className="border rounded px-2 py-1 w-full"
                 />
 
@@ -99,20 +114,22 @@ const ActivityModule = () => {
               />
             </div>
             <div className="mb-4">
-              <input
-                type="date"
-                value={newActivityDate || ""}
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (!inputValue || isNaN(Date.parse(inputValue))) {
-                    // Handle invalid date or empty input by setting it to null
-                    setNewActivityDate(null);
-                  } else {
-                    setNewActivityDate(inputValue);
-                  }
-                }}
-                className="border rounded px-2 py-1 w-full"
-              />
+            <input
+              type="date"
+              value={newActivityDate || ""}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                if (!inputValue || isNaN(Date.parse(inputValue))) {
+                  // Handle invalid date or empty input by setting it to null
+                  setNewActivityDate(null);
+                } else {
+                  setNewActivityDate(inputValue);
+                }
+              }}
+              min={getFirstDayOfLastMonth()} // Set minimum date to 1st of last month
+              max={getFirstDayOfCurrentMonth()} // Set maximum date to 1st of current month
+              className="border rounded px-2 py-1 w-full"
+            />
 
               <p className="text-sm mt-2">
                 {newActivityDate ? `Selected date: ${

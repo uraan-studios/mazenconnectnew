@@ -171,3 +171,5 @@ export const seedData = async () => {
     await SeedClassData()
     await SeedCampusData()
 }
+
+// DATABASE_URL="mysql://mazensch_connect:merapa55word1234@h35.eu.core.hostnext.net:3306/mazensch_mazenconnectnew"

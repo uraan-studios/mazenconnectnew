@@ -4,7 +4,7 @@ import { number, z } from "zod";
 
 export const studentSchema = z.object({
     reportId: z.number().min(0, 'Student reportId is required').max(1000, 'Student reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report student remarks are required').max(1000, 'Principal Report student remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report student remarks are required').max(10000, 'Principal Report student remarks is too long'),
     PRstudentClassCell: z.object({
     id: z.number().min(0, 'Student classId is required').max(1000, 'Student classId is too long'),
     name: z.string().min(1, 'Student name is required').max(1000, 'Student name is too long'),
@@ -35,7 +35,7 @@ export const studentSchema = z.object({
 
 export const staffSchema = z.object({
     reportId: z.number().min(0, 'Staff reportId is required').max(1000, 'Staff reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report staff remarks are required').max(1000, 'Principal Report staff remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report staff remarks are required').max(10000, 'Principal Report staff remarks is too long'),
     PRStaffDeps: z.object({
         id: z.number().min(0, 'Staff departmentId is required').max(1000, 'Staff departmentId is too long'),
         name: z.string().min(1, 'Staff name is required').max(1000, 'Staff name is too long'),
@@ -52,7 +52,7 @@ export const staffSchema = z.object({
 
 export const workloadSchema = z.object({
     reportId: z.number().min(0, 'Workload reportId is required').max(1000, 'Workload reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report workload remarks are required').max(1000, 'Principal Report workload remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report workload remarks are required').max(10000, 'Principal Report workload remarks is too long'),
     PRworkloadCell: z.object({
         id: z.number().min(0, 'Workload name is required').max(1000, 'Workload name is too long'),
         name: z.string().min(1, 'Workload name is required').max(1000, 'Workload name is too long'),
@@ -86,7 +86,7 @@ export const observationSchema = z.object({
 
 export const RecheckingSchema = z.object({
     reportId: z.number().min(0, 'Rechecking reportId is required').max(1000, 'Rechecking reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report Rechecking remarks are required').max(1000, 'Principal Report Rechecking remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report Rechecking remarks are required').max(10000, 'Principal Report Rechecking remarks is too long'),
     PRrecheckingCell: z.object({
         classId: z.number().min(0, 'Rechecking classId is required').max(1000, 'Rechecking classId is too long'),
         count: z.number().min(0, 'Rechecking count is required').max(1000, 'Rechecking count is too long'),
@@ -101,7 +101,7 @@ export const RecheckingSchema = z.object({
 
 export const ttblSchema = z.object({
     reportId: z.number().min(0, 'TTBL reportId is required').max(1000, 'TTBL reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report TTBL remarks are required').max(1000, 'Principal Report TTBL remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report TTBL remarks are required').max(10000, 'Principal Report TTBL remarks is too long'),
     PRttblCell: z.object({
         name: z.string().min(0, 'TTBL name is required').max(1000, 'TTBL name is too long'),
         available: z.number().min(0, 'TTBL available is required').max(1000, 'TTBL available is too long'),
@@ -112,7 +112,7 @@ export const ttblSchema = z.object({
 
 export const TTBLContentSchema = z.object({
   reportId: z.number().min(0, "TTBL reportId is required").max(1000, "TTBL reportId is too long"),
-  tbisRemarks: z.string().min(0, "TBIS tbisRemarks are required").max(1000, "TBIS tbisRemarks is too long"),
+  tbisRemarks: z.string().min(0, "TBIS tbisRemarks are required").max(1000, "TBIS sRemarks is too long"),
 
   preNurseryCLLE: z.boolean(),
   preNurseryCLLU: z.boolean(),
@@ -164,7 +164,7 @@ export const TTBLContentSchema = z.object({
 
 export const tenuusSchema = z.object({
     reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),
-    remarks: z.string().min(0, 'Principal Report Tenuus remarks are required').max(1000, 'Principal Report Tenuus remarks is too long'),
+    remarks: z.string().min(0, 'Principal Report Tenuus remarks are required').max(10000, 'Principal Report Tenuus remarks is too long'),
     ealyYears: z.number().min(0, 'Principal Report Tenuus ealyYears is required').max(1000, 'Principal Report Tenuus ealyYears is too long'),
     primaryYears: z.number().min(0, 'Principal Report Tenuus primaryYears is required').max(1000, 'Principal Report Tenuus primaryYears is too long'),
     middleYears: z.number().min(0, 'Principal Report Tenuus middleYears is required').max(1000, 'Principal Report Tenuus middleYears is too long'),
@@ -172,7 +172,7 @@ export const tenuusSchema = z.object({
 
 export const hcdSchema = z.object({
   reportId: z.number().min(0, "HCD reportId is required").max(1000, "HCD reportId is too long"),
-  remarks: z.string().min(0, "HCD Remarks are required").max(1000, "HCD Remarks must be less than 1000 characters"),
+  remarks: z.string().min(0, "HCD Remarks are required").max(10000, "HCD Remarks must be less than 1000 characters"),
 
   meetings: z.number().min(0, "HCD meetings is required").max(1000, "HCD meetings is too long"),
   workload: z.number().min(0, "HCD workload is required").max(1000, "HCD workload is too long"),
@@ -223,7 +223,7 @@ export const hcdSchema = z.object({
 export const elpSchema = z.object({
     reportId: z.number().min(0, "Report ID is required"),
   
-    remarks: z.string().min(1, "Remarks are required").max(1000, "Remarks must be less than 1000 characters"),
+    remarks: z.string().min(1, "Remarks are required").max(10000, "ELP Remarks must be less than 1000 characters"),
   
     grade1Planner: z.boolean(),
     grade1Worksheets: z.boolean(),
@@ -253,7 +253,7 @@ export const elpSchema = z.object({
 
 export const activitySchema = z.object({ 
     reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),
-    remarks: z.string().min(0, 'Remarks are required').max(1000, 'Remarks are too long'),
+    remarks: z.string().min(0, 'Remarks are required').max(100000, 'Activity Remarks are too long'),
     activities: z.object({
         name: z.string().min(1, 'Activity name is required').max(1000, 'Activity name is too long'),
         date: z.string().min(1, 'Activity date is required').max(1000, 'Activity date is too long'),
@@ -263,10 +263,10 @@ export const activitySchema = z.object({
 
 
 export const swotSchema = z.object({
-    reportId: z.number().min(0, 'Tenuus reportId is required').max(1000, 'Tenuus reportId is too long'),
-    strength: z.string().min(1, 'SWOT strength is required').max(1000, 'SWOT strength is too long'),
-    weakness: z.string().min(1, 'SWOT weakness is required').max(1000, 'SWOT weakness is too long'),
-    opportunity: z.string().min(1, 'SWOT opportunity is required').max(1000, 'SWOT opportunity is too long'),
-    threat: z.string().min(1, 'SWOT threat is required').max(1000, 'SWOT threat is too long'),
+    reportId: z.number().min(0, 'Tenuus reportId is required').max(10000, 'Tenuus reportId is too long'),
+    strength: z.string().min(1, 'SWOT strength is required').max(10000, 'SWOT strength is too long'),
+    weakness: z.string().min(1, 'SWOT weakness is required').max(10000, 'SWOT weakness is too long'),
+    opportunity: z.string().min(1, 'SWOT opportunity is required').max(10000, 'SWOT opportunity is too long'),
+    threat: z.string().min(1, 'SWOT threat is required').max(10000, 'SWOT threat is too long'),
 })
 
