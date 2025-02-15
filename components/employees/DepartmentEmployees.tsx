@@ -4,6 +4,9 @@ import { getEmployeesByDepartment } from '@/actions/employees'; // Your action
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import DeleteEmployee from './DeleteEmployee';
+import { Edit } from 'lucide-react';
+import UpdateEmployee from './UpdateEmployee';
+import Link from 'next/link';
 
 interface DepartmentEmployeesProps {
   departmentId: number;
@@ -66,7 +69,13 @@ const DepartmentEmployees: React.FC<DepartmentEmployeesProps> = ({ departmentId,
                 </TableCell>
                 <TableCell className="text-right space-x-2">
                   {/* Add your actions here */}
-                  <DeleteEmployee id={staffMember.id} />
+                  <div className="flex gap-2 items-end justify-end">
+                   
+                    <Link href={`/employees/update-employee/${staffMember.id}`}>
+                      <div className='bg-accent py-1 px-4 rounded-xl hover:bg-primary text-primary-foreground'>Edit</div>
+                    </Link>
+                    <DeleteEmployee id={staffMember.id} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

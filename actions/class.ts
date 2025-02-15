@@ -116,3 +116,32 @@ export const deleteClass = async (id: number) => {
         };
     }
 }   
+
+
+export const updateSectionById = async (id: number, name: string) => {
+    const session = await validateRequest()
+    if (!session.user) {
+        return {
+            errors: "You must be logged in to update a section."
+        }
+    }
+
+  try {
+    await db.classSection.update({
+      data: {
+        name: name
+      },
+      where: {
+        id: id
+      }
+    })
+
+    return { success: true }; 
+
+  } catch (error) {
+    // Return the first error message from the general errors
+    return {
+      errors: "Failed to update section. Please try again later.",
+    };
+  }
+}

@@ -52,7 +52,7 @@ const SectionForm = ({data, classId}: {data: data[], classId?: number}) => {
     }
     
   return (
-    <Card className='w-1/3'>
+    <Card className='w-1/3 mx-auto'>
     <CardHeader>
         <CardTitle>Create a new Section</CardTitle>
         <CardDescription>Fill up the required fields</CardDescription>

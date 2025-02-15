@@ -5,6 +5,73 @@ import { validateRequest } from "@/lib/validateSessions"
 import { z } from "zod"
 
 
+export const editEmployee = async (id: number, data: z.infer<typeof employeeSchema>) => {
+    const session = await validateRequest()
+    if (!session.user) {
+        return {
+            errors: "You must be logged in to update an employee."
+        }
+    }
+    // Validate input using the schema
+    const validationResult = employeeSchema.safeParse(data);
+
+    // Check if validation failed
+    if (!validationResult.success) {
+        // Return the first validation error message
+        return {
+            errors: validationResult.error.flatten().fieldErrors.name?.[0] || "Validation failed.",
+        };
+    }
+
+    try {
+        await db.staff.update({
+            data: {
+                name: data.name,
+                designationId: data.designation,
+                salary: data.salary,
+                statusId: data.status,
+                dateJoined: data.dateJoined,
+            },
+            where: {
+                id: id
+            }
+        })
+
+        return { success: true }; 
+
+    } catch (error) {
+        // Return the first error message from the general errors
+        return {
+            errors: "Failed to update employee. Please try again later.",
+        };
+    }
+}
+
+export const getEmployeeById = async (id: number) => {
+    const session = await validateRequest()
+    if (!session.user) {
+        return {
+            errors: "You must be logged in to update an employee."
+        }
+    }
+
+    try {
+        const employee = await db.staff.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        return employee
+
+    } catch (error) {
+        // Return the first error message from the general errors
+        return {
+            errors: "Failed to get employee. Please try again later.",
+        };
+    }
+}
+
 export const getEmployees = async () => {
     const session = await validateRequest()
     if (!session.user) {
@@ -22,6 +89,9 @@ export const getEmployees = async () => {
                         },
                         include: {
                             status: true
+                        },
+                        orderBy: {
+                            id: "desc"
                         }
                     }
                 }
@@ -58,6 +128,9 @@ export const getEmployeesByDepartment = async (departmentId: number, page: numbe
         designation: true,
         status: true
       },
+      orderBy: {
+        id: "desc"
+    },
       take: 10,
       skip: (page - 1) * 10, // Pagination
     });

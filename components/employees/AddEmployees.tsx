@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useEmployeeStore } from '@/stores/employee'
 import { createEmployee } from '@/actions/employees'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -35,6 +36,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   
+  const router = useRouter()
   // Example status options
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,6 +67,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
     employeeStore.setDesignation("0")
     employeeStore.setSalary("0")
     employeeStore.setStatus("0")
+
   }
 
   useEffect(() => {
@@ -193,7 +196,7 @@ const AddEmployees = ({ roles, statusOptions }: { roles: Roles[]; statusOptions:
           {success && (
             <Alert variant={'default'} className='bg-secondary'>
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Employee Added!</AlertTitle>
+              <AlertTitle>Employee Added! Refresh to see changes.</AlertTitle>
               
             </Alert>
           )}
