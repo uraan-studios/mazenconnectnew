@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mazen Connect - Campus Reporting System  
 
-## Getting Started
+## 📖 Overview  
+**Mazen Connect** is a **Campus Reporting System** developed by **Uraan Studios** for **Mazen Schools**.  
+It enables campuses to generate **monthly reports**, ensuring effective **monitoring, accountability, and data-driven decision-making**.  
 
-First, run the development server:
+## ⚡ Key Features  
+- **Automated Monthly Reports** for each campus  
+- **Data Integrity & Accuracy** with structured record-keeping  
+- **Real-time Monitoring & Insights** for school administration  
+- **Secure & Scalable Architecture**  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack  
+- **Next.js** (Frontend & API)  
+- **Prisma** (ORM)  
+- **MySQL** (Database)  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚨 Intellectual Property Notice  
+This software is the exclusive property of **Uraan Studios** and is developed under agreement for **Mazen Schools**.  
+Until full payment is received:  
+- **Unauthorized use, modification, or distribution is strictly prohibited.**  
+- **Uraan Studios retains all ownership rights.**  
+- Violation of these terms may result in **legal action**.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 💰 Payment & Licensing  
+Upon receipt of full payment:  
+- Mazen Schools will receive the agreed-upon **usage rights**.  
+- Source code access and deployment rights will be transferred as per the contract.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📩 Contact  
+For inquiries, licensing, or support, contact:  
+✉️ **yas1nshah@yahoo.com**  
+🌐 **uraanstudios.com**  
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
