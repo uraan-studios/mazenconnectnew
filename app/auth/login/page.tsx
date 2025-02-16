@@ -39,7 +39,7 @@ const LoginPage = () => {
       
       <div>
         <h1 className='text-4xl font-semibold'>Get Started</h1>
-        <p className='text-xl font-extralight'>Login to Digital Connect - Mazen Schools Digital Reporting</p>
+        <p className='text-xl font-extralight'>Login to Mazen Connect - Mazen Schools Digital Reporting</p>
       </div>
 
       <Separator className="my-4 opacity-20"/>
@@ -58,7 +58,7 @@ const LoginPage = () => {
           <Label className=''>Password</Label>
           <Input
             type='password'
-            placeholder='pa$$word'
+            placeholder='Enter your password'
             value={loginStore.password}
             onChange={(e) => loginStore.setPassword(e.target.value)}
             />
