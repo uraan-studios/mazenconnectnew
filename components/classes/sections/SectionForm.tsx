@@ -82,7 +82,7 @@ const SectionForm = ({data, classId}: {data: data[], classId?: number}) => {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem  value={"0"}>
-                        Select Department
+                        Select Class
                     </SelectItem>
                 {
                     data.map((item) => (
