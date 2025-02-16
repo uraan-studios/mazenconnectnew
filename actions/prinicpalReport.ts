@@ -338,6 +338,7 @@ export const deletePrincipalReport = async (id: number) => {
             db.pRObservationRecord.deleteMany({ where: { reportId: id } }),
 
             // Delete PRrechecking and PRrecheckingCell
+            db.pRrecheckingSubjectCell.deleteMany({ where: { PRrechecking: {PRrechecking: { reportId: id } } } }),
             db.pRrecheckingCell.deleteMany({ where: { PRrechecking: { reportId: id } } }),
             db.pRrechecking.deleteMany({ where: { reportId: id } }),
 
@@ -354,10 +355,16 @@ export const deletePrincipalReport = async (id: number) => {
             // Delete PRHcd
             db.pRHcd.deleteMany({ where: { reportId: id } }),
 
+            // Delete PRTTBLContent
+            db.pRTTBLContent.deleteMany({ where: { reportId: id } }),
+
             // Delete the PrincipalReport itself
             db.principalReport.delete({ where: { id } })
         ]);
+
+        return { report: true }
     } catch (error) {
+        console.log(error)
         return { errors: `Failed to delete report: ` };
     }
 };

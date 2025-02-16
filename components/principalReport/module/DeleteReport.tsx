@@ -21,13 +21,13 @@ const DeleteReport = ({id}: {id: number}) => {
     const onSubmit = async () => {
         setLoading(true)
         const result = await deletePrincipalReport(id)
-        if (!result!.errors) {
+        if (result!.report) {
             setLoading(false)
             router.replace('/principal-report')
             router.refresh()
         }
         else {
-                setLoading(false)
+            setLoading(false)
             alert('Failed to delete Report')
         }
     }
