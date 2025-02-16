@@ -4,7 +4,7 @@ import { getRoles } from '@/actions/roles'
 import AddEmployees from '@/components/employees/AddEmployees'
 import EmployeesTable from '@/components/employees/Table'
 import AnimatedHeading from '@/components/general/animatedHeading'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import {
   Breadcrumb,
@@ -43,9 +43,6 @@ const AddEmployeesPage = async (params: {params: {id: string}}) => {
             <BreadcrumbPage>Edit</BreadcrumbPage>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>{params.params.id}</BreadcrumbPage>
-          </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
     </div>
@@ -56,7 +53,10 @@ const AddEmployeesPage = async (params: {params: {id: string}}) => {
       ) : 'errors' in employee ? (
         <div className='text-red-500'>{employee.errors}</div>
       ) : (
-        <UpdateEmployee employee={employee} roles={roles} statusOptions={status} />
+
+        <Suspense fallback={<div className='text-red-500'>Loading...</div>}>
+          <UpdateEmployee employee={employee} roles={roles} statusOptions={status} />
+        </Suspense>
       )
     }
 

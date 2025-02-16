@@ -477,3 +477,38 @@ export const thisMonthPrincipalReport = async () => {
     })
     return report
 }
+
+
+export const getPRClassPrevById = async () => {
+    console.log("HERE");
+    const session = await validateRequest();
+    if (!session.user) return null;
+
+    const data = await db.principalReport.findFirst({
+        where: { campusId: session.user?.fkid },
+        orderBy: { id: "desc" },
+        select: {
+            id: true,
+            PRstudent: {
+                select: {
+                    PRstudentClassCell: {
+                        select: {
+                            classId: true,
+                            total: true,
+                            PRstudentSectionCell: {
+                                select: {
+                                    sectionId: true,
+                                    total: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    console.log(data?.id);
+    return data;
+};
+

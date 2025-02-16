@@ -107,7 +107,6 @@ const usePrincipalReport = create<PrincipalReport>()(
             swot: false,
             }),
 
-
         }),
         {
             name: "principal-report-module-storage",

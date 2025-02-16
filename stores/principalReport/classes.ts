@@ -69,6 +69,8 @@ const useClassStore = create<ClassModule>()(
                     ),
                 })),
 
+           
+
             removeClass: (classId: number) =>
                 set((state) => ({
                     classes: state.classes.filter((cls) => cls.id !== classId),
@@ -99,6 +101,8 @@ const useClassStore = create<ClassModule>()(
                             : cls
                     ),
                 })),
+
+             
 
             removeSection: (classId: number, sectionId: number) =>
                 set((state) => ({

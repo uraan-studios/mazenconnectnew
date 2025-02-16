@@ -46,13 +46,25 @@ const UpdateEmployee = ({employee, roles, statusOptions }: {employee: Employee; 
     const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
 
+ 
+
     useEffect(() => {
-      employeeStore.setName(employee.name)
-      employeeStore.setDesignation(employee.designationId.toString())
-      employeeStore.setSalary(employee.salary.toString())
-      employeeStore.setStatus(employee.statusId.toString())
-      employeeStore.setDateJoined(employee.dateJoined)
-    }, [employee])
+
+      setTimeout(() => {
+        if (employee) {
+          employeeStore.setName(employee.name);
+          employeeStore.setSalary(employee.salary.toString());
+          employeeStore.setStatus(employee.statusId.toString());
+          employeeStore.setDateJoined(employee.dateJoined);
+      
+          const departmentId = roles.find((role) =>
+            role.Designation.find((des) => des.id === employee.designationId)
+          )?.id;
+          setSelectedDepartment(departmentId || 0);
+          employeeStore.setDesignation(employee.designationId.toString());
+        }
+      }, 1500)
+    }, [employee, roles]);
     
     const router = useRouter()
     // Example status options
@@ -111,7 +123,7 @@ const UpdateEmployee = ({employee, roles, statusOptions }: {employee: Employee; 
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={onSubmit} className="space-y-2  justify-between w-full items-end bg-accent p-4 rounded-xl">
+          <form onSubmit={onSubmit} className="space-y-2  justify-between w-full items-end bg-accent/40 p-4 rounded-xl">
   
             <div>
               <Label>Name</Label>

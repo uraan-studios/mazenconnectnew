@@ -386,17 +386,10 @@ const ConclusionModule = () => {
         }
         else {
                
-
             console.log("validation passed")
             setStatus("Inputs are Getting disabled to Prevent Changings...")
             report.setDisabled(true)
 
-            // if (!report.id){
-            //     setStatus("Generating New Report🎉...")
-
-            //     report.setId(reportId as number)
-            //     console.log("report id", reportId)
-            // }
             const reportId = await createReport()
 
            
@@ -706,7 +699,8 @@ const ConclusionModule = () => {
                 report.setSwot(true)
             }
             await updateReportStatus(reportId as number, true)
-        
+            
+           
             report.setDisabled(false)
             report.clearReport()
             setStatus("Report Published - Redirecting to Dashboard...")
@@ -715,39 +709,6 @@ const ConclusionModule = () => {
         }
     }   
 
-    // const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-    //     const studentModule = await createStudent({
-    //         reportId: report.id as number,
-    //         remarks: studentStore.remarks,
-    //         PRstudentClassCell: studentStore.classes.map((cls) => ({
-    //             id: cls.id,
-    //             name: cls.name,
-    //             previous: cls.previous,
-    //             left: cls.left,
-    //             new: cls.new,
-    //             transfered: cls.transfered,
-    //             promoted: cls.promoted,
-    //             total: cls.total,
-    //             boys: cls.boys,
-    //             girls: cls.girls,
-    //             sectionCount: cls.sectionCount,
-    //             studentPerSection: cls.studentPerSection,
-    //             sections: cls.sections.map((section) => ({
-    //                 id: section.id,
-    //                 name: section.name,
-    //                 previous: section.previous,
-    //                 left: section.left,
-    //                 new: section.new,
-    //                 transfered: section.transfered,
-    //                 promoted: section.promoted,
-    //                 total: section.total,
-    //                 boys: section.boys,
-    //                 girls: section.girls,
-    //             }))
-    //         }))
-    //     })
-    // }
   return (
     <div>
         <Card>

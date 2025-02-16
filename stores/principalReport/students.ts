@@ -42,11 +42,15 @@ interface StudentModule {
     // Class management methods
     addClass: (newClass: StudentModuleClass) => void;
     updateClass: (classId: number, updatedClass: Partial<StudentModuleClass>) => void;
+    updateClassPrev: (classId: number, prev: number) => void;
     removeClass: (classId: number) => void;
+    getSectionCount: (classId: number) => number;
+    getFirstSectionId: (classId: number) => number;
 
     // Section management methods
     addSection: (classId: number, newSection: StudentModuleSection) => void;
     updateSection: (classId: number, sectionId: number, updatedSection: Partial<StudentModuleSection>) => void;
+    updateSectionPrev: (classId: number, sectionId: number, prev: number) => void;
     removeSection: (classId: number, sectionId: number) => void;
 }
 
@@ -74,12 +78,32 @@ const useStudentModule = create<StudentModule>()(
                     );
                     return { classes: updatedClasses };
                 }),
+            
+            updateClassPrev: (classId: number, prev: number) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
+                        cls.id === classId ? { ...cls, previous: prev } : cls
+                    );
+                    return { classes: updatedClasses };
+                }),
 
             removeClass: (classId: number) =>
                 set((state) => {
                     const updatedClasses = state.classes.filter((cls) => cls.id !== classId);
                     return { classes: updatedClasses };
                 }),
+            
+            getSectionCount: (classId: number) => {
+                const classItem = get().classes.find((cls) => cls.id === classId);
+                if (!classItem) return 0;
+                return classItem.sections.length;
+            },
+
+            getFirstSectionId: (classId: number) => {
+                const classItem = get().classes.find((cls) => cls.id === classId);
+                if (!classItem) return 0;
+                return classItem.sections[0].id;
+            },
 
             addSection: (classId: number, newSection: StudentModuleSection) =>
                 set((state) => {
@@ -103,6 +127,21 @@ const useStudentModule = create<StudentModule>()(
                                   ...cls,
                                   sections: cls.sections.map((sec) =>
                                       sec.id === sectionId ? { ...sec, ...updatedSection } : sec
+                                  ),
+                              }
+                            : cls
+                    );
+                    return { classes: updatedClasses };
+                }),
+
+            updateSectionPrev: (classId: number, sectionId: number, prev: number) =>
+                set((state) => {
+                    const updatedClasses = state.classes.map((cls) =>
+                        cls.id === classId
+                            ? {
+                                  ...cls,
+                                  sections: cls.sections.map((sec) =>
+                                      sec.id === sectionId ? { ...sec, previous: prev } : sec
                                   ),
                               }
                             : cls

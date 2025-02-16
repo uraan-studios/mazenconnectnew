@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import useClassStore from '@/stores/principalReport/classes';
 import { Button } from '@/components/ui/button';
+import { getPRClassPrevById } from '@/actions/prinicpalReport';
 
 
 type data = {
@@ -90,14 +91,32 @@ const ClassTable = ({data}:{data:data[]}) => {
       }))
     }
 
-    const loadPrevRecord = () => {
-      store.classes.forEach((classItem) => {
-        classItem.sections.forEach(() => {
+    const loadPrevRecord = async () => {
+      const prev = await getPRClassPrevById();
 
+      console.log(prev)
+      if (!prev?.PRstudent?.PRstudentClassCell) return;
+  
+      prev.PRstudent.PRstudentClassCell.forEach((classData) => {
+        store.updateClassPrev(classData.classId, classData.total)
+
+        if (classData.PRstudentSectionCell.length === 0) {
+          if (store.getSectionCount(classData.classId) > 0){
+            const secID = store.getFirstSectionId(classData.classId)
+            store.updateSectionPrev(classData.classId, secID, classData.total)
+          }
+        };
+
+        classData.PRstudentSectionCell.forEach((sectionData) => {
+          store.updateSectionPrev(classData.classId, sectionData.sectionId, sectionData.total)
         })
-      })
 
-    }
+        
+
+      })
+  };
+  
+  
 
 
   return (
