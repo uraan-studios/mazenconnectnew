@@ -34,7 +34,11 @@ const EmployeesRoleTable = async() => {
             <>
             <div className='px-4 py-2 mt-4 bg-primary/20 font-semibold rounded-t-lg flex justify-between items-center'>
               {item.name}
-              <DeleteDepartment id={item.id}/>
+              {
+                item.id != 1 && (
+                  <DeleteDepartment id={item.id}/>
+                )
+              }
             </div>
 
             <Table>
@@ -52,7 +56,11 @@ const EmployeesRoleTable = async() => {
                       <TableCell>{item.id}</TableCell>
                       <TableCell className='font-semibold'>{item.name}</TableCell>
                       <TableCell className='text-right space-x-2'>
-                        <DeleteDesignation id={item.id}/>
+                        {
+                          item.id != 1 && (
+                            <DeleteDesignation id={item.id}/>
+                          )
+                        }
                       </TableCell>
                     </TableRow>
                   ))
